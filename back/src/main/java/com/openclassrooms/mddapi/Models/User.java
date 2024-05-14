@@ -1,15 +1,12 @@
 package com.openclassrooms.mddapi.Models;
 
 /* Importation des annotations JPA pour la gestion des entités et des tables dans la base de données */
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority; // Importation de l'interface GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails; // Importation de l'interface UserDetails
 
-import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +14,6 @@ import java.util.List;
 /* Définition de la classe User comme entité JPA et mapping à la table 'users' */
 @Table(name = "users")
 @Entity
-@Getter @Setter
 public class User implements UserDetails { // Définition de la classe User comme implémentant UserDetails
 
     /* Définition de la clé primaire */
@@ -60,10 +56,10 @@ public class User implements UserDetails { // Définition de la classe User comm
         return List.of();
     }
 
-//    /* Méthode pour obtenir le mot de passe de l'utilisateur */
-//    public String getPassword() {
-//        return password;
-//    }
+    /* Méthode pour obtenir le mot de passe de l'utilisateur */
+    public String getPassword() {
+        return password;
+    }
 
     /* Implémentation de la méthode pour obtenir le nom d'utilisateur de l'utilisateur */
     @Override
@@ -95,66 +91,66 @@ public class User implements UserDetails { // Définition de la classe User comm
         return true;
     }
 
-//    /* Méthode pour obtenir l'ID de l'utilisateur */
-//    public Integer getId() {
-//        return id;
-//    }
-//
-//    /* Méthode pour définir l'ID de l'utilisateur */
-//    public User setId(Integer id) {
-//        this.id = id;
-//        return this;
-//    }
-//
-//    /* Méthode pour obtenir le nom de l'utilisateur */
-//    public String getName() {
-//        return name;
-//    }
-//
-//    /* Méthode pour définir le nom de l'utilisateur */
-//    public User setName(String name) {
-//        this.name = name;
-//        return this;
-//    }
-//
-//    /* Méthode pour obtenir l'email de l'utilisateur */
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    /* Méthode pour définir l'email de l'utilisateur */
-//    public User setEmail(String email) {
-//        this.email = email;
-//        return this;
-//    }
-//
-//    /* Méthode pour définir le mot de passe de l'utilisateur */
-//    public User setPassword(String password) {
-//        this.password = password;
-//        return this;
-//    }
-//
-//    /* Méthode pour obtenir la date de création de l'utilisateur */
-//    public Date getCreatedAt() {
-//        return createdAt;
-//    }
-//
-//    /* Méthode pour définir la date de création de l'utilisateur */
-//    public User setCreatedAt(Date createdAt) {
-//        this.createdAt = createdAt;
-//        return this;
-//    }
-//
-//    /* Méthode pour obtenir la date de mise à jour de l'utilisateur */
-//    public Date getUpdatedAt() {
-//        return updatedAt;
-//    }
-//
-//    /* Méthode pour définir la date de mise à jour de l'utilisateur */
-//    public User setUpdatedAt(Date updatedAt) {
-//        this.updatedAt = updatedAt;
-//        return this;
-//    }
+    /* Méthode pour obtenir l'ID de l'utilisateur */
+    public Integer getId() {
+        return id;
+    }
+
+    /* Méthode pour définir l'ID de l'utilisateur */
+    public User setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    /* Méthode pour obtenir le nom de l'utilisateur */
+    public String getName() {
+        return name;
+    }
+
+    /* Méthode pour définir le nom de l'utilisateur */
+    public User setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /* Méthode pour obtenir l'email de l'utilisateur */
+    public String getEmail() {
+        return email;
+    }
+
+    /* Méthode pour définir l'email de l'utilisateur */
+    public User setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    /* Méthode pour définir le mot de passe de l'utilisateur */
+    public User setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
+    /* Méthode pour obtenir la date de création de l'utilisateur */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    /* Méthode pour définir la date de création de l'utilisateur */
+    public User setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /* Méthode pour obtenir la date de mise à jour de l'utilisateur */
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /* Méthode pour définir la date de mise à jour de l'utilisateur */
+    public User setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
 
     /* Redéfinition de la méthode toString pour afficher les informations de l'utilisateur */
     @Override
