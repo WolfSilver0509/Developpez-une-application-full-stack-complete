@@ -1,0 +1,53 @@
+
+.titleArrow{
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.center
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Media query for mobile screens */
+@media (max-width: 768px) {
+
+
+  .titleArrow {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+  }
+
+
+
+  .titleArrow {
+    margin: 0;
+  }
+
+
+  .center {
+    align-items: center;
+  }
+}
+
+/* Existing styles for non-mobile screens */
+.titleArrow {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px; /* Adjust margin for larger screens if needed */
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+

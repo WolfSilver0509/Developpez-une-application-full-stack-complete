@@ -12,9 +12,10 @@ import {MatCardModule} from "@angular/material/card";
 import {HttpClientModule} from "@angular/common/http";
 import {MatIconModule} from "@angular/material/icon";
 import { HeaderNoAuthComponent } from './component/header-no-auth/header-no-auth.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderNoAuthComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderNoAuthComponent, RegisterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

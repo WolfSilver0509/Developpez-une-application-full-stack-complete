@@ -4,10 +4,17 @@
     <mat-icon [routerLink]="['/']">keyboard_backspace</mat-icon>
   </div>
 
-  <form [formGroup]="form" class="center " (ngSubmit)="login()">
-    <h1>Se connecter</h1>
+  <form [formGroup]="form" class="center" (ngSubmit)="register()">
+    <h1>S'inscrire</h1>
+
     <mat-form-field appearance="outline">
-      <mat-label>Adresse e-mail</mat-label>
+      <mat-label>Nom d'utilisateur</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline">
+      <mat-label>Adresse e-mail </mat-label>
       <input matInput formControlName="email">
     </mat-form-field>
 
@@ -19,6 +26,6 @@
       </button>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">Se connecter</button>
+    <button mat-raised-button color="primary" type="submit">S'inscrire</button>
   </form>
 </section>

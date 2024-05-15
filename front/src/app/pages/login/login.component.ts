@@ -27,22 +27,6 @@ export class LoginComponent  {
               private router: Router,
               private sessionService: SessionService) { }
 
-  // public login(): void {
-  //   console.log("Bouton de connexion cliqué !");
-  //   const loginRequest = this.form.value as LoginRequest;
-  //   this.authService.login(loginRequest).subscribe(
-  //     (response: AuthValid) => {
-  //       localStorage.setItem('token', response.token);
-  //       console.log("token =" + response.token)
-  //       this.authService.me().subscribe((user: User) => {
-  //         this.sessionService.logIn(user);
-  //         this.router.navigate(['/'])
-  //       });
-  //       this.router.navigate(['/'])
-  //     },
-  //     error => this.onError = true
-  //   );
-  // }
   public login(): void {
     console.log("Bouton de connexion cliqué !");
     const loginRequest = this.form.value as LoginRequest;
