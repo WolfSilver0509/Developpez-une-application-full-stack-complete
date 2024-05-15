@@ -1,6 +1,5 @@
 package com.openclassrooms.mddapi.Configurations;
 
-//import com.p3_oc.chatop_FS.services.JwtService;
 import com.openclassrooms.mddapi.Services.JwtService;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

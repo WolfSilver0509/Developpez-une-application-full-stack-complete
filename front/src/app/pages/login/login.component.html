@@ -1,0 +1,24 @@
+<app-header-no-auth></app-header-no-auth>
+<section>
+  <div class="titleArrow">
+    <mat-icon [routerLink]="['/']">keyboard_backspace</mat-icon>
+  </div>
+
+  <form [formGroup]="form" class="center login_form" (ngSubmit)="login()">
+    <h1>Se connecter</h1>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Mot de passe</mat-label>
+      <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Masquer le mot de passe'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Se connecter</button>
+  </form>
+</section>
