@@ -39,7 +39,7 @@ export class LoginComponent  {
         //   this.sessionService.logIn(user);
         //   this.router.navigate(['/']);
         // });
-        this.router.navigate(['/']);
+        this.router.navigate(['/topics']);
       },
       error => {
         console.error("Erreur lors de la connexion :", error);

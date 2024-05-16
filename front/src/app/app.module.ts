@@ -13,9 +13,13 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatIconModule} from "@angular/material/icon";
 import { HeaderNoAuthComponent } from './component/header-no-auth/header-no-auth.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { TopicsComponent } from './pages/topics/topics.component';
+import { ListTopicComponent } from './component/list-topic/list-topic.component';
+import { HeaderComponent } from './component/header/header.component';
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderNoAuthComponent, RegisterComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderNoAuthComponent, RegisterComponent, TopicsComponent, ListTopicComponent, HeaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -27,6 +31,7 @@ import { RegisterComponent } from './pages/register/register.component';
     HttpClientModule,
     MatIconModule,
     FormsModule,
+    MatToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
