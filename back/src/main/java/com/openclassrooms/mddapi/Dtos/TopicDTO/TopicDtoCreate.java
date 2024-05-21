@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.Dtos.RentalDto;
+package com.openclassrooms.mddapi.Dtos.TopicDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
