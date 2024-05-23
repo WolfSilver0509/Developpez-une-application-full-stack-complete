@@ -68,7 +68,7 @@ public class PostService {
         User currentUser = (User) ((Authentication) principal).getPrincipal();
         Optional<Topic> optionalTopic = topicRepository.findById(postDto.getTopic_id());
         if (!optionalTopic.isPresent()) {
-            throw new RuntimeException("Topic not found");
+            throw new RuntimeException("Post not found");
         }
         Topic topic = optionalTopic.get();
         Post post = new Post(
@@ -112,9 +112,9 @@ public class PostService {
     }
 
     /*
-     * Méthode pour récupérer  par son ID.
+     * Méthode pour récupérer le post par son ID.
      * Prend en entrée l'ID du post.
-     * Retourne une réponse contenant le DTO de la location récupérée ou une réponse 404 si non trouvée.
+     * Retourne une réponse contenant le DTO de le post récupérée ou une réponse null si non trouvée.
      */
 
     public PostDto getPostById(Integer id) {
@@ -127,6 +127,27 @@ public class PostService {
             return null;
         }
     }
+    /*
+     * Méthode pour mettre à jour un Post existant.
+     * Prend en entrée l'ID du Post à mettre à jour et le DTO contenant les nouvelles données.
+     * Retourne une réponse contenant le DTO du Post mis à jour ou une réponse 404 si le Post n'est pas trouvé.
+     */
+    public PostDtoResponseMessage updatePost(Integer id, PostDto postDto) {
+        Optional<Post> optionalPost = findById(id);
+        if (optionalPost.isPresent()) {
+            Post existingPost = optionalPost.get();
+            existingPost.setTitle(postDto.getTitle());
+            if (postDto.getDescription() != null && !postDto.getDescription().isEmpty()) {
+                existingPost.setDescription(postDto.getDescription());
+            }
+            savePost(existingPost);
+            return new PostDtoResponseMessage("Post updated!");
+        } else {
+            throw new RuntimeException("Post not found");
+        }
+    }
+
+
 
 }
 

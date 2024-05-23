@@ -55,5 +55,16 @@ public class PostController {
             }
         }
 
+        /*
+        * Point de terminaison pour modifier un post par son id
+        * prend en entrée l'id du post
+        * Retourne un message pour informer que le post est à jour
+         */
+    @PutMapping("/posts/{id}")
+    public ResponseEntity<PostDtoResponseMessage> updatePost(@PathVariable Integer id, @ModelAttribute PostDto postDto) {
+        PostDtoResponseMessage responseMessage = postService.updatePost(id, postDto);
+        return ResponseEntity.ok(responseMessage);
+    }
+
 
 }
