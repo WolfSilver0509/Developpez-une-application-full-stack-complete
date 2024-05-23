@@ -40,6 +40,15 @@ public class PostController {
             return ResponseEntity.ok(postService.getAllPosts());
         }
 
+        /*
+         * Point de terminaison pour récupérer les post articles par son ID.
+         * Prend en entrée l'ID du Post.
+         * Retourne une réponse contenant le DTO du Post récupérée.
+         */
+        @GetMapping("/posts/{id}")
+        public ResponseEntity<PostDto> getPostById(@PathVariable Integer id) {
+            return postService.getPostById(id);
+        }
 
 
 }
