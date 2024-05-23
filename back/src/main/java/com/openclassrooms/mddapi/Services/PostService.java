@@ -111,20 +111,22 @@ public class PostService {
         );
     }
 
-//    /*
-//     * Méthode pour récupérer  par son ID.
-//     * Prend en entrée l'ID du post.
-//     * Retourne une réponse contenant le DTO de la location récupérée ou une réponse 404 si non trouvée.
-//     */
-//    public ResponseEntity<RentalDtoGet> getRentalById(Integer id) {
-//        Optional<Rental> rentalOptional = findById(id); // Récupération de la location par ID
-//        if (rentalOptional.isPresent()) {
-//            Rental rental = rentalOptional.get();
-//            RentalDtoGet rentalDto = convertToRentalDto(rental); // Conversion de l'entité Rental en DTO
-//            return ResponseEntity.ok(rentalDto); // Retour de la réponse avec le DTO de la location
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Retour d'une réponse 404 si non trouvée
-//        }
-//    }
+    /*
+     * Méthode pour récupérer  par son ID.
+     * Prend en entrée l'ID du post.
+     * Retourne une réponse contenant le DTO de la location récupérée ou une réponse 404 si non trouvée.
+     */
+
+    public PostDto getPostById(Integer id) {
+        Optional<Post> postOptional = findById(id);
+        if (postOptional.isPresent()) {
+            Post post = postOptional.get();
+            PostDto postDto = convertToPostDto(post);
+            return postDto;
+        } else {
+            return null;
+        }
+    }
+
 }
 
