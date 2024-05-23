@@ -22,7 +22,7 @@ public class PostController {
 
         /*
          * Point de terminaison pour créer un nouveau Post.
-         * Prend en entrée un DTO de création du théme et les informations de l'utilisateur.
+         * Prend en entrée un DTO de création du commentaire et les informations de l'utilisateur.
          * Retourne une réponse contenant le DTO de la réponse de création de Post.
          */
         @PostMapping("/posts")

@@ -127,6 +127,7 @@ public class PostService {
             return null;
         }
     }
+
     /*
      * Méthode pour mettre à jour un Post existant.
      * Prend en entrée l'ID du Post à mettre à jour et le DTO contenant les nouvelles données.
@@ -146,7 +147,6 @@ public class PostService {
             throw new RuntimeException("Post not found");
         }
     }
-
 
 
 }
