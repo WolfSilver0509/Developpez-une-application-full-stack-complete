@@ -16,10 +16,15 @@ export class TopicsComponent implements OnInit {
   ngOnInit(): void {
     console.log('Initialisation du composant TopicsComponent');
     this.sessionService.$isLogged().subscribe(isLogged => {
-      if (isLogged && this.sessionService.user) {
-        this.user = this.sessionService.user;
-        console.log('Utilisateur connecté :', this.user.name);
+      if (isLogged) {
+        this.user = this.sessionService.user || this.sessionService.getUserFromStorage();
+        if (this.user) {
+          console.log('Utilisateur connecté :', this.user.name);
+        } else {
+          console.log('Aucun utilisateur connecté');
+        }
       }
     });
   }
+
 }
