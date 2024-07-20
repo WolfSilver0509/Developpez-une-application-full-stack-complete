@@ -18,7 +18,7 @@ export class TopicsComponent implements OnInit {
     this.sessionService.$isLogged().subscribe(isLogged => {
       if (isLogged && this.sessionService.user) {
         this.user = this.sessionService.user;
-        console.log('Logged-in user:', this.user.name);
+        console.log('Utilisateur connecté :', this.user.name);
       }
     });
   }

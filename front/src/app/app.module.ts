@@ -9,7 +9,7 @@ import { LoginComponent } from './pages/login/login.component';
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatIconModule} from "@angular/material/icon";
 import { HeaderNoAuthComponent } from './component/header-no-auth/header-no-auth.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -17,6 +17,7 @@ import { TopicsComponent } from './pages/topics/topics.component';
 import { ListTopicComponent } from './component/list-topic/list-topic.component';
 import { HeaderComponent } from './component/header/header.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {AuthInterceptor} from "./interceptors/auth.interceptors";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent, HeaderNoAuthComponent, RegisterComponent, TopicsComponent, ListTopicComponent, HeaderComponent],
@@ -33,7 +34,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     FormsModule,
     MatToolbarModule,
   ],
-  providers: [],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }], // add interceptor
   bootstrap: [AppComponent],
 })
 export class AppModule {}

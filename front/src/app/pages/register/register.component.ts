@@ -34,7 +34,7 @@ export class RegisterComponent {
       (response: AuthValid) => {
         localStorage.setItem('token', response.token);
         this.authService.me().subscribe((user: User) => {
-          this.sessionService.logIn(user);
+          this.sessionService.logIn(user, response);
           this.router.navigate(['/'])
         });
       },
