@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails; // Importation
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /* Définition de la classe User comme entité JPA et mapping à la table 'users' */
 @Table(name = "users")
@@ -91,6 +92,12 @@ public class User implements UserDetails { // Définition de la classe User comm
         return true;
     }
 
+
+    @ManyToMany
+    private Set<Topic> subscribedTopics;
+
+
+
     /* Méthode pour obtenir l'ID de l'utilisateur */
     public Integer getId() {
         return id;
@@ -163,5 +170,14 @@ public class User implements UserDetails { // Définition de la classe User comm
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
+    }
+
+    public Set<Topic> getSubscribedTopics() {
+        return subscribedTopics;
+    }
+
+    public User setSubscribedTopics(Set<Topic> subscribedTopics) {
+        this.subscribedTopics = subscribedTopics;
+        return this;
     }
 }

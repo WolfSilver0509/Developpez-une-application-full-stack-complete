@@ -1,10 +1,14 @@
 package com.openclassrooms.mddapi.Services;
 
 
+import com.openclassrooms.mddapi.Dtos.TopicDTO.SubscriptionResponseDto;
+import com.openclassrooms.mddapi.Dtos.UserDto.DtoConvert;
 import com.openclassrooms.mddapi.Dtos.UserDto.UserDto;
 import com.openclassrooms.mddapi.Dtos.UserDto.UserUpdateDto;
 import com.openclassrooms.mddapi.Models.User;
+import com.openclassrooms.mddapi.Models.Topic;
 import com.openclassrooms.mddapi.Repositorys.UserRepository;
+import com.openclassrooms.mddapi.Repositorys.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +33,12 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private TopicRepository topicRepository;
+
+    @Autowired
+    private DtoConvert dtoConverter;
+
     public Optional<User> findById(Integer id) {
         return userRepository.findById(id);
     }
@@ -38,7 +48,7 @@ public class UserService {
      * @return L'utilisateur courant.
      */
     public UserDto getCurrentUser(User user) {
-        return new UserDto(user.getId(), user.getName(), user.getEmail(), user.getCreatedAt(), user.getUpdatedAt());
+        return dtoConverter.convertToUserDto(user);
     }
 
     public UserDto getUserById(Integer id) {
@@ -83,6 +93,45 @@ public class UserService {
             throw new NoSuchElementException("You are not authorized to update this user");
         }
     }
+
+
+    public SubscriptionResponseDto subscribeToTopic(Integer userId, Integer topicId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<Topic> topicOptional = topicRepository.findById(topicId);
+        if (userOptional.isPresent() && topicOptional.isPresent()) {
+            User user = userOptional.get();
+            Topic topic = topicOptional.get();
+            topic.getSubscribers().add(user);
+            topicRepository.save(topic);
+            SubscriptionResponseDto responseDto = new SubscriptionResponseDto();
+            responseDto.setUserId(userId);
+            responseDto.setTopicId(topicId);
+            responseDto.setMessage("User is successfully subscribed to the topic");
+            return responseDto;
+        } else {
+            throw new NoSuchElementException("User or Topic not found");
+        }
+    }
+
+        public UserDto unsubscribeFromTopic(Integer userId, Integer topicId) {
+            Optional<User> userOptional = userRepository.findById(userId);
+            Optional<Topic> topicOptional = topicRepository.findById(topicId);
+            if (userOptional.isPresent() && topicOptional.isPresent()) {
+                User user = userOptional.get();
+                Topic topic = topicOptional.get();
+                user.getSubscribedTopics().remove(topic);
+                userRepository.save(user);
+                return getCurrentUser(user);
+            } else {
+                throw new NoSuchElementException("User or Topic not found");
+            }
+        }
+
+
+
+
+
+
 
 
 }

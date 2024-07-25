@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.Controllers;
 
 
+import com.openclassrooms.mddapi.Dtos.TopicDTO.SubscriptionResponseDto;
 import com.openclassrooms.mddapi.Dtos.UserDto.UserDto;
 import com.openclassrooms.mddapi.Dtos.UserDto.UserUpdateDto;
 import com.openclassrooms.mddapi.Models.User;
@@ -47,6 +48,26 @@ public class UserController
     public ResponseEntity<UserDto> updateUser(@AuthenticationPrincipal User user, @ModelAttribute UserUpdateDto updateDto) {
         try {
             UserDto updatedUser = userService.updateUser(user.getId(), updateDto);
+            return ResponseEntity.ok(updatedUser);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{userId}/topics/{topicId}")
+    public ResponseEntity<SubscriptionResponseDto> subscribeToTopic(@PathVariable Integer userId, @PathVariable Integer topicId) {
+        try {
+            SubscriptionResponseDto responseDto = userService.subscribeToTopic(userId, topicId);
+            return ResponseEntity.ok(responseDto);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{userId}/topics/{topicId}")
+    public ResponseEntity<UserDto> unsubscribeFromTopic(@PathVariable Integer userId, @PathVariable Integer topicId) {
+        try {
+            UserDto updatedUser = userService.unsubscribeFromTopic(userId, topicId);
             return ResponseEntity.ok(updatedUser);
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();

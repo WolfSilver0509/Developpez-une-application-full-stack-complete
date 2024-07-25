@@ -7,6 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import com.openclassrooms.mddapi.Dtos.UserDto.UserDto;
+import javax.validation.constraints.NotEmpty;
+import java.util.Set;
+
+
+
 
 
 @Getter
@@ -28,4 +34,7 @@ public class TopicDto {
 
         /* Date de mise du Théme */
         private Date updated_at;
+
+        @NotEmpty
+        private Set<UserDto> subscribers;
 }
