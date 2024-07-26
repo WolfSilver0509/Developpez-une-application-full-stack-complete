@@ -21,10 +21,13 @@ public class UserDto {
     private String email;
     private Date createdAt;
     private Date updatedAt;
+    private String jwtToken;
 
 
     @NotEmpty
     private Set<TopicDto> subscribedTopics;
 
 
+    public <R> UserDto(Integer id, String name, String email, Date createdAt, Date updatedAt, R collect) {
+    }
 }

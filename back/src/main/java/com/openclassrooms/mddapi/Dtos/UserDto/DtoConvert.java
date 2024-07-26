@@ -21,6 +21,7 @@ public class DtoConvert {
                 user.getSubscribedTopics().stream()
                         .map(this::convertToTopicDto)
                         .collect(Collectors.toSet())
+
         );
     }
 

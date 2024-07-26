@@ -4,12 +4,16 @@ import com.openclassrooms.mddapi.Dtos.LoginUserDto;
 import com.openclassrooms.mddapi.Dtos.RegisterUserDto;
 import com.openclassrooms.mddapi.Models.User;
 import com.openclassrooms.mddapi.Repositorys.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +43,17 @@ public class AuthenticationService {
      * @return L'utilisateur inscrit.
      */
     public User signup(RegisterUserDto input) {
-        var user = new User()
-                .setName(input.getName())
-                .setEmail(input.getEmail())
-                .setPassword(passwordEncoder.encode(input.getPassword()));
+        try {
+            var user = new User()
+                    .setName(input.getName())
+                    .setEmail(input.getEmail())
+                    .setPassword(passwordEncoder.encode(input.getPassword()));
 
-        return userRepository.save(user);
+            return userRepository.save(user);
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Name or Email already taken", e);
+        }
     }
 
     /**
@@ -55,17 +64,22 @@ public class AuthenticationService {
      */
     public User authenticate(LoginUserDto input) {
         try {
+            User user = userRepository.findByNameOrEmail(input.getNameOrEmail(), input.getNameOrEmail())
+                    .orElseThrow(() ->
+                            new BadCredentialsException("Invalid name, email or password")
+                    );
+
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            input.getEmail(),
+                            user,
                             input.getPassword()
                     )
             );
-        } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid email or password");
-        }
 
-        return userRepository.findByEmail(input.getEmail()).orElseThrow();
+            return user;
+        } catch (AuthenticationException e) {
+            throw new BadCredentialsException("Invalid name, email or password");
+        }
     }
 
     /**

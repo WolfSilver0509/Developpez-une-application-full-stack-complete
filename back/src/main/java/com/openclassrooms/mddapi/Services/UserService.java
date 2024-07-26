@@ -39,6 +39,9 @@ public class UserService {
     @Autowired
     private DtoConvert dtoConverter;
 
+    @Autowired
+    private JwtService jwtService;
+
     public Optional<User> findById(Integer id) {
         return userRepository.findById(id);
     }
@@ -78,14 +81,19 @@ public class UserService {
                     user.setEmail(updateDto.getEmail());
                 }
                 // Vérifier si le mot de passe est fourni avant de le mettre à jour
-//                setPassword(passwordEncoder.encode(input.getPassword()));
                 if (updateDto.getPassword() != null) {
-//                    user.setPassword(updateDto.getPassword());
                     user.setPassword(passwordEncoder.encode(updateDto.getPassword()));
-
                 }
                 userRepository.save(user);
-                return getCurrentUser(user);
+
+                // Générer un nouveau jeton JWT
+                String newJwtToken = jwtService.generateToken(user);
+
+                // Mettre à jour le jeton JWT dans la réponse
+                UserDto userDto = getCurrentUser(user);
+                userDto.setJwtToken(newJwtToken);
+
+                return userDto;
             } else {
                 throw new NoSuchElementException("User not found with id: " + id);
             }

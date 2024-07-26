@@ -13,7 +13,10 @@ import java.util.List;
 import java.util.Set;
 
 /* Définition de la classe User comme entité JPA et mapping à la table 'users' */
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "name"),
+        @UniqueConstraint(columnNames = "email")
+})
 @Entity
 public class User implements UserDetails { // Définition de la classe User comme implémentant UserDetails
 
