@@ -1,14 +1,8 @@
 package com.openclassrooms.mddapi.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -51,6 +45,11 @@ public class Topic {
     this.title = title;
     this.description = description;
     }
+
+
+    @ManyToMany(mappedBy = "subscribedTopics")
+    private Set<User> subscribers;
+
 }
 
 

@@ -7,8 +7,8 @@
   <form [formGroup]="form" class="center " (ngSubmit)="login()">
     <h1>Se connecter</h1>
     <mat-form-field appearance="outline">
-      <mat-label>Adresse e-mail</mat-label>
-      <input matInput formControlName="email">
+      <mat-label>Adresse e-mail ou Nom</mat-label>
+      <input matInput formControlName="nameOrEmail">
     </mat-form-field>
 
     <mat-form-field appearance="outline">

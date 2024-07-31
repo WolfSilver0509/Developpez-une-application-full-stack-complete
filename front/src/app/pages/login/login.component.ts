@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../features/auth/services/auth.service';
 import { SessionService } from '../../services/session.service';
@@ -17,7 +17,7 @@ export class LoginComponent {
   public onError = false;
 
   public form = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    nameOrEmail: ['', [Validators.required, this.nameOrEmailValidator]],
     password: ['', [Validators.required, Validators.minLength(3)]]
   });
 
@@ -29,9 +29,10 @@ export class LoginComponent {
   ) { }
 
   public login(): void {
-    console.log("Bouton de connexion cliqué !");
+    console.log("Valeurs du formulaire :", this.form.value); // Log des valeurs du formulaire
     if (this.form.valid) {
       const loginRequest = this.form.value as LoginRequest;
+      console.log("Requête de connexion :", loginRequest); // Log de la requête de connexion
       this.authService.login(loginRequest).subscribe(
         (response: AuthValid) => {
           console.log("Réponse du serveur :", response);
@@ -50,5 +51,13 @@ export class LoginComponent {
     } else {
       console.error("Formulaire invalide");
     }
+  }
+
+  private nameOrEmailValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    const isValidEmail = Validators.email(control) === null;
+    const isValidName = Validators.pattern(/^[a-zA-Z ]*$/)(control) === null;
+    console.log("Validation du champ nameOrEmail :", isValidEmail || isValidName ? "Valide" : "Invalide"); // Log du résultat de la validation
+    return isValidEmail || isValidName ? null : { nameOrEmail: true };
   }
 }

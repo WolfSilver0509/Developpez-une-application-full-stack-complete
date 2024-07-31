@@ -22,6 +22,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
      * @return Un objet `Optional<User>` contenant l'utilisateur trouvé
      *         ou un objet vide s'il n'est pas trouvé.
      */
+
+    Optional<User> findByNameOrEmail(String name, String email);
     Optional<User> findByEmail(String email);
     Optional<User> findById(Integer id);
 }
