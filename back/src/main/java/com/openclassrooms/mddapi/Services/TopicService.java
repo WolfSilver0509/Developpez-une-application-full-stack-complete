@@ -10,17 +10,21 @@ import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDto;
 import com.openclassrooms.mddapi.Models.Topic;
 import com.openclassrooms.mddapi.Models.User;
 import com.openclassrooms.mddapi.Repositorys.TopicRepository;
+import com.openclassrooms.mddapi.Repositorys.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service // Indique que cette classe est un composant de service dans Spring
 public class TopicService {
 
@@ -29,6 +33,9 @@ public class TopicService {
 
     @Autowired // Injection de dépendance pour TopicRepository
     private TopicRepository topicRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     /*
      * Méthode pour récupérer tous les thémes.
@@ -97,5 +104,23 @@ public class TopicService {
                 topic.getCreated_at(),
                 topic.getUpdated_at()
         );
+    }
+
+    @Transactional
+    public ResponseEntity<String> likeTopic(String userEmail, Integer topicId) {
+        User user = userRepository.findByEmail(userEmail).orElseThrow();
+        Topic topic = topicRepository.findById(topicId).orElseThrow();
+        user.getTopics().add(topic);
+        userRepository.save(user);
+        return ResponseEntity.ok("Topic liked successfully!");
+    }
+
+    @Transactional
+    public ResponseEntity<String> unlikeTopic(String userEmail, Integer topicId) {
+        User user = userRepository.findByEmail(userEmail).orElseThrow();
+        Topic topic = topicRepository.findById(topicId).orElseThrow();
+        user.getTopics().remove(topic);
+        userRepository.save(user);
+        return ResponseEntity.ok("Topic unliked successfully!");
     }
 }
