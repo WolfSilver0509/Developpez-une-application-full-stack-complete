@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -105,6 +106,7 @@ public class TopicService {
         );
     }
 
+    @Transactional
     public ResponseEntity<String> likeTopic(String userEmail, Integer topicId) {
         User user = userRepository.findByEmail(userEmail).orElseThrow();
         Topic topic = topicRepository.findById(topicId).orElseThrow();
@@ -113,6 +115,7 @@ public class TopicService {
         return ResponseEntity.ok("Topic liked successfully!");
     }
 
+    @Transactional
     public ResponseEntity<String> unlikeTopic(String userEmail, Integer topicId) {
         User user = userRepository.findByEmail(userEmail).orElseThrow();
         Topic topic = topicRepository.findById(topicId).orElseThrow();
