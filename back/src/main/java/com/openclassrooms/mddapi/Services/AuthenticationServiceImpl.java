@@ -4,6 +4,8 @@ import com.openclassrooms.mddapi.Dtos.LoginUserDto;
 import com.openclassrooms.mddapi.Dtos.RegisterUserDto;
 import com.openclassrooms.mddapi.Models.User;
 import com.openclassrooms.mddapi.Repositorys.UserRepository;
+import com.openclassrooms.mddapi.Services.Interfaces.AuthenticationService;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -11,8 +13,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -22,12 +22,12 @@ import java.util.List;
  * Service pour l'authentification des utilisateurs.
  */
 @Service
-public class AuthenticationService {
+public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationService(
+    public AuthenticationServiceImpl(
             UserRepository userRepository,
             AuthenticationManager authenticationManager,
             PasswordEncoder passwordEncoder
@@ -37,11 +37,8 @@ public class AuthenticationService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    /**
-     * Inscrit un nouvel utilisateur.
-     * @param input Les informations de l'utilisateur à inscrire.
-     * @return L'utilisateur inscrit.
-     */
+
+    @Override
     public User signup(RegisterUserDto input) {
         try {
             var user = new User()
@@ -56,12 +53,7 @@ public class AuthenticationService {
         }
     }
 
-    /**
-     * Authentifie un utilisateur.
-     * @param input Les informations de l'utilisateur à authentifier.
-     * @return L'utilisateur authentifié.
-     * @throws BadCredentialsException Si les identifiants fournis sont invalides.
-     */
+    @Override
     public User authenticate(LoginUserDto input) {
         try {
             User user = userRepository.findByNameOrEmail(input.getNameOrEmail(), input.getNameOrEmail())
@@ -82,10 +74,7 @@ public class AuthenticationService {
         }
     }
 
-    /**
-     * Récupère la liste de tous les utilisateurs.
-     * @return La liste de tous les utilisateurs.
-     */
+    @Override
     public List<User> allUsers() {
         List<User> users = new ArrayList<>();
 
@@ -94,3 +83,4 @@ public class AuthenticationService {
         return users;
     }
 }
+

@@ -6,7 +6,7 @@ import com.openclassrooms.mddapi.Models.User;
 import com.openclassrooms.mddapi.Dtos.LoginUserDto;
 import com.openclassrooms.mddapi.Dtos.RegisterUserDto;
 import com.openclassrooms.mddapi.Responses.LoginResponse;
-import com.openclassrooms.mddapi.Services.AuthenticationService;
+import com.openclassrooms.mddapi.Services.Interfaces.AuthenticationService;
 import com.openclassrooms.mddapi.Services.JwtService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

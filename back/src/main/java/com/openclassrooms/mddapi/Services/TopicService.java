@@ -7,7 +7,6 @@ import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDtoCreate;
 import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDtoGetAll;
 import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDtoReponseMessage;
 import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDto;
-import com.openclassrooms.mddapi.Dtos.UserDto.DtoConvert;
 import com.openclassrooms.mddapi.Models.Topic;
 import com.openclassrooms.mddapi.Models.User;
 import com.openclassrooms.mddapi.Repositorys.TopicRepository;
@@ -39,10 +38,6 @@ public class TopicService {
     @Autowired // Injection de dépendance pour userRepository
     private UserRepository userRepository;
 
-
-
-    @Autowired
-    private DtoConvert dtoConvert;
 
     /*
      * Méthode pour récupérer tous les thémes.
@@ -93,7 +88,7 @@ public class TopicService {
     public TopicDtoGetAll getAllTopics(){
         List<Topic> topics = findAllTopics();
         List<TopicDto> topicDtos = topics.stream()
-                .map(dtoConvert::convertToTopicDto)
+                .map(this::convertToTopicDto)
                 .collect(Collectors.toList());
         return (new TopicDtoGetAll(topicDtos));
     }

@@ -8,9 +8,6 @@ import lombok.Setter;
 
 import java.util.Date;
 
-import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDto;
-import javax.validation.constraints.NotEmpty;
-import java.util.Set;
 
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
@@ -23,11 +20,15 @@ public class UserDto {
     private Date updatedAt;
     private String jwtToken;
 
-
-    @NotEmpty
-    private Set<TopicDto> subscribedTopics;
-
-
     public <R> UserDto(Integer id, String name, String email, Date createdAt, Date updatedAt, R collect) {
+    }
+
+
+    public UserDto(Integer id, String name, String email, Date createdAt, Date updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 }

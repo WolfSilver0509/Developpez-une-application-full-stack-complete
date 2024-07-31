@@ -46,10 +46,6 @@ public class Topic {
     this.description = description;
     }
 
-
-    @ManyToMany(mappedBy = "subscribedTopics")
-    private Set<User> subscribers;
-
 }
 
 

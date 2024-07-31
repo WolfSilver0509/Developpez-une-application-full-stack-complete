@@ -37,4 +37,12 @@ public class TopicDto {
 
         @NotEmpty
         private Set<UserDto> subscribers;
+
+        public TopicDto(Integer id, String title, String description, Date createdAt, Date updatedAt) {
+                this.id = id;
+                this.title = title;
+                this.description = description;
+                this.created_at = createdAt;
+                this.updated_at = updatedAt;
+        }
 }
