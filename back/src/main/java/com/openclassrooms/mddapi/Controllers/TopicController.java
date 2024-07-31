@@ -8,6 +8,8 @@ import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDtoGetAll;
 import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDtoReponseMessage;
 import com.openclassrooms.mddapi.Models.Topic;
 import com.openclassrooms.mddapi.Services.TopicService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,7 @@ import java.util.List;
 @RequestMapping("api") // Indique le chemin de base pour les requêtes HTTP
 public class TopicController {
 
+    private static final Logger log = LoggerFactory.getLogger(TopicController.class);
     @Autowired // Injection de dépendance pour TopicService
     private TopicService topicService;
 
@@ -41,6 +44,19 @@ public class TopicController {
     @GetMapping("/topics")
     public ResponseEntity<TopicDtoGetAll> getAllTopics() {
         return ResponseEntity.ok(topicService.getAllTopics());
+    }
+
+
+    @PostMapping("/topics/{topicId}/like")
+    public ResponseEntity<String> likeTopic(@PathVariable Integer topicId, Principal principal) {
+        log.info("Liking topic with ID: {}", topicId);
+        return topicService.likeTopic(principal.getName(), topicId);
+    }
+
+    @PostMapping("/topics/{topicId}/unlike")
+    public ResponseEntity<String> unlikeTopic(@PathVariable Integer topicId, Principal principal) {
+        log.info("Unliking topic with ID: {}", topicId);
+        return topicService.unlikeTopic(principal.getName(), topicId);
     }
 
 }

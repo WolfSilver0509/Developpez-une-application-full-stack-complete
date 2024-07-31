@@ -12,18 +12,21 @@ import com.openclassrooms.mddapi.Models.Topic;
 import com.openclassrooms.mddapi.Models.User;
 import com.openclassrooms.mddapi.Repositorys.TopicRepository;
 import com.openclassrooms.mddapi.Repositorys.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service // Indique que cette classe est un composant de service dans Spring
 public class TopicService {
 
@@ -95,35 +98,36 @@ public class TopicService {
         return (new TopicDtoGetAll(topicDtos));
     }
 
-        public TopicDto addSubscriber(Integer topicId, Integer userId) {
-            Optional<Topic> topicOptional = topicRepository.findById(topicId);
-            Optional<User> userOptional = userRepository.findById(userId);
-            if (topicOptional.isPresent() && userOptional.isPresent()) {
-                Topic topic = topicOptional.get();
-                User user = userOptional.get();
-                topic.getSubscribers().add(user);
-                topicRepository.save(topic);
-                return dtoConvert.convertToTopicDto(topic);
-            } else {
-                throw new NoSuchElementException("Topic or User not found");
-            }
-        }
+    /*
+     * Méthode pour convertir une entité Topic en DTO.
+     * Prend en entrée une entité Topic.
+     * Retourne un DTO TopicDto.
+     */
+    private TopicDto convertToTopicDto(Topic topic) {
+        return new TopicDto(
+                topic.getId(),
+                topic.getTitle(),
+                topic.getDescription(),
+                topic.getCreated_at(),
+                topic.getUpdated_at()
+        );
+    }
 
-        public TopicDto removeSubscriber(Integer topicId, Integer userId) {
-            Optional<Topic> topicOptional = topicRepository.findById(topicId);
-            Optional<User> userOptional = userRepository.findById(userId);
-            if (topicOptional.isPresent() && userOptional.isPresent()) {
-                Topic topic = topicOptional.get();
-                User user = userOptional.get();
-                topic.getSubscribers().remove(user);
-                topicRepository.save(topic);
-                return dtoConvert.convertToTopicDto(topic);
-            } else {
-                throw new NoSuchElementException("Topic or User not found");
-            }
-        }
+    @Transactional
+    public ResponseEntity<String> likeTopic(String userEmail, Integer topicId) {
+        User user = userRepository.findByEmail(userEmail).orElseThrow();
+        Topic topic = topicRepository.findById(topicId).orElseThrow();
+        user.getTopics().add(topic);
+        userRepository.save(user);
+        return ResponseEntity.ok("Topic liked successfully!");
+    }
 
-
-
-
+    @Transactional
+    public ResponseEntity<String> unlikeTopic(String userEmail, Integer topicId) {
+        User user = userRepository.findByEmail(userEmail).orElseThrow();
+        Topic topic = topicRepository.findById(topicId).orElseThrow();
+        user.getTopics().remove(topic);
+        userRepository.save(user);
+        return ResponseEntity.ok("Topic unliked successfully!");
+    }
 }

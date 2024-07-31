@@ -2,11 +2,14 @@ package com.openclassrooms.mddapi.Models;
 
 /* Importation des annotations JPA pour la gestion des entités et des tables dans la base de données */
 import javax.persistence.*;
+
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority; // Importation de l'interface GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails; // Importation de l'interface UserDetails
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -174,13 +177,17 @@ public class User implements UserDetails { // Définition de la classe User comm
                 ", updatedAt=" + updatedAt +
                 '}';
     }
+    @Setter
+    @ManyToMany
+    @JoinTable(
+            name = "users_topics",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "topic_id"))
+    private List<Topic> topics = new ArrayList<>();
 
-    public Set<Topic> getSubscribedTopics() {
-        return subscribedTopics;
+    public List<Topic> getTopics() {
+        return topics;
     }
 
-    public User setSubscribedTopics(Set<Topic> subscribedTopics) {
-        this.subscribedTopics = subscribedTopics;
-        return this;
-    }
+
 }
