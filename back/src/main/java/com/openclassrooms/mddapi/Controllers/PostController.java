@@ -4,7 +4,7 @@ package com.openclassrooms.mddapi.Controllers;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDto;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDtoResponseMessage;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDtoGetAll;
-import com.openclassrooms.mddapi.Services.PostService;
+import com.openclassrooms.mddapi.Services.Interfaces.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
