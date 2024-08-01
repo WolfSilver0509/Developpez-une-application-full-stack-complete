@@ -2,15 +2,12 @@ package com.openclassrooms.mddapi.Controllers;
 
 // Ce package contient les contrôleurs pour la gestion des Topic
 
-import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDto;
 import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDtoCreate;
 import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDtoGetAll;
 import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDtoReponseMessage;
-import com.openclassrooms.mddapi.Models.Topic;
-import com.openclassrooms.mddapi.Services.TopicService;
+import com.openclassrooms.mddapi.Services.Interfaces.TopicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +19,12 @@ import java.util.List;
 @RequestMapping("api") // Indique le chemin de base pour les requêtes HTTP
 public class TopicController {
 
+    private final TopicService topicService;
     private static final Logger log = LoggerFactory.getLogger(TopicController.class);
-    @Autowired // Injection de dépendance pour TopicService
-    private TopicService topicService;
+
+    public TopicController(TopicService topicService) {
+        this.topicService = topicService;
+    }
 
     /*
      * Point de terminaison pour créer un nouveau théme.

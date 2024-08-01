@@ -4,7 +4,7 @@ package com.openclassrooms.mddapi.Controllers;
 import com.openclassrooms.mddapi.Dtos.UserDto.UserDto;
 import com.openclassrooms.mddapi.Dtos.UserDto.UserUpdateDto;
 import com.openclassrooms.mddapi.Models.User;
-import com.openclassrooms.mddapi.Services.UserService;
+import com.openclassrooms.mddapi.Services.Interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
