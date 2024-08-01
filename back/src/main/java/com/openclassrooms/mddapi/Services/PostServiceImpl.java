@@ -20,9 +20,13 @@ import java.util.stream.Collectors;
 @Service
 public class PostServiceImpl implements PostService {
 
-
     private PostRepository postRepository;
     private TopicRepository topicRepository;
+
+    public PostServiceImpl(PostRepository postRepository, TopicRepository topicRepository) {
+        this.postRepository = postRepository;
+        this.topicRepository = topicRepository;
+    }
 
     @Override
     public List<Post> findAllPost() {

@@ -7,7 +7,6 @@ import com.openclassrooms.mddapi.Dtos.PostDTO.PostDto;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDtoResponseMessage;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDtoGetAll;
 import com.openclassrooms.mddapi.Models.Post;
-import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
