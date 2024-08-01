@@ -1,13 +1,12 @@
 package com.openclassrooms.mddapi.Services;
 
-
 import com.openclassrooms.mddapi.Dtos.UserDto.UserDto;
 import com.openclassrooms.mddapi.Dtos.UserDto.UserUpdateDto;
 import com.openclassrooms.mddapi.Models.User;
-import com.openclassrooms.mddapi.Repositorys.UserRepository;
 import com.openclassrooms.mddapi.Repositorys.TopicRepository;
+import com.openclassrooms.mddapi.Repositorys.UserRepository;
 import com.openclassrooms.mddapi.Services.Interfaces.AuthenticationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.openclassrooms.mddapi.Services.Interfaces.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,41 +14,31 @@ import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-/**
- * Service pour la gestion des utilisateurs.
- */
 @Service
-public class UserService {
+public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private AuthenticationService authenticationService;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private TopicRepository topicRepository;
-
-
-    @Autowired
-    private JwtService jwtService;
-
-    public Optional<User> findById(Integer id) {
-        return userRepository.findById(id);
+    public UserServiceImpl(AuthenticationService authenticationService, UserRepository userRepository, TopicRepository topicRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
-    /**
-     * Récupère l'utilisateur courant.
-     * @return L'utilisateur courant.
-     */
+
+    @Override
+    public Optional<User> findById(Integer id) {
+        return userRepository.findById(id);    }
+
+    @Override
     public UserDto getCurrentUser(User user) {
         return new UserDto(user.getId(), user.getName(), user.getEmail(), user.getCreatedAt(), user.getUpdatedAt());
+
     }
 
+    @Override
     public UserDto getUserById(Integer id) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
@@ -58,9 +47,9 @@ public class UserService {
         } else {
             throw new NoSuchElementException("User not found with id: " + id);
         }
-
     }
 
+    @Override
     public UserDto updateUser(Integer id, UserUpdateDto updateDto) {
         // Récupérer l'utilisateur actuellement authentifié
         User authenticatedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
