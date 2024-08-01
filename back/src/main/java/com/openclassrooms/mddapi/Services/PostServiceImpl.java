@@ -10,12 +10,14 @@ import com.openclassrooms.mddapi.Repositorys.PostRepository;
 import com.openclassrooms.mddapi.Repositorys.TopicRepository;
 import com.openclassrooms.mddapi.Services.Interfaces.PostService;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class PostServiceImpl implements PostService {
 
 

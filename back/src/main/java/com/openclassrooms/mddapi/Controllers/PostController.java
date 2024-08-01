@@ -5,7 +5,6 @@ import com.openclassrooms.mddapi.Dtos.PostDTO.PostDto;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDtoResponseMessage;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDtoGetAll;
 import com.openclassrooms.mddapi.Services.Interfaces.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +15,13 @@ import java.security.Principal;
 @RequestMapping("api")
 public class PostController {
 
+        private final PostService postService;
 
-        @Autowired
-        private PostService postService;
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
 
-        /*
+    /*
          * Point de terminaison pour créer un nouveau Post.
          * Prend en entrée un DTO de création du commentaire et les informations de l'utilisateur.
          * Retourne une réponse contenant le DTO de la réponse de création de Post.
