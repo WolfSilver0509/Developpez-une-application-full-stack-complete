@@ -3,19 +3,10 @@ package com.openclassrooms.mddapi.Services.Interfaces;
 import com.openclassrooms.mddapi.Dtos.LoginUserDto;
 import com.openclassrooms.mddapi.Dtos.RegisterUserDto;
 import com.openclassrooms.mddapi.Models.User;
-import com.openclassrooms.mddapi.Repositorys.UserRepository;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Service pour l'authentification des utilisateurs.
