@@ -1,22 +1,18 @@
 package com.openclassrooms.mddapi.Controllers;
 
-
 import com.openclassrooms.mddapi.Models.User;
-//import com.openclassrooms.mddapi.Services.UserService;
 import com.openclassrooms.mddapi.Dtos.LoginUserDto;
 import com.openclassrooms.mddapi.Dtos.RegisterUserDto;
 import com.openclassrooms.mddapi.Responses.LoginResponse;
 import com.openclassrooms.mddapi.Services.Interfaces.AuthenticationService;
 import com.openclassrooms.mddapi.Services.Interfaces.JwtService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 
-/**
- * Contrôleur pour les opérations d'authentification des utilisateurs.
- */
+import javax.validation.Valid;
+import java.util.stream.Collectors;
+
 @RequestMapping("/api/auth")
 @RestController
 public class AuthenticationController {
@@ -29,30 +25,36 @@ public class AuthenticationController {
     }
 
     /**
-     * Endpoint pour l'inscription d'un nouvel utilisateur.
-     * @param registerUserDto Les informations d'inscription de l'utilisateur.
-     * @return La réponse HTTP contenant les informations de l'utilisateur inscrit.
+     * Enregistrer un nouvel utilisateur.
+     * @param registerUserDto les informations de l'utilisateur à enregistrer
+     * @return l'utilisateur enregistré
      */
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
-        User registeredUser = authenticationService.signup(registerUserDto);
-
-        return ResponseEntity.ok(registeredUser);
+    public User register(@Valid @RequestBody RegisterUserDto registerUserDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            String errors = bindingResult.getFieldErrors().stream()
+                    .map(FieldError::getDefaultMessage)
+                    .collect(Collectors.joining(", "));
+            throw new RuntimeException("Validation errors: " + errors);
+        }
+        return authenticationService.signup(registerUserDto);
     }
 
     /**
-     * Endpoint pour l'authentification d'un utilisateur existant.
-     * @param loginUserDto Les informations de connexion de l'utilisateur.
-     * @return La réponse HTTP contenant le token JWT d'authentification.
+     * Authentifier un utilisateur.
+     * @param loginUserDto les informations de l'utilisateur à authentifier
+     * @return la réponse de l'authentification
      */
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
+    public LoginResponse authenticate(@Valid @RequestBody LoginUserDto loginUserDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            String errors = bindingResult.getFieldErrors().stream()
+                    .map(FieldError::getDefaultMessage)
+                    .collect(Collectors.joining(", "));
+            throw new RuntimeException("Validation errors: " + errors);
+        }
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
-
         String jwtToken = jwtService.generateToken(authenticatedUser);
-
-        LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
-
-        return ResponseEntity.ok(loginResponse);
+        return new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
     }
 }
