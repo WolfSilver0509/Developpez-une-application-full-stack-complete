@@ -43,35 +43,18 @@ public interface PostService {
     PostDtoResponseMessage createPost(PostDto postDto, Principal principal);
 
     /*
-     * Méthode pour récupérer toutes les Posts et les convertir en DTO.
-     * Retourne une réponse contenant une liste de DTO PostDto.
-     */
-
-    PostDtoGetAll getAllPosts();
-
-    /*
      * Méthode pour convertir une entité Post en DTO.
      * Prend en entrée une entité Post.
      * Retourne un DTO PostDto.
      */
      PostDto convertToPostDto(Post post);
 
-    /*
-     * Méthode pour récupérer le post par son ID.
-     * Prend en entrée l'ID du post.
-     * Retourne une réponse contenant le DTO de le post récupérée ou une réponse null si non trouvée.
+/*
+     * Méthode pour récupérer tous les Posts d'un utilisateur.
+     * Prend en entrée les informations de l'utilisateur.
+     * Retourne une liste de DTO PostDto.
      */
-
-     PostDto getPostById(Integer id);
-
-    /*
-     * Méthode pour mettre à jour un Post existant.
-     * Prend en entrée l'ID du Post à mettre à jour et le DTO contenant les nouvelles données.
-     * Retourne une réponse contenant le DTO du Post mis à jour ou une réponse 404 si le Post n'est pas trouvé.
-     */
-    PostDtoResponseMessage updatePost(Integer id, PostDto postDto);
-
-
+    List<PostDto> getPostsByUser(Principal principal);
 }
 
 

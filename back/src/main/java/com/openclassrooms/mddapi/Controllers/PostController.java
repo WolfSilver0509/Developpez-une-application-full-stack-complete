@@ -3,13 +3,12 @@ package com.openclassrooms.mddapi.Controllers;
 
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDto;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDtoResponseMessage;
-import com.openclassrooms.mddapi.Dtos.PostDTO.PostDtoGetAll;
 import com.openclassrooms.mddapi.Services.Interfaces.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("api")
@@ -33,39 +32,34 @@ public class PostController {
         }
 
         /*
-         * Point de terminaison pour récupérer tous les Post.
-         * Retourne une liste de toutes les entités Topic.
+         * Point de terminaison pour récupérer tous les Posts.
+         * Retourne une réponse contenant une liste de DTO PostDto.
          */
-        @GetMapping("/posts")
-        public ResponseEntity<PostDtoGetAll> getAllPosts() {
-            return ResponseEntity.ok(postService.getAllPosts());
-        }
-
-        /*
-         * Point de terminaison pour récupérer les post articles par son ID.
-         * Prend en entrée l'ID du Post.
-         * Retourne une réponse contenant le DTO du Post récupérée.
-         */
-        @GetMapping("/posts/{id}")
-        public ResponseEntity<PostDto> getPostById(@PathVariable Integer id) {
-            PostDto postDto = postService.getPostById(id);
-            if (postDto != null) {
-                return ResponseEntity.ok(postDto);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        }
-
-        /*
-        * Point de terminaison pour modifier un post par son id
-        * prend en entrée l'id du post
-        * Retourne un message pour informer que le post est à jour
-         */
-    @PutMapping("/posts/{id}")
-    public ResponseEntity<PostDtoResponseMessage> updatePost(@PathVariable Integer id, @ModelAttribute PostDto postDto) {
-        PostDtoResponseMessage responseMessage = postService.updatePost(id, postDto);
-        return ResponseEntity.ok(responseMessage);
+    @GetMapping("/posts")
+    public ResponseEntity<List<PostDto>> getAllPosts(Principal principal) {
+        List<PostDto> posts = postService.getPostsByUser(principal);
+        return ResponseEntity.ok(posts);
     }
+
+    /*
+     * Point de terminaison pour récupérer un Post par son ID.
+     * Prend en entrée l'ID du Post.
+     * Retourne une réponse contenant le DTO du Post récupéré ou une réponse null si non trouvée.
+     */
+    @GetMapping("/posts/{id}")
+    public ResponseEntity<PostDto> getPostById(@PathVariable Integer id, Principal principal) {
+        List<PostDto> userPosts = postService.getPostsByUser(principal);
+        PostDto postDto = userPosts.stream()
+                .filter(post -> post.getId() == id)
+                .findFirst()
+                .orElse(null);
+        if (postDto != null) {
+            return ResponseEntity.ok(postDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 
 }

@@ -61,14 +61,6 @@ public class PostServiceImpl implements PostService {
         return new PostDtoResponseMessage("Post created !");
     }
 
-    @Override
-    public PostDtoGetAll getAllPosts() {
-        List<Post> posts = findAllPost();
-        List<PostDto> postDtos = posts.stream()
-                .map(this::convertToPostDto)
-                .collect(Collectors.toList());
-        return (new PostDtoGetAll(postDtos));
-    }
 
     @Override
     public PostDto convertToPostDto(Post post) {
@@ -84,30 +76,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostDto getPostById(Integer id) {
-        Optional<Post> postOptional = findById(id);
-        if (postOptional.isPresent()) {
-            Post post = postOptional.get();
-            PostDto postDto = convertToPostDto(post);
-            return postDto;
-        } else {
-            return null;
-        }
+    public List<PostDto> getPostsByUser(Principal principal) {
+        User currentUser = (User) ((Authentication) principal).getPrincipal();
+        List<Post> posts = postRepository.findAllByTopic_UserId(currentUser.getId());
+        return posts.stream()
+                .map(this::convertToPostDto)
+                .collect(Collectors.toList());
     }
 
-    @Override
-    public PostDtoResponseMessage updatePost(Integer id, PostDto postDto) {
-        Optional<Post> optionalPost = findById(id);
-        if (optionalPost.isPresent()) {
-            Post existingPost = optionalPost.get();
-            existingPost.setTitle(postDto.getTitle());
-            if (postDto.getDescription() != null && !postDto.getDescription().isEmpty()) {
-                existingPost.setDescription(postDto.getDescription());
-            }
-            savePost(existingPost);
-            return new PostDtoResponseMessage("Post updated!");
-        } else {
-            throw new RuntimeException("Post not found");
-        }
-    }
 }
