@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -17,19 +18,19 @@ public class PostDto {
     private int id;
 
     /* Titre POST */
-    @NotEmpty(message = "Title cannot be empty")
+    @NotEmpty(message = " Le titre du POST ne peut pas être vide")
+    @NotBlank(message = " Le titre du POST ne peut pas être vide")
     private String title;
 
     /* Description du POST */
-    @NotEmpty(message = "Description cannot be empty")
+    @NotBlank (message = "La description du POST ne peut pas être vide")
+    @NotEmpty(message = " La description du POST ne peut pas être vide")
     private String description;
 
     /* créateur du POST */
-    @NotNull(message = "Owner ID cannot be null")
     private int owner_id;
 
     /* théme rattachée au POST */
-    @NotNull(message = "Topic ID cannot be null")
     private int topic_id;
 
     /* Date de création du POST */

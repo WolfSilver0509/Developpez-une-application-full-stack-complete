@@ -3,14 +3,36 @@ package com.openclassrooms.mddapi.Dtos;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 /**
  * DTO (Data Transfer Object) représentant les informations d'inscription d'un nouvel utilisateur.
  */
 //@Getter @Setter
 public class RegisterUserDto {
 
+    /**
+     * Email de l'utilisateur.
+     */
+    @Email(message = "L'email de l'utilisateur doit être valide")
+    @NotEmpty(message = "L'email ne peut pas être vide")
     private String email;
+
+    /**
+     * Mot de passe de l'utilisateur.
+     */
+    @NotBlank(message = "Le mot de passe ne peut pas être vide")
+    @NotNull(message = "Le mot de passe ne peut pas être vide")
     private String password;
+
+    /**
+     * Nom de l'utilisateur.
+     */
+    @NotBlank(message = "Le nom ne peut pas être vide")
+    @NotNull (message = "Le nom ne peut pas être vide")
     private String name;
 
     /**

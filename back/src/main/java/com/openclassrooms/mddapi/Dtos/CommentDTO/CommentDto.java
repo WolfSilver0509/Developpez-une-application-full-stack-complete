@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Getter @Setter
@@ -16,6 +19,8 @@ public class CommentDto {
     
 
     /* Message du Comment */
+    @NotBlank (message = "Le message du Comment ne peut pas être vide")
+    @NotEmpty(message = "Le message du Comment ne peut pas être vide")
     private String message;
 
     /* créateur du Comment */
