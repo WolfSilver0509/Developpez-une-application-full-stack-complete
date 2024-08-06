@@ -57,10 +57,21 @@ public interface TopicService {
      */
      TopicDto convertToTopicDto(Topic topic);
 
-
+    /**
+     * Méthode pour aimer un topic.
+     * @param userEmail
+     * @param topicId
+     * @return
+     */
      ResponseEntity<String> likeTopic(String userEmail, Integer topicId);
 
 
+    /**
+     *  Méthode pour ne pas aimer un topic.
+     * @param userEmail
+     * @param topicId
+     * @return
+     */
      ResponseEntity<String> unlikeTopic(String userEmail, Integer topicId);
 }
 

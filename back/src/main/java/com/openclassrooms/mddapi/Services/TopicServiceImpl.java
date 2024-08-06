@@ -81,9 +81,17 @@ public class TopicServiceImpl implements TopicService {
     public ResponseEntity<String> likeTopic(String userEmail, Integer topicId) {
         User user = userRepository.findByEmail(userEmail).orElseThrow();
         Topic topic = topicRepository.findById(topicId).orElseThrow();
+
+        // Vérifier si l'utilisateur a déjà liké ce topic
+        if (user.getTopics().contains(topic)) {
+            return ResponseEntity.badRequest().body("You have already liked this topic!");
+        }
+
+        // Ajouter le topic à la liste des topics likés
         user.getTopics().add(topic);
         userRepository.save(user);
-        return ResponseEntity.ok("Topic liked successfully!");
+
+        return ResponseEntity.ok("Topic like with Sucess !");
     }
 
     @Transactional
@@ -91,8 +99,17 @@ public class TopicServiceImpl implements TopicService {
     public ResponseEntity<String> unlikeTopic(String userEmail, Integer topicId) {
         User user = userRepository.findByEmail(userEmail).orElseThrow();
         Topic topic = topicRepository.findById(topicId).orElseThrow();
+
+        // Vérifier si l'utilisateur a déjà liké ce topic
+        if (!user.getTopics().contains(topic)) {
+            return ResponseEntity.badRequest().body("You haven't liked this topic yet !");
+        }
+
+        // Retirer le topic de la liste des topics likés
         user.getTopics().remove(topic);
         userRepository.save(user);
-        return ResponseEntity.ok("Topic unliked successfully!");
+
+        return ResponseEntity.ok("Topic dislike with sucess !");
     }
+
 }
