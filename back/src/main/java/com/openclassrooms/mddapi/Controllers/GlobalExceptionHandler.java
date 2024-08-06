@@ -1,7 +1,7 @@
 package com.openclassrooms.mddapi.Controllers;
 
 
-import com.openclassrooms.mddapi.exeptions.PostNotFoundException;
+import com.openclassrooms.mddapi.exeptions.NotFoundException;
 import com.openclassrooms.mddapi.exeptions.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +32,9 @@ public class GlobalExceptionHandler {
      * @param ex
      * @return
      */
-    @ExceptionHandler(PostNotFoundException.class)
+    @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<String> handlePostNotFoundException(PostNotFoundException ex) {
+    public ResponseEntity<String> handleNotFoundException(NotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
