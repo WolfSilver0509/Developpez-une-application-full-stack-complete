@@ -4,6 +4,8 @@ import com.openclassrooms.mddapi.Dtos.UserDto.UserDto;
 import com.openclassrooms.mddapi.Dtos.UserDto.UserUpdateDto;
 import com.openclassrooms.mddapi.Models.User;
 import com.openclassrooms.mddapi.Services.Interfaces.UserService;
+import com.openclassrooms.mddapi.exeptions.NotFoundException;
+import com.openclassrooms.mddapi.exeptions.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
@@ -41,7 +43,7 @@ public class UserController {
         try {
             return userService.getUserById(id);
         } catch (NoSuchElementException e) {
-            throw new RuntimeException("User not found");
+            throw new NotFoundException("User not found");
         }
     }
 
@@ -58,12 +60,12 @@ public class UserController {
             String errors = bindingResult.getFieldErrors().stream()
                     .map(FieldError::getDefaultMessage)
                     .collect(Collectors.joining(", "));
-            throw new RuntimeException("Validation errors: " + errors);
+            throw new ValidationException("Validation errors: " + errors);
         }
         try {
             return userService.updateUser(user.getId(), updateDto);
         } catch (NoSuchElementException e) {
-            throw new RuntimeException("User not found");
+            throw new NotFoundException("User not found");
         }
     }
 }

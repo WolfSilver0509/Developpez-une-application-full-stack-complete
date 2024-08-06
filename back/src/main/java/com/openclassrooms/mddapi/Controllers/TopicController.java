@@ -4,6 +4,7 @@ import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDtoCreate;
 import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDtoGetAll;
 import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDtoReponseMessage;
 import com.openclassrooms.mddapi.Services.Interfaces.TopicService;
+import com.openclassrooms.mddapi.exeptions.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
@@ -36,7 +37,7 @@ public class TopicController {
             String errors = bindingResult.getFieldErrors().stream()
                     .map(FieldError::getDefaultMessage)
                     .collect(Collectors.joining(", "));
-            throw new RuntimeException("Validation errors: " + errors);
+            throw new ValidationException("Validation errors: " + errors);
         }
         return topicService.createTopic(topicDto, principal);
     }

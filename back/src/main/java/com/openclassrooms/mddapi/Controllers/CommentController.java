@@ -3,6 +3,7 @@ package com.openclassrooms.mddapi.Controllers;
 import com.openclassrooms.mddapi.Dtos.CommentDTO.CommentDto;
 import com.openclassrooms.mddapi.Dtos.CommentDTO.CommentDtoResponse;
 import com.openclassrooms.mddapi.Services.Interfaces.CommentService;
+import com.openclassrooms.mddapi.exeptions.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -30,7 +31,7 @@ public class CommentController {
             String errors = bindingResult.getFieldErrors().stream()
                     .map(FieldError::getDefaultMessage)
                     .collect(Collectors.joining(", "));
-            throw new RuntimeException("Validation errors: " + errors);
+            throw new ValidationException("Validation errors: " + errors);
         }
         return commentService.createComment(commentDto, principal);
     }
