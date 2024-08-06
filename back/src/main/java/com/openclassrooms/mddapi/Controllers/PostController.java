@@ -3,6 +3,8 @@ package com.openclassrooms.mddapi.Controllers;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDto;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDtoResponseMessage;
 import com.openclassrooms.mddapi.Services.Interfaces.PostService;
+import com.openclassrooms.mddapi.exeptions.NotFoundException;
+import com.openclassrooms.mddapi.exeptions.ValidationException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +35,7 @@ public class PostController {
             String errors = bindingResult.getFieldErrors().stream()
                     .map(FieldError::getDefaultMessage)
                     .collect(Collectors.joining(", "));
-            throw new RuntimeException("Validation errors: " + errors);
+            throw new ValidationException("Validation errors: " + errors);
         }
         return postService.createPost(postDto, principal);
     }
@@ -59,6 +61,6 @@ public class PostController {
         return userPosts.stream()
                 .filter(post -> post.getId() == id)
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Post not found"));
+                .orElseThrow(() -> new NotFoundException("Post not found"));
     }
 }
