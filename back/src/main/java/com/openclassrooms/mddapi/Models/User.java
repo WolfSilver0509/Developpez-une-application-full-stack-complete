@@ -99,11 +99,6 @@ public class User implements UserDetails { // Définition de la classe User comm
     }
 
 
-    @ManyToMany
-    private Set<Topic> subscribedTopics;
-
-
-
     /* Méthode pour obtenir l'ID de l'utilisateur */
     public Integer getId() {
         return id;
