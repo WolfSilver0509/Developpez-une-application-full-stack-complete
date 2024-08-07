@@ -1,62 +1,75 @@
 package com.openclassrooms.mddapi.Controllers;
 
-// Ce package contient les contrôleurs pour la gestion des Topic
-
-import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDto;
 import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDtoCreate;
 import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDtoGetAll;
 import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDtoReponseMessage;
-import com.openclassrooms.mddapi.Models.Topic;
-import com.openclassrooms.mddapi.Services.TopicService;
+import com.openclassrooms.mddapi.Services.Interfaces.TopicService;
+import com.openclassrooms.mddapi.exeptions.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
-import java.util.List;
+import java.util.stream.Collectors;
 
-@RestController // Indique que cette classe est un contrôleur REST
-@RequestMapping("api") // Indique le chemin de base pour les requêtes HTTP
+@RestController
+@RequestMapping("api")
 public class TopicController {
 
+    private final TopicService topicService;
     private static final Logger log = LoggerFactory.getLogger(TopicController.class);
-    @Autowired // Injection de dépendance pour TopicService
-    private TopicService topicService;
 
-    /*
-     * Point de terminaison pour créer un nouveau théme.
-     * Prend en entrée un DTO de création du théme et les informations de l'utilisateur.
-     * Retourne une réponse contenant le DTO de la réponse de création de théme.
+    public TopicController(TopicService topicService) {
+        this.topicService = topicService;
+    }
+
+/**
+     * Endpoint pour créer un nouveau Topic.
+     * Prend en entrée un DTO de création du Topic et les informations de l'utilisateur.
+     * Retourne une réponse contenant le DTO de la réponse de création de Topic.
      */
     @PostMapping("/topics")
-    public ResponseEntity<TopicDtoReponseMessage> createTopic(@ModelAttribute TopicDtoCreate topicDto, Principal principal) {
-        TopicDtoReponseMessage responseMessage = topicService.createTopic(topicDto, principal);
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseMessage);
+    public TopicDtoReponseMessage createTopic(@Valid @ModelAttribute TopicDtoCreate topicDto, BindingResult bindingResult, Principal principal) {
+        if (bindingResult.hasErrors()) {
+            String errors = bindingResult.getFieldErrors().stream()
+                    .map(FieldError::getDefaultMessage)
+                    .collect(Collectors.joining(", "));
+            throw new ValidationException("Validation errors: " + errors);
+        }
+        return topicService.createTopic(topicDto, principal);
     }
 
-    /*
-     * Point de terminaison pour récupérer tous les thémes.
-     * Retourne une liste de toutes les entités Topic.
+/**
+     * Endpoint pour récupérer tous les Topics.
+     * @return la liste de tous les Topics
      */
     @GetMapping("/topics")
-    public ResponseEntity<TopicDtoGetAll> getAllTopics() {
-        return ResponseEntity.ok(topicService.getAllTopics());
+    public TopicDtoGetAll getAllTopics() {
+        return topicService.getAllTopics();
     }
 
-
+/**
+     * Endpoint pour récupérer un Topic par son ID.
+     * @param topicId l'ID du Topic à récupérer
+     * @param principal l'utilisateur actuellement connecté
+     * @return le Topic correspondant à l'ID
+     */
     @PostMapping("/topics/{topicId}/like")
-    public ResponseEntity<String> likeTopic(@PathVariable Integer topicId, Principal principal) {
-        log.info("Liking topic with ID: {}", topicId);
-        return topicService.likeTopic(principal.getName(), topicId);
+    public String likeTopic(@PathVariable Integer topicId, Principal principal) {
+        return topicService.likeTopic(principal.getName(), topicId).getBody();
     }
 
+/**
+     * Endpoint pour récupérer un Topic par son ID.
+     * @param topicId l'ID du Topic à récupérer
+     * @param principal l'utilisateur actuellement connecté
+     * @return le Topic correspondant à l'ID
+     */
     @PostMapping("/topics/{topicId}/unlike")
-    public ResponseEntity<String> unlikeTopic(@PathVariable Integer topicId, Principal principal) {
-        log.info("Unliking topic with ID: {}", topicId);
-        return topicService.unlikeTopic(principal.getName(), topicId);
+    public String unlikeTopic(@PathVariable Integer topicId, Principal principal) {
+        return topicService.unlikeTopic(principal.getName(), topicId).getBody();
     }
-
 }

@@ -1,25 +1,44 @@
 # P6-Full-Stack-reseau-dev
 
-## Front
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+## 🛠️ Prérequis
 
-Don't forget to install your node_modules before starting (`npm install`).
+👉 **MySQL** : Assurez-vous d'avoir MySQL installé et en cours d'exécution.
 
-### Development server
+👉 **Java** : Vous aurez besoin de Java 11 ou supérieur.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+👉 **Maven** : Maven est requis pour gérer les dépendances du projet.
 
-### Build
+## 🚀 Configuration de la base de données
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+👉 Créez une base de données MySQL appelée `p6_openclassroom_fullstack`.
 
-### Where to start
+```sql
+CREATE DATABASE p6_openclassroom_fullstack;
+```
 
-As you may have seen if you already started the app, a simple home page containing a logo, a title and a button is available. If you take a look at its code (in the `home.component.html`) you will see that an external UI library is already configured in the project.
+👉 Assurez-vous que les paramètres de connexion à la base de données sont correctement configurés dans un fichier database.properties ( qui se crée au même endroit que application.properties) qui sera désservie dans application.properties de notre projet Spring Boot.
 
-This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your interfaces quickly.
+databse.properties :
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/p6_openclassroom_fullstack
+spring.datasource.username=<votre_nom_utilisateur>
+spring.datasource.password=<votre_mot_de_passe>
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.hibernate.ddl-auto=update
+```
 
-Note: I recommend to use material however it's not mandatory, if you prefer you can get ride of it.
+## 🏃‍♂️ Lancement de l'application Spring Boot
 
-Good luck!
+👉  Assurez-vous que votre base de données MySQL est en cours d'exécution.
+
+👉  Lancez votre application Spring Boot. Cette action créera automatiquement les tables nécessaires dans la base de données p6_openclassroom_fullstack.
+```
+mvn spring-boot:run
+```
+
+## 📂 Remplissage automatique des thèmes
+
+👉 Un fichier SQL nommé generateTopic.sql est disponible dans le dossier src/main/resources. Ce fichier contient un script pour remplir automatiquement les thèmes dans la table appropriée.
+
+👉 Pour exécuter ce fichier SQL, connectez-vous à votre base de données MySQL et exécutez le script dans votre console mysql sur la table crée.
