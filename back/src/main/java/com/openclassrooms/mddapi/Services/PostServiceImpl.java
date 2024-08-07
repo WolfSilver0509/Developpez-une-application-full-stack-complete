@@ -1,8 +1,9 @@
 package com.openclassrooms.mddapi.Services;
 
+import com.openclassrooms.mddapi.Dtos.CommentDTO.CommentDto;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDto;
-import com.openclassrooms.mddapi.Dtos.PostDTO.PostDtoGetAll;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDtoResponseMessage;
+import com.openclassrooms.mddapi.Models.Comment;
 import com.openclassrooms.mddapi.Models.Post;
 import com.openclassrooms.mddapi.Models.Topic;
 import com.openclassrooms.mddapi.Models.User;
@@ -64,7 +65,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto convertToPostDto(Post post) {
-        return new PostDto(
+        PostDto postDto = new PostDto(
                 post.getId(),
                 post.getTitle(),
                 post.getDescription(),
@@ -73,6 +74,10 @@ public class PostServiceImpl implements PostService {
                 post.getCreated_at(),
                 post.getUpdated_at()
         );
+        postDto.setComments(post.getComments().stream()
+                .map(this::convertToCommentDto)
+                .collect(Collectors.toList()));
+        return postDto;
     }
 
     @Override
@@ -82,6 +87,26 @@ public class PostServiceImpl implements PostService {
         return posts.stream()
                 .map(this::convertToPostDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CommentDto> findCommentsByPostId(Integer postId) {
+        return postRepository.findById(postId)
+                .map(Post::getComments)
+                .orElseThrow(() -> new RuntimeException("Post not found"))
+                .stream()
+                .map(this::convertToCommentDto)
+                .collect(Collectors.toList());
+    }
+
+    private CommentDto convertToCommentDto(Comment comment) {
+        CommentDto dto = new CommentDto();
+        dto.setId(comment.getId());
+        dto.setMessage(comment.getMessage());
+        dto.setCreated_at(comment.getCreated_at());
+        dto.setUpdated_at(comment.getUpdated_at());
+        dto.setOwner_id(comment.getOwner_id().getId());
+        return dto;
     }
 
 }

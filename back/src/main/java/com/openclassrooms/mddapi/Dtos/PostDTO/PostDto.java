@@ -1,5 +1,7 @@
 package com.openclassrooms.mddapi.Dtos.PostDTO;
 
+import com.openclassrooms.mddapi.Dtos.CommentDTO.CommentDto;
+import com.openclassrooms.mddapi.Models.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +10,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
@@ -37,5 +40,23 @@ public class PostDto {
 
     /* Date de mise du POST */
     private Date updated_at;
+
+    /* Liste des commentaires du POST */
+    @Getter
+    @Setter
+    private List<CommentDto> comments;
+
+    // Constructor matching the parameters
+    public PostDto(int id, String title, String description, int owner_id, int topic_id, Date created_at, Date updated_at) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.owner_id = owner_id;
+        this.topic_id = topic_id;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+
+    }
+
 
 }
