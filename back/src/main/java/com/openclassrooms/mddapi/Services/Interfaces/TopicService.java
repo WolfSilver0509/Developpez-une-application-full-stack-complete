@@ -50,12 +50,6 @@ public interface TopicService {
 
      TopicDtoGetAll getAllTopics();
 
-    /*
-     * Méthode pour convertir une entité Topic en DTO.
-     * Prend en entrée une entité Topic.
-     * Retourne un DTO TopicDto.
-     */
-     TopicDto convertToTopicDto(Topic topic);
 
     /**
      * Méthode pour aimer un topic.

@@ -52,7 +52,7 @@ public class Post {
     private Date updated_at;
 
     /* Liste des commentaires de l'articles */
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
     private List<Comment> comments = new ArrayList<>();
 
     /* Constructeur avec les paramètres */
