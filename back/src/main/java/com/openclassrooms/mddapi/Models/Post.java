@@ -55,6 +55,7 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Comment> comments = new ArrayList<>();
 
+    /* Constructeur avec les paramètres */
     public Post(String title, String description, Topic topicId, User currentUser) {
         this.title = title;
         this.description = description;

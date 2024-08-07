@@ -106,6 +106,7 @@ public class PostServiceImpl implements PostService {
         dto.setCreated_at(comment.getCreated_at());
         dto.setUpdated_at(comment.getUpdated_at());
         dto.setOwner_id(comment.getOwner_id().getId());
+        dto.setPost_id(comment.getPost().getId());
         return dto;
     }
 
