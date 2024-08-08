@@ -66,7 +66,6 @@ public class PostServiceImpl implements PostService {
     }
 
 
-
     @Override
     public List<PostDto> getPostsByUser(Principal principal) {
         User currentUser = (User) ((Authentication) principal).getPrincipal();

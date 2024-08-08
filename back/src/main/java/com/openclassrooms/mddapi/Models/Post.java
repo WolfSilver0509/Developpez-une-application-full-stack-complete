@@ -53,7 +53,6 @@ public class Post {
 
     /* Liste des commentaires de l'articles */
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
-    private List<Comment> comments = new ArrayList<>();
 
     /* Constructeur avec les paramètres */
     public Post(String title, String description, Topic topicId, User currentUser) {
