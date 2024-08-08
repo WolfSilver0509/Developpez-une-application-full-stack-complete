@@ -18,6 +18,7 @@ import { ListTopicComponent } from './component/list-topic/list-topic.component'
 import { HeaderComponent } from './component/header/header.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {AuthInterceptor} from "./interceptors/auth.interceptors";
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent, HeaderNoAuthComponent, RegisterComponent, TopicsComponent, ListTopicComponent, HeaderComponent],
@@ -33,6 +34,7 @@ import {AuthInterceptor} from "./interceptors/auth.interceptors";
     MatIconModule,
     FormsModule,
     MatToolbarModule,
+    MatSnackBarModule,
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }], // add interceptor
   bootstrap: [AppComponent],
