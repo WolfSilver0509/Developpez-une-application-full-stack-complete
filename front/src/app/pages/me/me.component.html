@@ -1,0 +1,30 @@
+<app-header> </app-header>
+
+<section class="profil-section">
+  <h1>Profil utilisateur</h1>
+<!--  <form (ngSubmit)="onSaveProfile()">-->
+  <form>
+    <div class="form-group">
+      <label for="username">Username</label>
+<!--      <input type="text" id="username" [(ngModel)]="user.username" name="username">-->
+      <input type="text" id="username"  name="username">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+<!--      <input type="email" id="email" [(ngModel)]="user.email" name="email">-->
+      <input type="email" id="email"  name="email">
+    </div>
+    <button mat-raised-button color="primary" type="submit" >Sauvegarder</button>
+  </form>
+  <button mat-button class="mat-warn" >Se déconnecter</button>
+<!--  <button class="btn btn-logout" (click)="onLogout()">Se déconnecter</button>-->
+</section>
+
+<div class="separator"></div>
+
+<section class="abonnements-section">
+  <h2>Abonnements</h2>
+  <app-list-topic></app-list-topic>
+ </section>
+
+
