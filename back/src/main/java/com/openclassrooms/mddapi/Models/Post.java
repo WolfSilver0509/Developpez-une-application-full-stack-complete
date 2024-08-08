@@ -1,15 +1,7 @@
 package com.openclassrooms.mddapi.Models;
 
-import javax.persistence.Table;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +9,9 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
@@ -57,6 +51,11 @@ public class Post {
     @Temporal(TemporalType.DATE)
     private Date updated_at;
 
+    /* Liste des commentaires de l'articles */
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Comment> comments = new ArrayList<>();
+
+    /* Constructeur avec les paramètres */
     public Post(String title, String description, Topic topicId, User currentUser) {
         this.title = title;
         this.description = description;

@@ -3,6 +3,7 @@ package com.openclassrooms.mddapi.Services.Interfaces;
 // Classe de service responsable de la gestion des Post.
 // Elle inclut des méthodes pour créer, mettre à jour, récupérer et enregistrer des Post.
 
+import com.openclassrooms.mddapi.Dtos.CommentDTO.CommentDto;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDto;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDtoResponseMessage;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDtoGetAll;
@@ -55,6 +56,12 @@ public interface PostService {
      * Retourne une liste de DTO PostDto.
      */
     List<PostDto> getPostsByUser(Principal principal);
+
+    /*
+     * Méthode pour récupérer tous les Posts.
+     * Retourne une liste de DTO PostDtoGetAll.
+     */
+    List<CommentDto> findCommentsByPostId(Integer postId);
 }
 
 

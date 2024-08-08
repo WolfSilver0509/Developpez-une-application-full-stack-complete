@@ -42,7 +42,7 @@ public class Comment {
     /* Ratachement Post Articles */
     @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)
-    private Post post_id;
+    private Post post;
 
     /* Date de création Commentaire */
     @CreationTimestamp
@@ -58,7 +58,7 @@ public class Comment {
 
         this.message = message;
         this.owner_id = currentUser;
-        this.post_id = postId;
+        this.post = postId;
 
     }
 }
