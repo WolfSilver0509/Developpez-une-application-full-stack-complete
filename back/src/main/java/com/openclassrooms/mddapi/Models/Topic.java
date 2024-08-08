@@ -2,6 +2,7 @@ package com.openclassrooms.mddapi.Models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
@@ -39,6 +40,9 @@ public class Topic {
     @UpdateTimestamp
     @Temporal(TemporalType.DATE)
     private Date updated_at;
+
+    @ManyToMany(mappedBy = "topics")
+    private List<User> users;
 
     // Constructeur pour crée un Théme via postman ( Choix pour éviter d'écrire en bdd directement )
     public Topic(String title, String description) {

@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.Services;
 
+import com.openclassrooms.mddapi.Dtos.TopicDTO.TopicDto;
 import com.openclassrooms.mddapi.Dtos.UserDto.UserDto;
 import com.openclassrooms.mddapi.Dtos.UserDto.UserUpdateDto;
 import com.openclassrooms.mddapi.Models.User;
@@ -12,8 +13,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,11 +24,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final TopicRepository topicRepository;
 
     public UserServiceImpl(AuthenticationService authenticationService, UserRepository userRepository, TopicRepository topicRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
+        this.topicRepository = topicRepository;
     }
 
 
@@ -35,8 +40,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getCurrentUser(User user) {
-        return new UserDto(user.getId(), user.getName(), user.getEmail(), user.getCreatedAt(), user.getUpdatedAt());
+        List<TopicDto> topics = topicRepository.findByUsers_Id(user.getId())
+                .stream()
+                .map(topic -> new TopicDto(topic.getId(), topic.getTitle(), topic.getDescription(), topic.getCreated_at(), topic.getUpdated_at()))
+                .collect(Collectors.toList());
 
+        return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getCreatedAt(), user.getUpdatedAt(), topics);
     }
 
     @Override
