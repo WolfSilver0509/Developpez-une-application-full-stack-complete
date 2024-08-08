@@ -10,6 +10,7 @@ import com.openclassrooms.mddapi.Models.User;
 import com.openclassrooms.mddapi.Repositorys.PostRepository;
 import com.openclassrooms.mddapi.Repositorys.TopicRepository;
 import com.openclassrooms.mddapi.Services.Interfaces.PostService;
+import com.openclassrooms.mddapi.mappers.Interfaces.PostMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +24,12 @@ public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
     private TopicRepository topicRepository;
+    private PostMapper postMapper;
 
-    public PostServiceImpl(PostRepository postRepository, TopicRepository topicRepository) {
+    public PostServiceImpl(PostRepository postRepository, TopicRepository topicRepository, PostMapper postMapper) {
         this.postRepository = postRepository;
         this.topicRepository = topicRepository;
+        this.postMapper = postMapper;
     }
 
     @Override
@@ -64,28 +67,11 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public PostDto convertToPostDto(Post post) {
-        PostDto postDto = new PostDto(
-                post.getId(),
-                post.getTitle(),
-                post.getDescription(),
-                post.getOwner_id().getId(),
-                post.getTopic_id().getId(),
-                post.getCreated_at(),
-                post.getUpdated_at()
-        );
-        postDto.setComments(post.getComments().stream()
-                .map(this::convertToCommentDto)
-                .collect(Collectors.toList()));
-        return postDto;
-    }
-
-    @Override
     public List<PostDto> getPostsByUser(Principal principal) {
         User currentUser = (User) ((Authentication) principal).getPrincipal();
         List<Post> posts = postRepository.findAllByTopic_UserId(currentUser.getId());
         return posts.stream()
-                .map(this::convertToPostDto)
+                .map(postMapper::convertToPostDto)
                 .collect(Collectors.toList());
     }
 
@@ -95,19 +81,9 @@ public class PostServiceImpl implements PostService {
                 .map(Post::getComments)
                 .orElseThrow(() -> new RuntimeException("Post not found"))
                 .stream()
-                .map(this::convertToCommentDto)
+                .map(postMapper::convertToCommentDto)
                 .collect(Collectors.toList());
     }
 
-    private CommentDto convertToCommentDto(Comment comment) {
-        CommentDto dto = new CommentDto();
-        dto.setId(comment.getId());
-        dto.setMessage(comment.getMessage());
-        dto.setCreated_at(comment.getCreated_at());
-        dto.setUpdated_at(comment.getUpdated_at());
-        dto.setOwner_id(comment.getOwner_id().getId());
-        dto.setPost_id(comment.getPost().getId());
-        return dto;
-    }
 
 }

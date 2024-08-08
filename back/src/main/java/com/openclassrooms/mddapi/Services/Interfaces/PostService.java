@@ -6,7 +6,7 @@ package com.openclassrooms.mddapi.Services.Interfaces;
 import com.openclassrooms.mddapi.Dtos.CommentDTO.CommentDto;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDto;
 import com.openclassrooms.mddapi.Dtos.PostDTO.PostDtoResponseMessage;
-import com.openclassrooms.mddapi.Dtos.PostDTO.PostDtoGetAll;
+
 import com.openclassrooms.mddapi.Models.Post;
 import java.security.Principal;
 import java.util.List;
@@ -43,12 +43,6 @@ public interface PostService {
      */
     PostDtoResponseMessage createPost(PostDto postDto, Principal principal);
 
-    /*
-     * Méthode pour convertir une entité Post en DTO.
-     * Prend en entrée une entité Post.
-     * Retourne un DTO PostDto.
-     */
-     PostDto convertToPostDto(Post post);
 
 /*
      * Méthode pour récupérer tous les Posts d'un utilisateur.

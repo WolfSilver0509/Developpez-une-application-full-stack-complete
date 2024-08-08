@@ -9,6 +9,7 @@ import com.openclassrooms.mddapi.Models.User;
 import com.openclassrooms.mddapi.Repositorys.TopicRepository;
 import com.openclassrooms.mddapi.Repositorys.UserRepository;
 import com.openclassrooms.mddapi.Services.Interfaces.TopicService;
+import com.openclassrooms.mddapi.mappers.Interfaces.TopicMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,12 @@ public class TopicServiceImpl implements TopicService {
 
     private final TopicRepository topicRepository;
     private final  UserRepository userRepository;
+    private final TopicMapper topicMapper;
 
-    public TopicServiceImpl(TopicRepository topicRepository, UserRepository userRepository) {
+    public TopicServiceImpl(TopicRepository topicRepository, UserRepository userRepository, TopicMapper topicMapper) {
         this.topicRepository = topicRepository;
         this.userRepository = userRepository;
+        this.topicMapper = topicMapper;
     }
 
     @Override
@@ -60,21 +63,11 @@ public class TopicServiceImpl implements TopicService {
     public TopicDtoGetAll getAllTopics() {
         List<Topic> topics = findAllTopics();
         List<TopicDto> topicDtos = topics.stream()
-                .map(this::convertToTopicDto)
+                .map(topicMapper::convertToTopicDto)
                 .collect(Collectors.toList());
         return (new TopicDtoGetAll(topicDtos));
     }
 
-    @Override
-    public TopicDto convertToTopicDto(Topic topic) {
-        return new TopicDto(
-                topic.getId(),
-                topic.getTitle(),
-                topic.getDescription(),
-                topic.getCreated_at(),
-                topic.getUpdated_at()
-        );
-    }
 
     @Transactional
     @Override
