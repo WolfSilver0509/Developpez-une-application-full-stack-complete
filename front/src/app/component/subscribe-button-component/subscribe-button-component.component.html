@@ -1,0 +1,10 @@
+<div class="center">
+  <div *ngIf="isSubscribed; else notSubscribed">
+    <p class="message_success_topic">Vous êtes déjà abonné à ce thème !</p>
+  </div>
+  <ng-template #notSubscribed>
+    <button mat-raised-button color="primary" type="button" (click)="subscribe()">
+      S'abonner
+    </button>
+  </ng-template>
+</div>

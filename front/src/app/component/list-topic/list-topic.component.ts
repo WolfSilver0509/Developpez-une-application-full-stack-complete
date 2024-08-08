@@ -67,7 +67,7 @@ export class ListTopicComponent implements OnInit {
     });
   }
 
-  public subscribeToTopic(topicId: number): void {
+  public handleSubscription(topicId: number): void {
     this.topicService.subscribeToTopic(topicId.toString()).subscribe({
       next: (responseMessage: string) => {
         const topic = this.topics.find((t) => t.id === topicId);

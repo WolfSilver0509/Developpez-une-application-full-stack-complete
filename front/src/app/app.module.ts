@@ -20,9 +20,20 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {AuthInterceptor} from "./interceptors/auth.interceptors";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MeComponent } from './pages/me/me.component';
+import { SubscribeButtonComponent} from "./component/subscribe-button-component/subscribe-button-component.component";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderNoAuthComponent, RegisterComponent, TopicsComponent, ListTopicComponent, HeaderComponent, MeComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    HeaderNoAuthComponent,
+    RegisterComponent,
+    TopicsComponent,
+    ListTopicComponent,
+    HeaderComponent,
+    MeComponent,
+    SubscribeButtonComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
