@@ -28,4 +28,18 @@ export class TopicService {
   public getSubscriptionState(): Observable<{ topicId: number; isSubscribed: boolean } | null> {
     return this.topicSubscriptionState.asObservable();
   }
+
+  /**
+   * Méthode pour se désabonner d'un sujet
+   * @param topicId
+   */
+// topic.service.ts
+  public unsubscribeFromTopic(topicId: string): Observable<string> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post(`${this.basePath}/${topicId}/unlike`, {}, { headers, responseType: 'text' }).pipe(
+      tap(() => {
+        this.topicSubscriptionState.next({ topicId: Number(topicId), isSubscribed: false });
+      })
+    );
+  }
 }

@@ -7,14 +7,9 @@
       <mat-card-content>
         <p>{{ topic.description }}</p>
         <div class="center">
-<!--          <div *ngIf="topic.isSubscribed; else notSubscribed">-->
-<!--            <p class="message_success_topic">Vous êtes déjà abonné à ce thème !</p>-->
-<!--          </div>-->
-<!--          <ng-template #notSubscribed>-->
-<!--            <button mat-raised-button color="primary" type="button" (click)="subscribeToTopic(topic.id)">-->
-<!--              S'abonner-->
-<!--            </button>-->
-<!--          </ng-template>-->
+          <button mat-raised-button color="primary" type="button" (click)="unsubscribeFromTopic(topic.id)">
+            Se désabonner
+          </button>
         </div>
       </mat-card-content>
     </mat-card>
