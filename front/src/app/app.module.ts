@@ -22,9 +22,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MeComponent } from './pages/me/me.component';
 import { SubscribeListTopicComponent } from './component/subscribe-list-topic/subscribe-list-topic.component';
 import { PostsComponent } from './pages/posts/posts.component';
+import { CreatePostComponent } from './component/create-post/create-post.component';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderNoAuthComponent, RegisterComponent, TopicsComponent, ListTopicComponent, HeaderComponent, MeComponent, SubscribeListTopicComponent, PostsComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderNoAuthComponent, RegisterComponent, TopicsComponent, ListTopicComponent, HeaderComponent, MeComponent, SubscribeListTopicComponent, PostsComponent, CreatePostComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -38,6 +40,7 @@ import { PostsComponent } from './pages/posts/posts.component';
     FormsModule,
     MatToolbarModule,
     MatSnackBarModule,
+    MatSelectModule,
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }], // add interceptor
   bootstrap: [AppComponent],

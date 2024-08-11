@@ -6,6 +6,7 @@ import {RegisterComponent} from "./pages/register/register.component";
 import { TopicsComponent} from "./pages/topics/topics.component";
 import { MeComponent} from "./pages/me/me.component";
 import { PostsComponent} from "./pages/posts/posts.component";
+import {CreatePostComponent} from "./component/create-post/create-post.component";
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'posts',
     component: PostsComponent
+  },
+  {
+    path: 'create-post',
+    component: CreatePostComponent
   }
   ];
 

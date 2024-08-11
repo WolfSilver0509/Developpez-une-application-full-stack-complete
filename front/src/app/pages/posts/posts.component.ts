@@ -3,6 +3,7 @@ import { PostService } from '../../services/post.service';
 import { User } from '../../interfaces/user.interface';
 import { SessionService } from '../../services/session.service';
 import {Post} from "../../interfaces/post.interface";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
@@ -14,7 +15,8 @@ export class PostsComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,4 +37,9 @@ export class PostsComponent implements OnInit {
   get user(): User | undefined {
     return this.sessionService.user;
   }
+
+  navigateToCreatePost(): void {
+    this.router.navigate(['/create-post']);
+  }
+
 }

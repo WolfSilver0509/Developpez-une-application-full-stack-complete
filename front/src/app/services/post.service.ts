@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable, map, tap} from 'rxjs';
 import { Post } from '../interfaces/post.interface';
 
 @Injectable({
@@ -9,7 +9,8 @@ import { Post } from '../interfaces/post.interface';
 export class PostService {
   private readonly basePath = 'http://localhost:5656/api/posts';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+  }
 
   public getAllPosts(): Observable<Post[]> {
     return this.httpClient.get<Post[]>(this.basePath).pipe(
@@ -23,5 +24,12 @@ export class PostService {
       })))
     );
   }
+
+  public createPost(postData: { topic_id: number; title: string; description: string }): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this.httpClient.post(this.basePath, postData, { headers });
+  }
+
+
 
 }
