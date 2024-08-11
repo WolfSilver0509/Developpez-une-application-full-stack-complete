@@ -21,9 +21,10 @@ import {AuthInterceptor} from "./interceptors/auth.interceptors";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MeComponent } from './pages/me/me.component';
 import { SubscribeListTopicComponent } from './component/subscribe-list-topic/subscribe-list-topic.component';
+import { PostsComponent } from './pages/posts/posts.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderNoAuthComponent, RegisterComponent, TopicsComponent, ListTopicComponent, HeaderComponent, MeComponent, SubscribeListTopicComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderNoAuthComponent, RegisterComponent, TopicsComponent, ListTopicComponent, HeaderComponent, MeComponent, SubscribeListTopicComponent, PostsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

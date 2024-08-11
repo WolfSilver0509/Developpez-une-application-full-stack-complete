@@ -5,9 +5,8 @@ import {LoginComponent} from "./pages/login/login.component";
 import {RegisterComponent} from "./pages/register/register.component";
 import { TopicsComponent} from "./pages/topics/topics.component";
 import { MeComponent} from "./pages/me/me.component";
+import { PostsComponent} from "./pages/posts/posts.component";
 
-// consider a guard combined with canLoad / canActivate route option
-// to manage unauthenticated user to access private routes
 const routes: Routes = [
   {
     path: '',
@@ -28,6 +27,10 @@ const routes: Routes = [
   {
     path: 'me',
     component: MeComponent
+  },
+  {
+    path: 'posts',
+    component: PostsComponent
   }
   ];
 
