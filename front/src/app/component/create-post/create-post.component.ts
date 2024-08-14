@@ -50,11 +50,11 @@ export class CreatePostComponent implements OnInit {
   public onSubmit(): void {
     // Vérification si le formulaire est valide
     if (this.postForm.valid) {
-      const formData = {
-        topic_id: Number(this.postForm.value.topic_id),
-        title: this.postForm.value.title,
-        description: this.postForm.value.description
-      };
+      const formData = new FormData();
+      formData.append("topic_id",Number(this.postForm.value.topic_id)+"");
+      formData.append("title",this.postForm.value.title);
+      formData.append("description",this.postForm.value.description);
+
 
       console.log('Form Data Submitted:', formData); // Vérifier les données envoyées garce au log debuggage pour le probléme des données envoyés
 
