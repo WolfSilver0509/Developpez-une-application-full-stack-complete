@@ -25,10 +25,10 @@ export class PostService {
     );
   }
 
-  public createPost(postData: { topic_id: number; title: string; description: string }): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  return this.httpClient.post(this.basePath, postData, { headers });
+  public createPost(postData: FormData): Observable<string> {
+  return this.httpClient.post<string>(this.basePath, postData );
   }
+
 
 
 
