@@ -1,0 +1,22 @@
+<form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Choisir un topic</mat-label>
+    <mat-select formControlName="topic_id">
+      <mat-option *ngFor="let topic of topics" [value]="topic.id">
+        {{ topic.title }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Titre du post</mat-label>
+    <input matInput formControlName="title" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Description du post</mat-label>
+    <textarea matInput formControlName="description" required></textarea>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="postForm.invalid">Créer le post</button>
+</form>

@@ -24,25 +24,3 @@
 button{
   font-size: 25px;
 }
-
-@media (max-width: 768px) {
-  .list{
-  margin:15px
-  }
-
-  .card-container {
-    flex-direction: column;
-  }
-
-  .item {
-    width: 60%;
-    margin-bottom: 20px;
-  }
-}
-
-.message_success_topic {
-  color: green;
-  font-weight: bold;
-  font-style: italic;
-}
-
