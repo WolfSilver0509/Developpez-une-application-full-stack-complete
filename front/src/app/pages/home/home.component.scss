@@ -17,15 +17,16 @@ h1.center {
 }
 
 .space-around {
+  margin-top: 50px;
   display: flex;
   justify-content: space-around;
 }
 
 .space-around button {
-  margin: 20px;
+  margin: 50px;
 }
 
-/* Responsive pour les petits écrans (ex: téléphones) */
+/* Responsive pour les petits écrans  */
 @media (max-width: 768px) {
   .space-around {
     flex-direction: column;

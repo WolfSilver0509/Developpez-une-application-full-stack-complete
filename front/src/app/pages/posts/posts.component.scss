@@ -1,5 +1,8 @@
+.body-components{
+  margin:50px;
+}
 .list{
-  margin:30px;
+  margin-top: 30px;
 }
 .card-container {
   display: flex;
@@ -26,6 +29,23 @@ button{
 }
 
 @media (max-width: 768px) {
+
+  mat-card-content p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .actions{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+  }
+
+  .body-components{
+    margin:20px;
+  }
   .list{
     margin:15px
   }
@@ -35,7 +55,7 @@ button{
   }
 
   .item {
-    width: 60%;
+    width: 90%;
     margin-bottom: 20px;
   }
 }
@@ -45,4 +65,13 @@ button{
   font-weight: bold;
   font-style: italic;
 }
+
+.message_error_post {
+  color: red;
+  font-weight: bold;
+  font-style: italic;
+  margin: 50px;
+}
+
+
 

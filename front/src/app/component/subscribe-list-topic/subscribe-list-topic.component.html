@@ -1,4 +1,8 @@
-<div class="list">
+<div *ngIf="subscribedTopics.length === 0" class="message_error_topic">
+  Vous n'êtes abonné à aucun thème pour le moment !
+</div>
+
+<div class="list" *ngIf="subscribedTopics.length > 0">
   <div class="card-container">
     <mat-card class="item" *ngFor="let topic of subscribedTopics" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap>
       <mat-card-header>
