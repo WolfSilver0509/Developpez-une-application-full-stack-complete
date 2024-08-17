@@ -39,7 +39,7 @@ export class PostDetailComponent implements OnInit {
         next: (response: any) => {
           this.snackBar.open(response.message, 'Fermer', { duration: 3000 });
           this.newComment = '';
-          this.ngOnInit(); // Recharger les commentaires après l'ajout
+          this.ngOnInit();
         },
         error: (error: any) => {
           console.error('Erreur lors de l\'ajout du commentaire', error);

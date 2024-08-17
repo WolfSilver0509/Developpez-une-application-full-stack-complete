@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MeService} from "../../services/me.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-me',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private meService: MeService, private router : Router) { }
 
   ngOnInit(): void {
+  }
+
+  onLogout(): void {
+    this.meService.logout();
+    this.router.navigate(['']);
   }
 
 }

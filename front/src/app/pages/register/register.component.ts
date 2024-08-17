@@ -28,18 +28,27 @@ export class RegisterComponent {
               private router: Router,
               private sessionService: SessionService) { }
 
+  // public register(): void {
+  //   const registerRequest = this.form.value as RegisterRequest;
+  //   this.authService.register(registerRequest).subscribe(
+  //     (response: AuthValid) => {
+  //       localStorage.setItem('token', response.token);
+  //       this.authService.me().subscribe((user: User) => {
+  //         this.sessionService.logIn(user, response);
+  //         this.router.navigate(['/posts'])
+  //       });
+  //     },
+  //     error => this.onError = true
+  //   );
+  // }
   public register(): void {
     const registerRequest = this.form.value as RegisterRequest;
     this.authService.register(registerRequest).subscribe(
       (response: AuthValid) => {
-        localStorage.setItem('token', response.token);
-        this.authService.me().subscribe((user: User) => {
-          this.sessionService.logIn(user, response);
-          this.router.navigate(['/'])
-        });
+        // Redirigez vers la page de connexion après l'inscription réussie
+        this.router.navigate(['/login']);
       },
       error => this.onError = true
     );
   }
-
 }
