@@ -42,4 +42,9 @@ export class PostsComponent implements OnInit {
     this.router.navigate(['/create-post']);
   }
 
+  navigateToPostDetail(postId: number): void {
+    this.router.navigate([`/post-detail/${postId}`]);
+  }
+
+
 }

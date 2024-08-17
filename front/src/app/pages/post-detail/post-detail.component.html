@@ -1,0 +1,38 @@
+<app-header></app-header>
+
+<div class="post-detail-container">
+  <div class="title-arrow">
+    <mat-icon [routerLink]="['/posts']">keyboard_backspace</mat-icon>
+  </div>
+
+  <div class="post-content" *ngIf="post">
+    <h1>{{ post.title }}</h1>
+    <div class="post-meta">
+      <span>Date: {{ post.created_at | date:'dd/MM/yyyy' }}</span>
+<!--      <span>Auteur: {{ post.author }}</span>-->
+<!--      <span>Thème: {{ post.topic }}</span>-->
+    </div>
+    <p class="post-description">{{ post.description }}</p>
+
+    <div class="separator"></div>
+
+    <div class="comments">
+      <h2>Commentaires</h2>
+      <div *ngFor="let comment of post.comments" class="comment-item">
+        <p>{{ comment.message }}</p>
+        <small> {{ comment.created_at | date:'dd/MM/yyyy' }}</small>
+<!--        <small>Posté par {{ comment.username }} le {{ comment.created_at | date:'dd/MM/yyyy' }}</small>-->
+
+      </div>
+    </div>
+
+    <div class="new-comment">
+      <mat-form-field appearance="fill" class="comment-field">
+        <textarea matInput [(ngModel)]="newComment" placeholder="Écrivez ici votre commentaire"></textarea>
+      </mat-form-field>
+      <button mat-icon-button color="primary" (click)="submitComment()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
