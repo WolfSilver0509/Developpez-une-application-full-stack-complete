@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, map, tap} from 'rxjs';
 import { Post } from '../interfaces/post.interface';
 import {PostDetail} from "../interfaces/post-detail.interface";
+import {CommentResponse} from "../interfaces/comment.interface";
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,7 @@ export class PostService {
         title: post.title,
         description: post.description,
         owner_id: post.owner_id,
+        author: post.author,
         created_at: post.created_at,
       })))
     );
@@ -34,15 +36,16 @@ export class PostService {
     return this.httpClient.get<PostDetail>(`${this.basePath}/${id}`);
   }
 
-  public createComment(postId: number, message: string): Observable<any> {
-    const commentsPath = 'http://localhost:5656/api/comments';
-    return this.httpClient.post<any>(commentsPath, {
-      post_id: postId,
-      message: message,
-    });
+  // public createComment(postId: number, message: string): Observable<any> {
+  //   const commentsPath = 'http://localhost:5656/api/comments';
+  //   return this.httpClient.post<any>(commentsPath, {
+  //     post_id: postId,
+  //     message: message,
+  //   });
+  // }
+
+  public createComment(commentary : FormData): Observable<CommentResponse> {
+  return this.httpClient.post<CommentResponse>(this.commentsPath, commentary)
   }
-
-
-
 
 }

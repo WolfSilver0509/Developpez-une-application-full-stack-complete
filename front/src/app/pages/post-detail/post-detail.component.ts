@@ -10,7 +10,7 @@ import { PostDetail } from '../../interfaces/post-detail.interface';  // Remplac
   styleUrls: ['./post-detail.component.scss']
 })
 export class PostDetailComponent implements OnInit {
-  public post?: PostDetail;  // Remplacez 'Post' par 'PostDetail'
+  public post?: PostDetail;
   public newComment: string = '';
 
   constructor(
@@ -23,7 +23,7 @@ export class PostDetailComponent implements OnInit {
     const postId = Number(this.route.snapshot.paramMap.get('id'));
     if (postId) {
       this.postService.getPostById(postId).subscribe({
-        next: (post: PostDetail) => {  // Remplacez 'Post' par 'PostDetail'
+        next: (post: PostDetail) => {
           this.post = post;
         },
         error: (error: any) => {
@@ -34,8 +34,12 @@ export class PostDetailComponent implements OnInit {
   }
 
   public submitComment(): void {
-    if (this.post) {
-      this.postService.createComment(this.post.id, this.newComment).subscribe({
+    if (this.post && this.newComment ) {
+        const formData = new FormData();
+        formData.append("message",this.newComment);
+        formData.append("post_id",Number(this.post.id)+"");
+
+      this.postService.createComment(formData).subscribe({
         next: (response: any) => {
           this.snackBar.open(response.message, 'Fermer', { duration: 3000 });
           this.newComment = '';
@@ -46,5 +50,6 @@ export class PostDetailComponent implements OnInit {
         },
       });
     }
+
   }
 }

@@ -5,7 +5,7 @@ export interface Post {
   title: string;
   description: string;
   owner_id: number;
-  owner_name?: string;
+  author?: string;
   created_at: string;
 }
 
