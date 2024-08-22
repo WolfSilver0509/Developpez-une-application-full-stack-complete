@@ -23,6 +23,7 @@ public class PostMapperImpl implements PostMapper {
                 post.getOwner_id().getId(),
                 post.getOwner_id().getName(),
                 post.getTopic_id().getId(),
+                post.getTopic_id().getTitle(),
                 post.getCreated_at(),
                 post.getUpdated_at()
         );

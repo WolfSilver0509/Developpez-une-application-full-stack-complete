@@ -40,6 +40,9 @@ public class PostDto {
     @NotNull(message = "Topic ID cannot be null")
     private int topic_id;
 
+    /* nom du théme rattachée au POST */
+    private String topic_name;
+
     /* Date de création du POST */
     private Date created_at;
 
@@ -52,13 +55,14 @@ public class PostDto {
     private List<CommentDto> comments;
 
     // Constructor matching the parameters
-    public PostDto(int id, String title, String description, int owner_id, String author, int topic_id, Date created_at, Date updated_at) {
+    public PostDto(int id, String title, String description, int owner_id, String author, int topic_id, String topic_name, Date created_at, Date updated_at) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.owner_id = owner_id;
         this.author = author;
         this.topic_id = topic_id;
+        this.topic_name = topic_name;
         this.created_at = created_at;
         this.updated_at = updated_at;
 
@@ -73,6 +77,7 @@ public class PostDto {
                 ", owner_id=" + owner_id +
                 ", author='" + author + '\'' +
                 ", topic_id=" + topic_id +
+                ", topic_name='" + topic_name + '\'' +
                 ", created_at=" + created_at +
                 ", updated_at=" + updated_at +
                 ", comments=" + comments +
