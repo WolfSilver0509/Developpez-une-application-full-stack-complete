@@ -17,6 +17,10 @@
   border-radius: 20px;
 }
 
+span {
+  margin-right: 100px;
+}
+
 .center {
   display: flex;
   align-items: center;
@@ -30,6 +34,9 @@ button{
 
 @media (max-width: 768px) {
 
+  span {
+    margin-right: 20px;
+  }
   mat-card-content p {
     overflow: hidden;
     text-overflow: ellipsis;

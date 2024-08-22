@@ -9,7 +9,7 @@
     <h1>{{ post.title }}</h1>
     <div class="post-meta">
       <span>Date: {{ post.created_at | date:'dd/MM/yyyy' }}</span>
-<!--      <span>Auteur: {{ post.author }}</span>-->
+      <span>Auteur: {{ post.author }}</span>
 <!--      <span>Thème: {{ post.topic }}</span>-->
     </div>
     <p class="post-description">{{ post.description }}</p>
@@ -20,8 +20,7 @@
       <h2>Commentaires</h2>
       <div *ngFor="let comment of post.comments" class="comment-item">
         <p>{{ comment.message }}</p>
-        <small> {{ comment.created_at | date:'dd/MM/yyyy' }}</small>
-<!--        <small>Posté par {{ comment.username }} le {{ comment.created_at | date:'dd/MM/yyyy' }}</small>-->
+        <small>Posté par {{ comment.author }} le {{ comment.created_at | date:'dd/MM/yyyy' }}</small>
 
       </div>
     </div>
