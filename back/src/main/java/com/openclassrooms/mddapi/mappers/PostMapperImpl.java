@@ -42,6 +42,7 @@ public class PostMapperImpl implements PostMapper {
         dto.setCreated_at(comment.getCreated_at());
         dto.setUpdated_at(comment.getUpdated_at());
         dto.setOwner_id(comment.getOwner_id().getId());
+        dto.setAuthor(comment.getOwner_id().getName());
         dto.setPost_id(comment.getPost().getId());
         return dto;
     }

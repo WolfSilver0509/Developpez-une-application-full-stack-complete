@@ -21,6 +21,9 @@ public class CommentDto {
     /* créateur du Comment */
     private int owner_id;
 
+    /* nom du créateur du Comment */
+    private String author;
+
     /* post rattachée au Comment */
     private int post_id;
 
