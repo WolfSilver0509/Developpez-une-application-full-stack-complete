@@ -31,6 +31,10 @@ span {
 button{
   font-size: 25px;
 }
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
 
 @media (max-width: 768px) {
 

@@ -13,14 +13,32 @@ CREATE TABLE IF NOT EXISTS topics (
 
 -- Insertion ou mise à jour des enregistrements avec des données factices
 INSERT INTO topics (id, title, description, created_at, updated_at) VALUES
-                                                                        (1, 'Just Say No to More End-to-End', 'A testing strategy that relies heavily on end-to-end tests can cause a lot of issues in reality. While end-to-end tests seem like a good idea in theory, they often lead to delays in bug identification and fixes, as well as flaky test results. Instead, a better approach is to focus on unit tests and integration tests, which are often faster and more reliable. ', CURDATE(), CURDATE()),
-                                                                        (2, 'How we tamed Node.js event loop lag: a deepdive', 'Trigger encountered reliability and performance issues in its Node.js application due to event loop lag, which led to high CPU usage and crashes. To fix this, it fixed inefficient code, added pagination, and monitored event loop lag with OpenTelemetry. Moving forward, it will keep an eye on larger payloads, as a learning from this experience.', CURDATE(), CURDATE()),
-                                                                        (3, 'SCALE Lang (Website)', 'SCALE is a GPGPU programming toolkit that allows CUDA applications to be natively compiled for AMD GPUs. It does not require the CUDA program or its build system to be modified.', CURDATE(), CURDATE()),
-                                                                        (4, 'How Canva collects 25 billion events per day ', 'Canva s product analytics pipeline collects 25 billion events per day with high uptime, using Protobuf to define event schemas and Datumgen to generate code and enforce compatibility rules. The event collection process starts with analytics clients on various platforms, then events are validated and enriched in ingest-workers before being sent to a Kinesis Data Stream (KDS). KDS serves as the primary streaming platform, with SQS as a fallback for overflow protection and failover mode.', CURDATE(), CURDATE()),
-                                                                        (5, 'Ruby methods are colorless', 'Ruby methods are "colorless," meaning there s no distinction between synchronous and asynchronous methods, allowing for asynchronous behavior without explicit markers. Ruby achieves this through independent call stacks, enabled by Threads and Fibers, which allow for switching between tasks without blocking the main thread. This concurrency model, similar to Go s, allows for efficient handling of blocking operations like file reading, HTTP calls, and database queries', CURDATE(), CURDATE()),
-                                                                        (6, 'How to use Perplexity in your daily workflow ', 'Perplexity is useful thanks to its ability to choose between different AI models and a Pro Search function that asks clarifying questions. It can be integrated into daily workflows for tasks like morning briefings, fact-checking, brainstorming, and writing assistance.', CURDATE(), CURDATE())
+                                                                        (1, 'Java Spring Boot: Building RESTful APIs',
+                                                                         'Java Spring Boot est un framework populaire pour créer des API RESTful. Il permet aux développeurs de concevoir des applications backend robustes et scalables avec une configuration minimale. Cet article explore les concepts fondamentaux du développement d\'API avec Spring Boot, y compris les annotations, les contrôleurs et la gestion des exceptions.',
+                                                                         CURDATE(), CURDATE()),
+
+                                                                        (2, 'Angular: Building Dynamic Single-Page Applications',
+                                                                         'Angular est un framework JavaScript maintenu par Google pour la création d\'applications web dynamiques. Il facilite le développement d\'applications Single Page (SPA) en utilisant des composants réutilisables et en offrant une gestion efficace de l\'état. Cet article détaille les meilleures pratiques pour développer des applications SPA avec Angular.',
+                                                                         CURDATE(), CURDATE()),
+
+                                                                        (3, 'Python Flask: Rapid Web Development',
+                                                                         'Flask est un microframework Python léger qui permet un développement rapide d\'applications web. Bien que simple d\'utilisation, Flask est suffisamment flexible pour prendre en charge des applications web complexes. Cet article présente les fonctionnalités clés de Flask et des exemples pratiques de création d\'API REST.',
+                                                                         CURDATE(), CURDATE()),
+
+                                                                        (4, 'Node.js & Express: Backend Development Made Easy',
+                                                                         'Node.js, combiné avec Express, est une solution puissante pour le développement backend. Express est un framework minimaliste pour Node.js qui facilite la gestion des requêtes HTTP et la création d\'API REST. Cet article explore comment construire un backend avec Node.js et Express, en mettant l\'accent sur la gestion des routes, des middlewares et des bases de données.',
+                                                                         CURDATE(), CURDATE()),
+
+                                                                        (5, 'React: Building Interactive User Interfaces',
+                                                                         'React est une bibliothèque JavaScript populaire pour la création d\'interfaces utilisateur interactives. Grâce à son approche basée sur les composants, React permet de concevoir des applications web modernes avec une gestion efficace de l\'état et une mise à jour dynamique de l\'interface utilisateur. Cet article couvre les concepts clés de React, tels que les hooks, les états et les propriétés.',
+                                                                         CURDATE(), CURDATE()),
+
+                                                                        (6, 'Django: The High-Level Python Web Framework',
+                                                                         'Django est un framework web Python de haut niveau qui permet de développer des applications web rapidement avec un minimum de code. Il s\'appuie sur une architecture MVT (Modèle-Vue-Template) et offre une sécurité intégrée, une gestion des bases de données, et des fonctionnalités prêtes à l\'emploi pour des projets web complexes. Cet article décrit comment commencer avec Django et construire des applications web robustes.',
+                                                                         CURDATE(), CURDATE())
     AS new_values
 ON DUPLICATE KEY UPDATE
                      title = new_values.title,
                      description = new_values.description,
                      updated_at = new_values.updated_at;
+
