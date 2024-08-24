@@ -8,6 +8,8 @@ import { MeComponent} from "./pages/me/me.component";
 import { PostsComponent} from "./pages/posts/posts.component";
 import {CreatePostComponent} from "./component/create-post/create-post.component";
 import { PostDetailComponent } from './pages/post-detail/post-detail.component';
+import {NotFoundComponent} from "./pages/not-found/not-found.component";
+import {AuthGuard} from "./guards/auth.guard";
 
 const routes: Routes = [
   {
@@ -24,24 +26,31 @@ const routes: Routes = [
   },
   {
     path: 'topics',
-    component: TopicsComponent
+    component: TopicsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'me',
-    component: MeComponent
+    component: MeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'posts',
-    component: PostsComponent
+    component: PostsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'create-post',
-    component: CreatePostComponent
+    component: CreatePostComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'post-detail/:id',
-    component: PostDetailComponent
-  }
+    component: PostDetailComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: '**',
+    component: NotFoundComponent }
   ];
 
 
