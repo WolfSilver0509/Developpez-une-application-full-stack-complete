@@ -7,6 +7,7 @@ import {RegisterRequest} from "../../features/auth/interfaces/registerRequest.in
 import {AuthValid} from "../../features/auth/interfaces/authValid.interface";
 
 import { User } from 'src/app/interfaces/user.interface';
+import {PasswordValidator} from "../../validators/password.validator";
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,7 @@ export class RegisterComponent {
   public form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     name: ['', [Validators.required, Validators.min(3)]],
-    password: ['', [Validators.required, Validators.min(3)]]
+    password: ['', [Validators.required, PasswordValidator.strongPassword()]]
   });
 
   constructor(private authService: AuthService,
@@ -28,19 +29,7 @@ export class RegisterComponent {
               private router: Router,
               private sessionService: SessionService) { }
 
-  // public register(): void {
-  //   const registerRequest = this.form.value as RegisterRequest;
-  //   this.authService.register(registerRequest).subscribe(
-  //     (response: AuthValid) => {
-  //       localStorage.setItem('token', response.token);
-  //       this.authService.me().subscribe((user: User) => {
-  //         this.sessionService.logIn(user, response);
-  //         this.router.navigate(['/posts'])
-  //       });
-  //     },
-  //     error => this.onError = true
-  //   );
-  // }
+
   public register(): void {
     const registerRequest = this.form.value as RegisterRequest;
     this.authService.register(registerRequest).subscribe(
