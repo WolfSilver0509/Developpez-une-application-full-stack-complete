@@ -15,18 +15,22 @@ public class PostMapperImpl implements PostMapper {
 
     @Override
     public PostDto convertToPostDto(Post post) {
+        System.out.println(post.getOwner_id().getName());
         PostDto postDto = new PostDto(
                 post.getId(),
                 post.getTitle(),
                 post.getDescription(),
                 post.getOwner_id().getId(),
+                post.getOwner_id().getName(),
                 post.getTopic_id().getId(),
+                post.getTopic_id().getTitle(),
                 post.getCreated_at(),
                 post.getUpdated_at()
         );
         postDto.setComments(post.getComments().stream()
                 .map(this::convertToCommentDto)
                 .collect(Collectors.toList()));
+        System.out.println(postDto);
         return postDto;
     }
 
@@ -39,6 +43,7 @@ public class PostMapperImpl implements PostMapper {
         dto.setCreated_at(comment.getCreated_at());
         dto.setUpdated_at(comment.getUpdated_at());
         dto.setOwner_id(comment.getOwner_id().getId());
+        dto.setAuthor(comment.getOwner_id().getName());
         dto.setPost_id(comment.getPost().getId());
         return dto;
     }

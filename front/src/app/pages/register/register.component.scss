@@ -13,9 +13,22 @@
   flex-direction: column;
 }
 
+.form-container {
+  width: 100%;
+  max-width: 400px;
+}
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
 /* Media query for mobile screens */
 @media (max-width: 768px) {
 
+  .form-container {
+    width: 60%;
+    margin-top: 0;
+  }
 
   .titleArrow {
     position: absolute;

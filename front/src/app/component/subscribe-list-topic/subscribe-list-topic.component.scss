@@ -24,3 +24,28 @@
 button{
   font-size: 25px;
 }
+
+.message_error_topic {
+  color: red;
+  font-weight: bold;
+  font-style: italic;
+}
+@media (max-width: 768px) {
+  .list{
+    margin:20px
+  }
+
+  .card-container {
+    flex-direction: column;
+  }
+
+  .item {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+  mat-card-content p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

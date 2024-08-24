@@ -40,7 +40,7 @@ export class LoginComponent {
           this.authService.me().subscribe((user: User) => {
             console.log("Utilisateur connecté :", user);
             this.sessionService.logIn(user, response);
-            this.router.navigate(['/topics']);
+            this.router.navigate(['/posts']);
           });
         },
         error => {
