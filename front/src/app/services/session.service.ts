@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 import { AuthValid } from '../features/auth/interfaces/authValid.interface';
+import { MeService } from './me.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,22 +10,37 @@ import { AuthValid } from '../features/auth/interfaces/authValid.interface';
 export class SessionService {
 
   private token: AuthValid | undefined;
-  private storageKey = 'loggedUser'; // Key for localStorage
-
+  private storageKey = 'loggedUser';
   public isLogged = this.getIsLoggedFromStorage();
   public user: User | undefined = this.getUserFromStorage();
   private isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);
+
+  constructor(private meService: MeService) { }
 
   public $isLogged(): Observable<boolean> {
     return this.isLoggedSubject.asObservable();
   }
 
+  // public logIn(user: User, authValid: AuthValid): void {
+  //   this.token = authValid;
+  //   this.user = user;
+  //   this.isLogged = true;
+  //   this.saveToStorage();
+  //   this.next();
+  // }
   public logIn(user: User, authValid: AuthValid): void {
     this.token = authValid;
     this.user = user;
     this.isLogged = true;
+
+    // Sauvegarder l'utilisateur et le token dans le localStorage
     this.saveToStorage();
     this.next();
+  }
+
+
+  public getToken(): AuthValid | undefined {
+    return this.token;
   }
 
   public logOut(): void {
@@ -35,7 +51,16 @@ export class SessionService {
     this.next();
   }
 
+  updateUser(user: Partial<User>): Observable<User> {
+    return this.meService.updateUser(user);
+  }
+
+
+  // private saveToStorage(): void {
+  //   localStorage.setItem(this.storageKey, JSON.stringify({ user: this.user, token: this.token }));
+  // }
   private saveToStorage(): void {
+    console.log("Saving user to storage:", this.user);
     localStorage.setItem(this.storageKey, JSON.stringify({ user: this.user, token: this.token }));
   }
 
@@ -45,16 +70,7 @@ export class SessionService {
 
   private getIsLoggedFromStorage(): boolean {
     const data = localStorage.getItem(this.storageKey);
-    if (data) {
-      try {
-        const parsedData = JSON.parse(data);
-        return parsedData !== null;
-      } catch (error) {
-        console.error('Error parsing logged user data:', error);
-        return false;
-      }
-    }
-    return false;
+    return data !== null;
   }
 
   public getUserFromStorage(): User | undefined {

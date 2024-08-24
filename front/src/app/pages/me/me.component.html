@@ -2,29 +2,29 @@
 
 <section class="profil-section">
   <h1>Profil utilisateur</h1>
-<!--  <form (ngSubmit)="onSaveProfile()">-->
-  <form>
+  <form (ngSubmit)="onSaveProfile()">
     <div class="form-group">
       <label for="username">Username</label>
-<!--      <input type="text" id="username" [(ngModel)]="user.username" name="username">-->
-      <input type="text" id="username"  name="username">
+      <input type="text" id="username" [(ngModel)]="user.name" name="name" required>
     </div>
     <div class="form-group">
       <label for="email">Email</label>
-<!--      <input type="email" id="email" [(ngModel)]="user.email" name="email">-->
-      <input type="email" id="email"  name="email">
+      <input type="email" id="email" [(ngModel)]="user.email" name="email" required>
     </div>
-    <button mat-raised-button color="primary" type="submit" >Sauvegarder</button>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="********">
+    </div>
+    <button mat-raised-button color="primary" type="submit">Sauvegarder</button>
   </form>
-  <button mat-button class="mat-warn"  (click)="onLogout()" >Se déconnecter</button>
-<!--  <button class="btn btn-logout" (click)="onLogout()">Se déconnecter</button>-->
+  <button mat-button class="mat-warn" (click)="onLogout()">Se déconnecter</button>
 </section>
+
+
 
 <div class="separator"></div>
 
 <section class="abonnements-section">
   <h2>Abonnements</h2>
   <app-subscribe-list-topic></app-subscribe-list-topic>
- </section>
-
-
+</section>

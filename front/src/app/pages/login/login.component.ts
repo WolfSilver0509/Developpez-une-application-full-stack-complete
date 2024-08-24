@@ -29,16 +29,12 @@ export class LoginComponent {
   ) { }
 
   public login(): void {
-    console.log("Valeurs du formulaire :", this.form.value); // Log des valeurs du formulaire
     if (this.form.valid) {
       const loginRequest = this.form.value as LoginRequest;
-      console.log("Requête de connexion :", loginRequest); // Log de la requête de connexion
       this.authService.login(loginRequest).subscribe(
         (response: AuthValid) => {
-          console.log("Réponse du serveur :", response);
           localStorage.setItem('token', response.token);
           this.authService.me().subscribe((user: User) => {
-            console.log("Utilisateur connecté :", user);
             this.sessionService.logIn(user, response);
             this.router.navigate(['/posts']);
           });
@@ -57,7 +53,6 @@ export class LoginComponent {
     const value = control.value;
     const isValidEmail = Validators.email(control) === null;
     const isValidName = Validators.pattern(/^[a-zA-Z ]*$/)(control) === null;
-    console.log("Validation du champ nameOrEmail :", isValidEmail || isValidName ? "Valide" : "Invalide"); // Log du résultat de la validation
     return isValidEmail || isValidName ? null : { nameOrEmail: true };
   }
 }
