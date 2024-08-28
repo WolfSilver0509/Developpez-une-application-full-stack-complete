@@ -22,6 +22,7 @@ export class MeComponent implements OnInit {
   };
 
   password: string = '';
+  userOld?: Partial<User>;
 
   constructor(private sessionService: SessionService, private meService: MeService, private router: Router) { }
 
@@ -29,6 +30,12 @@ export class MeComponent implements OnInit {
     // Chargez les données utilisateur depuis le backend
     this.meService.getUser().subscribe(user => {
       this.user = user; // Remplit les champs de formulaire avec les valeurs de l'utilisateur
+      // Les anciennes valeurs
+       this.userOld = {
+        name: this.user.name,
+        email: this.user.email,
+        password: this.user.password
+      };
     });
   }
 
@@ -58,25 +65,20 @@ export class MeComponent implements OnInit {
   // }
 
   onSaveProfile(): void {
-    const updatedUser: Partial<User> = {
-      name: this.user.name,
-      email: this.user.email
-    };
 
-    if (this.password) {
-      (updatedUser as any).password = this.password;
-    }
+    const formData = new FormData();
+    // if (this.user.name && this.user.name != this.userOld!.name)
+    formData.append("name",this.user.name);
+    formData.append("email",this.user.email);
+    formData.append("password",this.user.password!!);
 
-    this.sessionService.updateUser(updatedUser).subscribe({
+    this.meService.updateUser(formData).subscribe({
       next: (updatedUserData: User) => {
         console.log('Données utilisateur mises à jour avec succès', updatedUserData);
         this.user = updatedUserData;
 
-        if (this.sessionService.getToken()) {
-          this.sessionService.logIn(updatedUserData, this.sessionService.getToken()!);
-        } else {
-          console.error("Le token est indéfini, impossible de se reconnecter.");
-        }
+        this.sessionService.logIn(updatedUserData, this.sessionService.getToken()!);
+
       },
       error: (err: any) => {
         console.error('Erreur lors de la mise à jour de l\'utilisateur:', err);

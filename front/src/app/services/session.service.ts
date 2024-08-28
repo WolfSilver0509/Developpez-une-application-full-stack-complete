@@ -51,9 +51,6 @@ export class SessionService {
     this.next();
   }
 
-  updateUser(user: Partial<User>): Observable<User> {
-    return this.meService.updateUser(user);
-  }
 
 
   // private saveToStorage(): void {

@@ -17,7 +17,7 @@ export class MeService {
     return this.http.get<User>(this.apiUrl);
   }
 
-  updateUser(user: Partial<User>): Observable<User> {
+  updateUser(user: FormData): Observable<User> {
     return this.http.put<User>(this.apiUrl, user);
   }
 
