@@ -9,6 +9,8 @@ import com.openclassrooms.mddapi.Repositorys.UserRepository;
 import com.openclassrooms.mddapi.Services.Interfaces.AuthenticationService;
 import com.openclassrooms.mddapi.Services.Interfaces.JwtService;
 import com.openclassrooms.mddapi.Services.Interfaces.UserService;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -59,12 +61,49 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+//    @Override
+//    public UserDto updateUser(Integer id, UserUpdateDto updateDto) {
+//        // Récupérer l'utilisateur actuellement authentifié
+//        User authenticatedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        // Vérifier si l'utilisateur actuellement authentifié est autorisé à modifier l'utilisateur spécifié par l'ID
+//        if (authenticatedUser.getId().equals(id)) {
+//            Optional<User> userOptional = userRepository.findById(id);
+//            if (userOptional.isPresent()) {
+//                User user = userOptional.get();
+//                if (updateDto.getName() != null) {
+//                    user.setName(updateDto.getName());
+//                }
+//                if (updateDto.getEmail() != null) {
+//                    user.setEmail(updateDto.getEmail());
+//                }
+//                // Vérifier si le mot de passe est fourni avant de le mettre à jour
+//                if (updateDto.getPassword() != null) {
+//                    user.setPassword(passwordEncoder.encode(updateDto.getPassword()));
+//                }
+//                userRepository.save(user);
+//
+//                // Générer un nouveau jeton JWT
+//                String newJwtToken = jwtService.generateToken(user);
+//
+//                // Mettre à jour le jeton JWT dans la réponse
+//                UserDto userDto = getCurrentUser(user);
+//                userDto.setJwtToken(newJwtToken);
+//
+//                return userDto;
+//            } else {
+//                throw new NoSuchElementException("User not found with id: " + id);
+//            }
+//        } else {
+//            throw new NoSuchElementException("You are not authorized to update this user");
+//        }
+//    }
+
+
     @Override
     public UserDto updateUser(Integer id, UserUpdateDto updateDto) {
-        // Récupérer l'utilisateur actuellement authentifié
         User authenticatedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        // Vérifier si l'utilisateur actuellement authentifié est autorisé à modifier l'utilisateur spécifié par l'ID
         if (authenticatedUser.getId().equals(id)) {
             Optional<User> userOptional = userRepository.findById(id);
             if (userOptional.isPresent()) {
@@ -75,16 +114,19 @@ public class UserServiceImpl implements UserService {
                 if (updateDto.getEmail() != null) {
                     user.setEmail(updateDto.getEmail());
                 }
-                // Vérifier si le mot de passe est fourni avant de le mettre à jour
                 if (updateDto.getPassword() != null) {
                     user.setPassword(passwordEncoder.encode(updateDto.getPassword()));
                 }
+
                 userRepository.save(user);
+
+                // Mettre à jour le contexte de sécurité avec le nouvel utilisateur
+                Authentication newAuth = new UsernamePasswordAuthenticationToken(user, null, authenticatedUser.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(newAuth);
 
                 // Générer un nouveau jeton JWT
                 String newJwtToken = jwtService.generateToken(user);
 
-                // Mettre à jour le jeton JWT dans la réponse
                 UserDto userDto = getCurrentUser(user);
                 userDto.setJwtToken(newJwtToken);
 
@@ -96,5 +138,6 @@ public class UserServiceImpl implements UserService {
             throw new NoSuchElementException("You are not authorized to update this user");
         }
     }
+
 
 }
