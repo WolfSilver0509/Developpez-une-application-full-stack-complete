@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {SessionService} from "../../services/session.service";
-import {MeService} from "../../services/me.service";
-import {User} from "../../interfaces/user.interface";
-
+import { SessionService } from "../../services/session.service";
+import { MeService } from "../../services/me.service";
+import { User } from "../../interfaces/user.interface";
+import {PasswordValidator} from "../../validators/password.validator";
 
 @Component({
   selector: 'app-me',
@@ -12,65 +12,69 @@ import {User} from "../../interfaces/user.interface";
   styleUrls: ['./me.component.scss']
 })
 export class MeComponent implements OnInit {
-  user: User = {
-    id: 0,
-    name: '',
-    email: '',
-    created_at: new Date(),
-    updated_at: new Date(),
-    topics: []
-  };
+  user: User;
+  profileForm: FormGroup;
+  userOld: Partial<User> | null = null;
+  public onError = false;
 
-  password: string = '';
-  userOld?: Partial<User>;
+  constructor(
+    private fb: FormBuilder,
+    private sessionService: SessionService,
+    private meService: MeService,
+    private router: Router
+  ) {
+    this.user = {
+      id: 0,
+      name: '',
+      email: '',
+      created_at: new Date(),
+      updated_at: new Date(),
+      topics: []
+    };
 
-  constructor(private sessionService: SessionService, private meService: MeService, private router: Router) { }
-
-  ngOnInit(): void {
-    // Chargez les données utilisateur depuis le backend
-    this.meService.getUser().subscribe(user => {
-      this.user = user; // Remplit les champs de formulaire avec les valeurs de l'utilisateur
-      // Les anciennes valeurs
-       this.userOld = {
-        name: this.user.name,
-        email: this.user.email,
-        password: this.user.password
-      };
+    this.profileForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, PasswordValidator.strongPassword()]]
     });
   }
 
-  // onSaveProfile(): void {
-  //   // Créez un objet avec les valeurs actuelles du formulaire
-  //   const updatedUser: Partial<User> = {
-  //     name: this.user.name,
-  //     email: this.user.email
-  //   };
-  //
-  //   // Si un mot de passe est fourni, ajoutez-le
-  //   if (this.password) {
-  //     (updatedUser as any).password = this.password;
-  //   }
-  //
-  //   // Envoyez la requête de mise à jour uniquement si des modifications ont été apportées
-  //   this.sessionService.updateUser(updatedUser).subscribe({
-  //     next: (updatedUserData: User) => {
-  //       console.log('Données utilisateur mises à jour avec succès', updatedUserData);
-  //       // Mettez à jour l'état local de l'utilisateur avec les nouvelles données reçues
-  //       this.user = updatedUserData;
-  //     },
-  //     error: (err: any) => {
-  //       console.error('Erreur lors de la mise à jour de l\'utilisateur:', err);
-  //     }
-  //   });
-  // }
+  ngOnInit(): void {
+    this.meService.getUser().subscribe(user => {
+      this.user = user;
+      this.userOld = { ...user }; // Store initial values
+
+      // Initialize the form with the user data
+      this.profileForm.patchValue({
+        name: user.name,
+        email: user.email,
+        password: ''
+      });
+    });
+  }
 
   onSaveProfile(): void {
+    console.log("Form Validity: ", this.profileForm.valid);
+    console.log("Form Value: ", this.profileForm.value);
+    console.log("Form Errors: ", this.profileForm.errors);
+    if (this.profileForm.invalid) {
+      return;
+    }
 
     const formData = new FormData();
-    // if (this.user.name && this.user.name != this.userOld!.name)
-    formData.append("name",this.user.name);
-    formData.append("email",this.user.email);
-    formData.append("password",this.user.password!!);
+
+    // Only update fields that have changed
+    if (this.profileForm.get('name')!.value !== this.userOld!.name) {
+      formData.append("name", this.profileForm.get('name')!.value);
+    }
+
+    if (this.profileForm.get('email')!.value !== this.userOld!.email) {
+      formData.append("email", this.profileForm.get('email')!.value);
+    }
+
+    if (this.profileForm.get('password')!.value) {
+      formData.append("password", this.profileForm.get('password')!.value);
+    }
 
     this.meService.updateUser(formData).subscribe({
       next: (updatedUserData: User) => {
@@ -78,7 +82,6 @@ export class MeComponent implements OnInit {
         this.user = updatedUserData;
 
         this.sessionService.logIn(updatedUserData, this.sessionService.getToken()!);
-
       },
       error: (err: any) => {
         console.error('Erreur lors de la mise à jour de l\'utilisateur:', err);
@@ -86,12 +89,8 @@ export class MeComponent implements OnInit {
     });
   }
 
-
-
-
-
   onLogout(): void {
     this.sessionService.logOut();
-    this.router.navigate(['']);
+    this.router.navigate(['/home']);
   }
 }

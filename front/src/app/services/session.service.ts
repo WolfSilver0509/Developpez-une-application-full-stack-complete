@@ -52,7 +52,9 @@ export class SessionService {
   }
 
 
-
+  public isAuthenticated(): boolean {
+    return this.isLogged;
+  }
 
   // private saveToStorage(): void {
   //   localStorage.setItem(this.storageKey, JSON.stringify({ user: this.user, token: this.token }));
