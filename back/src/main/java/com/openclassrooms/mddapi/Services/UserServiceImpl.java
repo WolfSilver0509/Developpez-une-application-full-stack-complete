@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
                 .map(topic -> new TopicDto(topic.getId(), topic.getTitle(), topic.getDescription(), topic.getCreated_at(), topic.getUpdated_at()))
                 .collect(Collectors.toList());
 
-        return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getCreatedAt(), user.getUpdatedAt(), topics);
+        return new UserDto(user.getId(), user.getName(), user.getEmail(), user.getCreatedAt(), user.getUpdatedAt(), topics);
     }
 
     @Override

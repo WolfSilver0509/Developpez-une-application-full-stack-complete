@@ -1,6 +1,6 @@
 -- Veillez à mettre le nom de votre base de donnée crée --
 
-USE `p6-oc-md`;
+USE `p6-full-stack`;
 
 -- Création de la table "topics" si elle n'existe pas
 CREATE TABLE IF NOT EXISTS topics (

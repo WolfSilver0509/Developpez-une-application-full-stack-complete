@@ -17,7 +17,6 @@ export class AuthService {
   constructor(private httpClient: HttpClient) { }
 
   public login(loginRequest: LoginRequest): Observable<AuthValid> {
-    console.log('Sending login request:', loginRequest);
     return this.httpClient.post<AuthValid>(`${this.basePath}/${this.pathServiceAuth}/login`, loginRequest);
   }
 
