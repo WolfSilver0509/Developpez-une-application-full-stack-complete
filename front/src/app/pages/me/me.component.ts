@@ -35,7 +35,7 @@ export class MeComponent implements OnInit {
     this.profileForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, PasswordValidator.strongPassword()]]
+      password: ['', [PasswordValidator.strongPassword()]]
     });
   }
 
@@ -53,17 +53,45 @@ export class MeComponent implements OnInit {
     });
   }
 
+  // onSaveProfile(): void {
+  //   console.log("Form Validity: ", this.profileForm.valid);
+  //   console.log("Form Value: ", this.profileForm.value);
+  //   console.log("Form Errors: ", this.profileForm.errors);
+  //   if (this.profileForm.invalid) {
+  //     return;
+  //   }
+  //
+  //   const formData = new FormData();
+  //
+  //   // Only update fields that have changed
+  //   if (this.profileForm.get('name')!.value !== this.userOld!.name) {
+  //     formData.append("name", this.profileForm.get('name')!.value);
+  //   }
+  //
+  //   if (this.profileForm.get('email')!.value !== this.userOld!.email) {
+  //     formData.append("email", this.profileForm.get('email')!.value);
+  //   }
+  //
+  //   if (this.profileForm.get('password')!.value) {
+  //     formData.append("password", this.profileForm.get('password')!.value);
+  //   }
+  //
+  //   this.meService.updateUser(formData).subscribe({
+  //     next: (updatedUserData: User) => {
+  //       console.log('Données utilisateur mises à jour avec succès', updatedUserData);
+  //       this.user = updatedUserData;
+  //
+  //       this.sessionService.logIn(updatedUserData, this.sessionService.getToken()!);
+  //     },
+  //     error: (err: any) => {
+  //       console.error('Erreur lors de la mise à jour de l\'utilisateur:', err);
+  //     }
+  //   });
+  // }
   onSaveProfile(): void {
-    console.log("Form Validity: ", this.profileForm.valid);
-    console.log("Form Value: ", this.profileForm.value);
-    console.log("Form Errors: ", this.profileForm.errors);
-    if (this.profileForm.invalid) {
-      return;
-    }
-
     const formData = new FormData();
 
-    // Only update fields that have changed
+    // Ne met à jour que les champs modifiés
     if (this.profileForm.get('name')!.value !== this.userOld!.name) {
       formData.append("name", this.profileForm.get('name')!.value);
     }
@@ -72,8 +100,16 @@ export class MeComponent implements OnInit {
       formData.append("email", this.profileForm.get('email')!.value);
     }
 
-    if (this.profileForm.get('password')!.value) {
+    // Si le champ password est renseigné et passe la validation
+    if (this.profileForm.get('password')!.value && this.profileForm.get('password')!.valid) {
       formData.append("password", this.profileForm.get('password')!.value);
+    }
+
+    // Si le formulaire est invalide à cause d'une erreur de mot de passe, on arrête
+    if (this.profileForm.get('password')!.value && !this.profileForm.get('password')!.valid) {
+      console.error("Le mot de passe ne respecte pas les critères de validation.");
+      this.onError = true;  // Affichez un message d'erreur dans le template
+      return;
     }
 
     this.meService.updateUser(formData).subscribe({
@@ -88,6 +124,7 @@ export class MeComponent implements OnInit {
       }
     });
   }
+
 
   onLogout(): void {
     this.sessionService.logOut();

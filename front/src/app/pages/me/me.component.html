@@ -14,10 +14,11 @@
     <div class="form-group">
       <label for="password">Password</label>
       <input type="password" id="password" formControlName="password" placeholder="********">
+      <div *ngIf="profileForm.get('password')!.invalid && profileForm.get('password')!.touched" class="error-message">
+        Votre mot de passe doit contenir un nombre, une lettre majuscule, une lettre minuscule, un caractère spécial, et au moins 8 caractères.
+      </div>
     </div>
-    <div *ngIf="onError" class="error-message">
-      Vous devez avoir ce qui suit : un nombre, une lettre minuscule, une lettre majuscule, un caractère spécial, et au moins 8 caractères.
-    </div>
+
     <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid">Sauvegarder</button>
   </form>
   <button mat-button class="mat-warn" (click)="onLogout()">Se déconnecter</button>
