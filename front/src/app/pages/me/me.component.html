@@ -2,6 +2,9 @@
 
 <section class="profil-section">
   <h1>Profil utilisateur</h1>
+
+
+
   <form [formGroup]="profileForm" (ngSubmit)="onSaveProfile()">
     <div class="form-group">
       <label for="username">Username</label>
@@ -17,6 +20,10 @@
       <div *ngIf="profileForm.get('password')!.invalid && profileForm.get('password')!.touched" class="error-message">
         Votre mot de passe doit contenir un nombre, une lettre majuscule, une lettre minuscule, un caractère spécial, et au moins 8 caractères.
       </div>
+    </div>
+    <!-- Message de confirmation -->
+    <div *ngIf="updateSuccess" class="success-message">
+      Vous avez bien mis à jour vos informations personnelles.
     </div>
 
     <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid">Sauvegarder</button>

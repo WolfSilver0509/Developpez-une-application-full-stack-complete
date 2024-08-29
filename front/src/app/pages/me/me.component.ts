@@ -16,6 +16,7 @@ export class MeComponent implements OnInit {
   profileForm: FormGroup;
   userOld: Partial<User> | null = null;
   public onError = false;
+  public updateSuccess = false;
 
   constructor(
     private fb: FormBuilder,
@@ -118,6 +119,10 @@ export class MeComponent implements OnInit {
         this.user = updatedUserData;
 
         this.sessionService.logIn(updatedUserData, this.sessionService.getToken()!);
+        this.updateSuccess = true;  // Affichez un message de succès dans le template
+        setTimeout(() => {
+          this.updateSuccess = false;
+        }, 5000);
       },
       error: (err: any) => {
         console.error('Erreur lors de la mise à jour de l\'utilisateur:', err);
