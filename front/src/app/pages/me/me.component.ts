@@ -5,6 +5,8 @@ import { SessionService } from "../../services/session.service";
 import { MeService } from "../../services/me.service";
 import { User } from "../../interfaces/user.interface";
 import {PasswordValidator} from "../../validators/password.validator";
+import { AuthValid } from '../../features/auth/interfaces/authValid.interface';
+
 
 @Component({
   selector: 'app-me',
@@ -53,42 +55,6 @@ export class MeComponent implements OnInit {
       });
     });
   }
-
-  // onSaveProfile(): void {
-  //   console.log("Form Validity: ", this.profileForm.valid);
-  //   console.log("Form Value: ", this.profileForm.value);
-  //   console.log("Form Errors: ", this.profileForm.errors);
-  //   if (this.profileForm.invalid) {
-  //     return;
-  //   }
-  //
-  //   const formData = new FormData();
-  //
-  //   // Only update fields that have changed
-  //   if (this.profileForm.get('name')!.value !== this.userOld!.name) {
-  //     formData.append("name", this.profileForm.get('name')!.value);
-  //   }
-  //
-  //   if (this.profileForm.get('email')!.value !== this.userOld!.email) {
-  //     formData.append("email", this.profileForm.get('email')!.value);
-  //   }
-  //
-  //   if (this.profileForm.get('password')!.value) {
-  //     formData.append("password", this.profileForm.get('password')!.value);
-  //   }
-  //
-  //   this.meService.updateUser(formData).subscribe({
-  //     next: (updatedUserData: User) => {
-  //       console.log('Données utilisateur mises à jour avec succès', updatedUserData);
-  //       this.user = updatedUserData;
-  //
-  //       this.sessionService.logIn(updatedUserData, this.sessionService.getToken()!);
-  //     },
-  //     error: (err: any) => {
-  //       console.error('Erreur lors de la mise à jour de l\'utilisateur:', err);
-  //     }
-  //   });
-  // }
   onSaveProfile(): void {
     const formData = new FormData();
 
@@ -106,7 +72,7 @@ export class MeComponent implements OnInit {
       formData.append("password", this.profileForm.get('password')!.value);
     }
 
-    // Si le formulaire est invalide à cause d'une erreur de mot de passe, on arrête
+    // Si le formulaire est invalide à cause d'une erreur de mot de passe
     if (this.profileForm.get('password')!.value && !this.profileForm.get('password')!.valid) {
       console.error("Le mot de passe ne respecte pas les critères de validation.");
       this.onError = true;  // Affichez un message d'erreur dans le template
@@ -118,6 +84,7 @@ export class MeComponent implements OnInit {
         console.log('Données utilisateur mises à jour avec succès', updatedUserData);
         this.user = updatedUserData;
 
+        // Mettre à jour la session avec les nouvelles données utilisateur
         this.sessionService.logIn(updatedUserData, this.sessionService.getToken()!);
         this.updateSuccess = true;  // Affichez un message de succès dans le template
         setTimeout(() => {
@@ -129,6 +96,7 @@ export class MeComponent implements OnInit {
       }
     });
   }
+
 
 
   onLogout(): void {
