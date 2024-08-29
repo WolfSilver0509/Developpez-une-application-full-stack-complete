@@ -53,9 +53,11 @@ export class SessionService {
 
 
 
+
   // private saveToStorage(): void {
   //   localStorage.setItem(this.storageKey, JSON.stringify({ user: this.user, token: this.token }));
   // }
+
   private saveToStorage(): void {
     console.log("Saving user to storage:", this.user);
     localStorage.setItem(this.storageKey, JSON.stringify({ user: this.user, token: this.token }));

@@ -25,9 +25,10 @@ import { PostsComponent } from './pages/posts/posts.component';
 import { CreatePostComponent } from './component/create-post/create-post.component';
 import {MatSelectModule} from "@angular/material/select";
 import { PostDetailComponent } from './pages/post-detail/post-detail.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderNoAuthComponent, RegisterComponent, TopicsComponent, ListTopicComponent, HeaderComponent, MeComponent, SubscribeListTopicComponent, PostsComponent, CreatePostComponent, PostDetailComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderNoAuthComponent, RegisterComponent, TopicsComponent, ListTopicComponent, HeaderComponent, MeComponent, SubscribeListTopicComponent, PostsComponent, CreatePostComponent, PostDetailComponent, NotFoundComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
