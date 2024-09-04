@@ -9,6 +9,7 @@ import com.openclassrooms.mddapi.Repositorys.UserRepository;
 import com.openclassrooms.mddapi.Services.Interfaces.AuthenticationService;
 import com.openclassrooms.mddapi.Services.Interfaces.JwtService;
 import com.openclassrooms.mddapi.Services.Interfaces.UserService;
+import com.openclassrooms.mddapi.exeptions.ForbiddenExeption;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -101,42 +103,31 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserDto updateUser(Integer id, UserUpdateDto updateDto) {
+    public UserDto updateUser( UserUpdateDto updateDto) {
         User authenticatedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (authenticatedUser.getId().equals(id)) {
-            Optional<User> userOptional = userRepository.findById(id);
-            if (userOptional.isPresent()) {
-                User user = userOptional.get();
-                if (updateDto.getName() != null) {
-                    user.setName(updateDto.getName());
-                }
-                if (updateDto.getEmail() != null) {
-                    user.setEmail(updateDto.getEmail());
-                }
-                if (updateDto.getPassword() != null) {
-                    user.setPassword(passwordEncoder.encode(updateDto.getPassword()));
-                }
-
-                userRepository.save(user);
-
-                // Mettre à jour le contexte de sécurité avec le nouvel utilisateur
-                Authentication newAuth = new UsernamePasswordAuthenticationToken(user, null, authenticatedUser.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(newAuth);
-
-                // Générer un nouveau jeton JWT
-                String newJwtToken = jwtService.generateToken(user);
-
-                UserDto userDto = getCurrentUser(user);
-                userDto.setJwtToken(newJwtToken);
-
-                return userDto;
-            } else {
-                throw new NoSuchElementException("User not found with id: " + id);
-            }
-        } else {
-            throw new NoSuchElementException("You are not authorized to update this user");
+        Optional<User> userOptional = userRepository.findByEmail(updateDto.getEmail());
+        if (updateDto.getName() != null) {
+            authenticatedUser.setName(updateDto.getName());
         }
+        if (updateDto.getEmail() != null) {
+            authenticatedUser.setEmail(updateDto.getEmail());
+        }
+        if (updateDto.getPassword() != null) {
+            authenticatedUser.setPassword(passwordEncoder.encode(updateDto.getPassword()));
+        }
+        userRepository.save(authenticatedUser);
+        // Mettre à jour le contexte de sécurité avec le nouvel utilisateur
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(authenticatedUser, null, authenticatedUser.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
+
+        // Générer un nouveau jeton JWT
+        String newJwtToken = jwtService.generateToken(authenticatedUser);
+
+        UserDto userDto = getCurrentUser(authenticatedUser);
+        userDto.setJwtToken(newJwtToken);
+
+        return userDto;
+
     }
 
 

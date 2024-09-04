@@ -21,8 +21,5 @@ export class MeService {
     return this.http.put<User>(this.apiUrl, user);
   }
 
-  public logout(): void {
-      localStorage.removeItem('token');
-      localStorage.removeItem('loggedUser');
-  }
+
 }

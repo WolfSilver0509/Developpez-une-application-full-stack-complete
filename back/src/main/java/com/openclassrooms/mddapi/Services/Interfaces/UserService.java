@@ -32,11 +32,10 @@ public interface UserService {
      UserDto getUserById(Integer id);
 
     /**
-     * Mise à jour du User  par l'Id et le DTO
-     * @param id
+     * Mise à jour du User  par  et le DTO
      * @param updateDto
      * @return
      */
-     UserDto updateUser(Integer id, UserUpdateDto updateDto);
+     UserDto updateUser( UserUpdateDto updateDto);
 
 }

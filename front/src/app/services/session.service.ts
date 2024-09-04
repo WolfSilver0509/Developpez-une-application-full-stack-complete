@@ -38,22 +38,32 @@ export class SessionService {
     this.next();
   }
 
+  public setToken(token :string): void {
+    localStorage.setItem("token", token);
+
+  }
 
   public getToken(): AuthValid | undefined {
     return this.token;
   }
 
-  public logOut(): void {
-    this.token = undefined;
-    this.user = undefined;
-    this.isLogged = false;
-    this.removeFromStorage();
-    this.next();
+  // public logOut(): void {
+  //   this.token = undefined;
+  //   this.user = undefined;
+  //   this.isLogged = false;
+  //   this.removeFromStorage();
+  //   this.next();
+  // }
+  public logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('loggedUser');
   }
 
 
   public isAuthenticated(): boolean {
-    return this.isLogged;
+    console.log(localStorage.getItem("token"));
+   return localStorage.getItem("token") != undefined;
+
   }
 
   // private saveToStorage(): void {

@@ -10,6 +10,7 @@ import {CreatePostComponent} from "./component/create-post/create-post.component
 import { PostDetailComponent } from './pages/post-detail/post-detail.component';
 import {NotFoundComponent} from "./pages/not-found/not-found.component";
 import {AuthGuard} from "./guards/auth.guard";
+import {AuthUnGuard} from "./guards/auth.unguard";
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   { path: 'login',
-
+    canActivate: [AuthUnGuard],
     component: LoginComponent
   },
   { path: 'register',

@@ -14,7 +14,7 @@ import { User } from '../../interfaces/user.interface';
 })
 export class LoginComponent {
   public hide = true;
-  public onError = false;
+  public onError = false;  // Variable pour gérer l'affichage du message d'erreur
 
   public form = this.fb.group({
     nameOrEmail: ['', [Validators.required, this.nameOrEmailValidator]],
@@ -33,7 +33,9 @@ export class LoginComponent {
       const loginRequest = this.form.value as LoginRequest;
       this.authService.login(loginRequest).subscribe(
         (response: AuthValid) => {
-          localStorage.setItem('token', response.token);
+          // Réinitialiser onError si la connexion réussit
+          this.onError = false;
+          this.sessionService.setToken(response.token)
           this.authService.me().subscribe((user: User) => {
             this.sessionService.logIn(user, response);
             this.router.navigate(['/posts']);
@@ -41,7 +43,7 @@ export class LoginComponent {
         },
         error => {
           console.error("Erreur lors de la connexion :", error);
-          this.onError = true;
+          this.onError = true;  // Affiche le message d'erreur en cas de connexion échouée
         }
       );
     } else {

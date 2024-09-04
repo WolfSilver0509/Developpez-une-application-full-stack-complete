@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.Controllers;
 
 
+import com.openclassrooms.mddapi.exeptions.ForbiddenExeption;
 import com.openclassrooms.mddapi.exeptions.NotFoundException;
 import com.openclassrooms.mddapi.exeptions.ValidationException;
 import org.springframework.http.HttpStatus;
@@ -58,6 +59,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+    /**
+     * Cette exeption sert à gérer les erreurs de validation.
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(ForbiddenExeption.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseEntity<String> handleForbiddenException(RuntimeException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 }

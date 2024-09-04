@@ -86,6 +86,7 @@ export class MeComponent implements OnInit {
 
         // Mettre à jour la session avec les nouvelles données utilisateur
         this.sessionService.logIn(updatedUserData, this.sessionService.getToken()!);
+        this.sessionService.setToken(updatedUserData.jwtToken!);
         this.updateSuccess = true;  // Affichez un message de succès dans le template
         setTimeout(() => {
           this.updateSuccess = false;
@@ -100,7 +101,7 @@ export class MeComponent implements OnInit {
 
 
   onLogout(): void {
-    this.sessionService.logOut();
-    this.router.navigate(['/home']);
+    this.sessionService.logout();
+    this.router.navigate(['']);
   }
 }
