@@ -49,13 +49,12 @@ public class UserController {
 
     /**
      * Endpoint pour mettre à jour les informations de l'utilisateur actuellement connecté.
-     * @param user l'utilisateur actuellement connecté
      * @param updateDto les informations de mise à jour de l'utilisateur
      * @param bindingResult les erreurs de validation
      * @return les informations de l'utilisateur actuellement connecté mises à jour
      */
     @PutMapping("/me")
-    public UserDto updateUser(@AuthenticationPrincipal User user, @Valid @ModelAttribute UserUpdateDto updateDto, BindingResult bindingResult) {
+    public UserDto updateUser(@Valid @ModelAttribute UserUpdateDto updateDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             String errors = bindingResult.getFieldErrors().stream()
                     .map(FieldError::getDefaultMessage)
@@ -63,7 +62,7 @@ public class UserController {
             throw new ValidationException("Validation errors: " + errors);
         }
         try {
-            return userService.updateUser(user.getId(), updateDto);
+            return userService.updateUser(updateDto);
         } catch (NoSuchElementException e) {
             throw new NotFoundException("User not found");
         }

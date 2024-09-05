@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.Dtos;
 
+import com.openclassrooms.mddapi.Validations.ValidPassword;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import lombok.Setter;
 public class RegisterUserDto {
 
     private String email;
+    @ValidPassword
     private String password;
     private String name;
 

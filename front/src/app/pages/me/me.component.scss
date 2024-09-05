@@ -31,7 +31,17 @@
   background-color: #0e0808;
   margin: 20px auto;
 }
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
 
+.success-message {
+  color: green;
+  font-size: 0.8rem;
+  margin: 5px;
+}
 
 /* Responsive styles */
 @media (max-width: 768px) {

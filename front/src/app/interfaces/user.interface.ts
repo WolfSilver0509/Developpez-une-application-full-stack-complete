@@ -7,4 +7,6 @@ export interface User {
   created_at: Date,
   updated_at: Date,
   topics: Topic[];
+  password?: string;
+  jwtToken?: string;
 }

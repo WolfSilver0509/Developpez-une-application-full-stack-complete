@@ -20,7 +20,10 @@
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field>
-
+    <!-- Message d'erreur -->
+    <div *ngIf="onError" class="error-message">
+      Email ou mot de passe incorrect. Veuillez réessayer.
+    </div>
     <button mat-raised-button color="primary" type="submit">Se connecter</button>
   </form>
   </div>

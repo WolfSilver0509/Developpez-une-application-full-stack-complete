@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SessionService } from 'src/app/services/session.service';
+
 import { AuthService} from "../../features/auth/services/auth.service";
 import {RegisterRequest} from "../../features/auth/interfaces/registerRequest.interface";
 import {AuthValid} from "../../features/auth/interfaces/authValid.interface";
 
 import { User } from 'src/app/interfaces/user.interface';
+import {PasswordValidator} from "../../validators/password.validator";
+import {SessionService} from "../../services/session.service";
 
 @Component({
   selector: 'app-register',
@@ -20,7 +22,7 @@ export class RegisterComponent {
   public form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     name: ['', [Validators.required, Validators.min(3)]],
-    password: ['', [Validators.required, Validators.min(3)]]
+    password: ['', [Validators.required, PasswordValidator.strongPassword()]]
   });
 
   constructor(private authService: AuthService,
@@ -28,19 +30,7 @@ export class RegisterComponent {
               private router: Router,
               private sessionService: SessionService) { }
 
-  // public register(): void {
-  //   const registerRequest = this.form.value as RegisterRequest;
-  //   this.authService.register(registerRequest).subscribe(
-  //     (response: AuthValid) => {
-  //       localStorage.setItem('token', response.token);
-  //       this.authService.me().subscribe((user: User) => {
-  //         this.sessionService.logIn(user, response);
-  //         this.router.navigate(['/posts'])
-  //       });
-  //     },
-  //     error => this.onError = true
-  //   );
-  // }
+
   public register(): void {
     const registerRequest = this.form.value as RegisterRequest;
     this.authService.register(registerRequest).subscribe(
