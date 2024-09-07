@@ -13,6 +13,12 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.stream.Collectors;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("api")
 public class CommentController {
@@ -20,7 +26,12 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    /*
+    @Operation(summary = "Créer un nouveau Commentaire")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Commentaire créé avec succès"),
+            @ApiResponse(responseCode = "400", description = "Erreur de création")
+    })
+    /**
      * Point de terminaison pour créer un nouveau Comment.
      * Prend en entrée un DTO de création du Comment et les informations de l'utilisateur.
      * Retourne une réponse contenant le DTO de la réponse de création de Comment.

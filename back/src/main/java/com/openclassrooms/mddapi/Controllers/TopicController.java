@@ -15,6 +15,12 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.stream.Collectors;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("api")
 public class TopicController {
@@ -26,7 +32,12 @@ public class TopicController {
         this.topicService = topicService;
     }
 
-/**
+    @Operation(summary = "Créer un nouveau Theme")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Théme créé avec succès"),
+            @ApiResponse(responseCode = "400", description = "Erreur de creation")
+    })
+    /**
      * Endpoint pour créer un nouveau Topic.
      * Prend en entrée un DTO de création du Topic et les informations de l'utilisateur.
      * Retourne une réponse contenant le DTO de la réponse de création de Topic.
@@ -42,7 +53,12 @@ public class TopicController {
         return topicService.createTopic(topicDto, principal);
     }
 
-/**
+    @Operation(summary = "Récupérer tous les Themes")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Thèmes récupérés avec succès"),
+            @ApiResponse(responseCode = "404", description = "Aucun thème trouvé")
+    })
+    /**
      * Endpoint pour récupérer tous les Topics.
      * @return la liste de tous les Topics
      */
@@ -51,7 +67,12 @@ public class TopicController {
         return topicService.getAllTopics();
     }
 
-/**
+    @Operation(summary = "Récupérer un Theme par son ID et permettre de liker ce thème")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Thème liké avec succès"),
+            @ApiResponse(responseCode = "404", description = "Thème non trouvé")
+    })
+    /**
      * Endpoint pour récupérer un Topic par son ID.
      * @param topicId l'ID du Topic à récupérer
      * @param principal l'utilisateur actuellement connecté
@@ -62,7 +83,12 @@ public class TopicController {
         return topicService.likeTopic(principal.getName(), topicId).getBody();
     }
 
-/**
+    @Operation(summary = "Récupérer un Theme par son ID et permettre de disliker ce thème")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Thème disliké avec succès"),
+            @ApiResponse(responseCode = "404", description = "Thème non trouvé")
+    })
+    /**
      * Endpoint pour récupérer un Topic par son ID.
      * @param topicId l'ID du Topic à récupérer
      * @param principal l'utilisateur actuellement connecté
