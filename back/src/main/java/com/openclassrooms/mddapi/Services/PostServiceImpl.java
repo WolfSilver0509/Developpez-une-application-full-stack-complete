@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Service pour les Post.
+ */
 @Service
 public class PostServiceImpl implements PostService {
 
@@ -26,27 +29,53 @@ public class PostServiceImpl implements PostService {
     private TopicRepository topicRepository;
     private PostMapper postMapper;
 
+    /**
+     * Constructeur.
+     *
+     * @param postRepository  Le repository des posts.
+     * @param topicRepository Le repository des topics.
+     * @param postMapper      Le mapper des posts.
+     */
     public PostServiceImpl(PostRepository postRepository, TopicRepository topicRepository, PostMapper postMapper) {
         this.postRepository = postRepository;
         this.topicRepository = topicRepository;
         this.postMapper = postMapper;
     }
 
+    /**
+     * Méthode pour récupérer tous les posts.
+     * Retourne une liste de toutes les entités Post
+     */
     @Override
     public List<Post> findAllPost() {
         return postRepository.findAll();
     }
 
+    /**
+     * Méthode pour récupérer un post par son ID.
+     * Prend en entrée l'ID du post.
+     * Retourne un Optional contenant l'entité Post si elle est trouvée.
+     */
     @Override
     public Optional<Post> findById(Integer id) {
         return postRepository.findById(id);
     }
 
+    /**
+     * Méthode pour enregistrer un post.
+     * Prend en entrée une entité Post et la sauvegarde dans la base de données.
+     * Retourne l'entité Post enregistrée.
+     */
     @Override
     public Post savePost(Post post) {
         return postRepository.save(post);
     }
 
+    /**
+     * Méthode pour créer un nouveau Post.
+     * Prend en entrée un DTO de création de post et les informations de l'utilisateur.
+     * Retourne une réponse contenant le DTO de la réponse de création de Post.
+     */
     @Override
     public PostDtoResponseMessage createPost(PostDto postDto, Principal principal) {
         User currentUser = (User) ((Authentication) principal).getPrincipal();
@@ -65,7 +94,11 @@ public class PostServiceImpl implements PostService {
         return new PostDtoResponseMessage("Post created !");
     }
 
-
+/**
+     * Méthode pour récupérer tous les Posts d'un utilisateur.
+     * Prend en entrée les informations de l'utilisateur.
+     * Retourne une liste de DTO PostDto.
+     */
     @Override
     public List<PostDto> getPostsByUser(Principal principal) {
         User currentUser = (User) ((Authentication) principal).getPrincipal();
@@ -75,6 +108,10 @@ public class PostServiceImpl implements PostService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Méthode pour récupérer tous les Posts.
+     * Retourne une liste de DTO PostDtoGetAll.
+     */
     @Override
     public List<CommentDto> findCommentsByPostId(Integer postId) {
         return postRepository.findById(postId)

@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Dto utilisé pour récupérer la liste de tous les posts
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter

@@ -68,6 +68,10 @@ public class PostDto {
 
     }
 
+    /**
+     * Methode pour afficher les informations du POST
+     * @return Post object
+     */
     @Override
     public String toString() {
         return "PostDto{" +

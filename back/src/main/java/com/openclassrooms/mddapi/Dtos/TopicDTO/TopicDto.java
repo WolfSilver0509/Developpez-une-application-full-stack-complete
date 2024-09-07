@@ -11,10 +11,9 @@ import com.openclassrooms.mddapi.Dtos.UserDto.UserDto;
 import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
-
-
-
-
+/**
+ * Classe représentant le DTO de Topic
+ */
 @Getter
 @Setter
 @AllArgsConstructor

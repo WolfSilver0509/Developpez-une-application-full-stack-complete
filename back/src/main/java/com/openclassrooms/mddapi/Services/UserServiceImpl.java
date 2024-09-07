@@ -22,6 +22,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Service pour les utilisateurs.
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -30,6 +33,14 @@ public class UserServiceImpl implements UserService {
     private final JwtService jwtService;
     private final TopicRepository topicRepository;
 
+    /**
+     * Constructeur.
+     *
+     * @param userRepository         Le repository des utilisateurs.
+     * @param passwordEncoder       L'encodeur de mot de passe.
+     * @param jwtService            Le service JWT.
+     * @param topicRepository       Le repository des topics.
+     */
     public UserServiceImpl(AuthenticationService authenticationService, UserRepository userRepository, TopicRepository topicRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -37,11 +48,19 @@ public class UserServiceImpl implements UserService {
         this.topicRepository = topicRepository;
     }
 
-
+/**
+     * Méthode pour récupérer tous les utilisateurs.
+     * Retourne une liste de toutes les entités User.
+     */
     @Override
     public Optional<User> findById(Integer id) {
         return userRepository.findById(id);    }
 
+    /**
+     * Méthode pour récupérer un utilisateur actuel
+     * @param user
+     * @return
+     */
     @Override
     public UserDto getCurrentUser(User user) {
         List<TopicDto> topics = topicRepository.findByUsers_Id(user.getId())
@@ -52,6 +71,11 @@ public class UserServiceImpl implements UserService {
         return new UserDto(user.getId(), user.getName(), user.getEmail(), user.getCreatedAt(), user.getUpdatedAt(), topics);
     }
 
+    /**
+     * Méthode pour récupérer un utilisateur par son ID.
+     * @param id
+     * @return
+     */
     @Override
     public UserDto getUserById(Integer id) {
         Optional<User> userOptional = userRepository.findById(id);
@@ -63,45 +87,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-//    @Override
-//    public UserDto updateUser(Integer id, UserUpdateDto updateDto) {
-//        // Récupérer l'utilisateur actuellement authentifié
-//        User authenticatedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//        // Vérifier si l'utilisateur actuellement authentifié est autorisé à modifier l'utilisateur spécifié par l'ID
-//        if (authenticatedUser.getId().equals(id)) {
-//            Optional<User> userOptional = userRepository.findById(id);
-//            if (userOptional.isPresent()) {
-//                User user = userOptional.get();
-//                if (updateDto.getName() != null) {
-//                    user.setName(updateDto.getName());
-//                }
-//                if (updateDto.getEmail() != null) {
-//                    user.setEmail(updateDto.getEmail());
-//                }
-//                // Vérifier si le mot de passe est fourni avant de le mettre à jour
-//                if (updateDto.getPassword() != null) {
-//                    user.setPassword(passwordEncoder.encode(updateDto.getPassword()));
-//                }
-//                userRepository.save(user);
-//
-//                // Générer un nouveau jeton JWT
-//                String newJwtToken = jwtService.generateToken(user);
-//
-//                // Mettre à jour le jeton JWT dans la réponse
-//                UserDto userDto = getCurrentUser(user);
-//                userDto.setJwtToken(newJwtToken);
-//
-//                return userDto;
-//            } else {
-//                throw new NoSuchElementException("User not found with id: " + id);
-//            }
-//        } else {
-//            throw new NoSuchElementException("You are not authorized to update this user");
-//        }
-//    }
-
-
+    /**
+     * Méthode pour mettre à jour un utilisateur.
+     * @param updateDto
+     * @return
+     */
     @Override
     public UserDto updateUser( UserUpdateDto updateDto) {
         User authenticatedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

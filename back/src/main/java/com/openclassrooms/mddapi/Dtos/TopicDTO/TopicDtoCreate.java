@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import java.util.Date;
 
+/**
+ * Classe DTO permettant de créer un Théme
+ */
 @Getter
 @Setter
 @AllArgsConstructor

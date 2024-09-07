@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Modèle de données Articles
+ */
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 @Entity

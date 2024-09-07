@@ -37,7 +37,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
+    /**
+     * Inscrit un nouvel utilisateur.
+     * @param input Les informations de l'utilisateur à inscrire.
+     * @return
+     */
     @Override
     public User signup(RegisterUserDto input) {
         try {
@@ -53,6 +57,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
     }
 
+    /**
+     * Authentifie un utilisateur.
+     * @param input Les informations de l'utilisateur à authentifier.
+     * @return
+     */
     @Override
     public User authenticate(LoginUserDto input) {
         try {
@@ -74,6 +83,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
     }
 
+    /**
+     * Récupère la liste de tous les utilisateurs.
+     * @return
+     */
     @Override
     public List<User> allUsers() {
         List<User> users = new ArrayList<>();

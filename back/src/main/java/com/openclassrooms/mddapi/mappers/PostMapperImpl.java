@@ -9,10 +9,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+/**
+ * Classe de service responsable de la gestion des Post.
+ * Elle inclut des méthodes pour créer, mettre à jour, récupérer et enregistrer des Post.
+ */
 @Service
 public class PostMapperImpl implements PostMapper {
 
-
+    /**
+     * Méthode pour convertir une entité Post en DTO.
+     * @param post
+     * @return
+     */
     @Override
     public PostDto convertToPostDto(Post post) {
         PostDto postDto = new PostDto(
@@ -32,7 +40,11 @@ public class PostMapperImpl implements PostMapper {
         return postDto;
     }
 
-
+    /**
+     * Méthode pour convertir une entité Comment en DTO.
+     * @param comment
+     * @return
+     */
     @Override
     public CommentDto convertToCommentDto(Comment comment) {
         CommentDto dto = new CommentDto();

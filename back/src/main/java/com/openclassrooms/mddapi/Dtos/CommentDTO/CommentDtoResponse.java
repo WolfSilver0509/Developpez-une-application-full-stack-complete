@@ -11,6 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CommentDtoResponse {
 
+    /**
+     * Message de reponse de la requete
+     */
     private String message;
 
 }

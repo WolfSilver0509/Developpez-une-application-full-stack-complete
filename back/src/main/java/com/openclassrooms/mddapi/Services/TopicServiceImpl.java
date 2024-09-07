@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Service pour les thémes.
+ */
 @Service
 public class TopicServiceImpl implements TopicService {
 
@@ -33,21 +36,40 @@ public class TopicServiceImpl implements TopicService {
         this.topicMapper = topicMapper;
     }
 
+    /**
+     * Méthode pour récupérer tous les thémes.
+     * Retourne une liste de toutes les entités Topic.
+     */
     @Override
     public List<Topic> findAllTopics() {
         return topicRepository.findAll();
     }
 
+    /**
+     * Méthode pour récupérer un théme par son ID.
+     * Prend en entrée l'ID du théme.
+     * Retourne un Optional contenant l'entité Topic si elle est trouvée.
+     */
     @Override
     public Optional<Topic> findById(Integer id) {
         return topicRepository.findById(id);
     }
 
+    /**
+     * Méthode pour enregistrer un théme.
+     * Prend en entrée une entité Topic et la sauvegarde dans la base de données.
+     * Retourne l'entité Topic enregistrée.
+     */
     @Override
     public Topic saveTopic(Topic topic) {
         return topicRepository.save(topic);
     }
 
+    /**
+     * Méthode pour créer un nouveau théme.
+     * Prend en entrée un DTO de création de théme et les informations de l'utilisateur.
+     * Retourne une réponse contenant le DTO de la réponse de création de théme.
+     */
     @Override
     public TopicDtoReponseMessage createTopic(TopicDtoCreate topicDto, Principal principal) {
         User currentUser = (User) ((Authentication) principal).getPrincipal(); // Récupération de l'utilisateur actuel
@@ -59,6 +81,10 @@ public class TopicServiceImpl implements TopicService {
         return new TopicDtoReponseMessage("Topic created!");
     }
 
+    /**
+     * Méthode pour récupérer toutes les topics et les convertir en DTO.
+     * Retourne une réponse contenant une liste de DTO TopicDto.
+     */
     @Override
     public TopicDtoGetAll getAllTopics() {
         List<Topic> topics = findAllTopics();
@@ -68,7 +94,12 @@ public class TopicServiceImpl implements TopicService {
         return (new TopicDtoGetAll(topicDtos));
     }
 
-
+/**
+     * Méthode pour aimer un topic.
+     * @param userEmail
+     * @param topicId
+     * @return
+     */
     @Transactional
     @Override
     public ResponseEntity<String> likeTopic(String userEmail, Integer topicId) {
@@ -87,6 +118,12 @@ public class TopicServiceImpl implements TopicService {
         return ResponseEntity.ok("Topic like with Sucess !");
     }
 
+    /**
+     *  Méthode pour ne pas aimer un topic.
+     * @param userEmail
+     * @param topicId
+     * @return
+     */
     @Transactional
     @Override
     public ResponseEntity<String> unlikeTopic(String userEmail, Integer topicId) {
