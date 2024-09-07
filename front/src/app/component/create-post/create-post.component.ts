@@ -55,9 +55,6 @@ export class CreatePostComponent implements OnInit {
       formData.append("title",this.postForm.value.title);
       formData.append("description",this.postForm.value.description);
 
-
-      console.log('Form Data Submitted:', formData); // Vérifier les données envoyées garce au log debuggage pour le probléme des données envoyés
-
       // Appel au service pour créer le post
       this.postService.createPost(formData).subscribe({
         next: () => {

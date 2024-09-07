@@ -81,7 +81,6 @@ export class MeComponent implements OnInit {
 
     this.meService.updateUser(formData).subscribe({
       next: (updatedUserData: User) => {
-        console.log('Données utilisateur mises à jour avec succès', updatedUserData);
         this.user = updatedUserData;
 
         // Mettre à jour la session avec les nouvelles données utilisateur

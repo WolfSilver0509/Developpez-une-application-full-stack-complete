@@ -15,7 +15,6 @@ public class PostMapperImpl implements PostMapper {
 
     @Override
     public PostDto convertToPostDto(Post post) {
-        System.out.println(post.getOwner_id().getName());
         PostDto postDto = new PostDto(
                 post.getId(),
                 post.getTitle(),
@@ -30,7 +29,6 @@ public class PostMapperImpl implements PostMapper {
         postDto.setComments(post.getComments().stream()
                 .map(this::convertToCommentDto)
                 .collect(Collectors.toList()));
-        System.out.println(postDto);
         return postDto;
     }
 

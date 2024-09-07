@@ -61,17 +61,11 @@ export class SessionService {
 
 
   public isAuthenticated(): boolean {
-    console.log(localStorage.getItem("token"));
    return localStorage.getItem("token") != undefined;
 
   }
 
-  // private saveToStorage(): void {
-  //   localStorage.setItem(this.storageKey, JSON.stringify({ user: this.user, token: this.token }));
-  // }
-
   private saveToStorage(): void {
-    console.log("Saving user to storage:", this.user);
     localStorage.setItem(this.storageKey, JSON.stringify({ user: this.user, token: this.token }));
   }
 
