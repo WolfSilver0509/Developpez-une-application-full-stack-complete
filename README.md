@@ -1,5 +1,7 @@
 # P6-Full-Stack-reseau-dev
 
+![MDD](./front/src/assets/png/mdd-logo.png)
+
 
 ## 🛠️ Prérequis
 
@@ -42,3 +44,26 @@ mvn spring-boot:run
 👉 Un fichier SQL nommé generateTopic.sql est disponible dans le dossier src/main/resources. Ce fichier contient un script pour remplir automatiquement les thèmes dans la table appropriée.
 
 👉 Pour exécuter ce fichier SQL, connectez-vous à votre base de données MySQL et exécutez le script dans votre console mysql sur la table crée.
+
+
+## Documentation Supplémentaire 
+<details>
+  <summary>🚀 Explorer l'API avec Postman</summary>
+  <a href="./front/resources/p6.postman_collection.json">
+   Vous pouvez importez les différents API endpoints pour tester l'application avec postman.
+  </a>
+</details>
+
+<details>
+  <summary>🗺️ Draw.io schema de relation </summary>
+  <a href="./back/p6-table-relationships.drawio">
+    Check the draw.io schema for the table relationships !
+  </a>
+</details>
+
+<details>
+  <summary>🔗Lien du repository original GitHub OC </summary>
+  <a href="https://github.com/OpenClassrooms-Student-Center/Developpez-une-application-full-stack-complete" target="_blank">
+    Lien du Back et Front.
+  </a>
+</details>
