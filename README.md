@@ -1,6 +1,6 @@
 # P6-Full-Stack-reseau-dev
 
-![MDD](./front/src/assets/png/mdd-logo.png)
+![MDD](./front/src/assets/logo_p6.png)
 
 
 ## 🛠️ Prérequis
