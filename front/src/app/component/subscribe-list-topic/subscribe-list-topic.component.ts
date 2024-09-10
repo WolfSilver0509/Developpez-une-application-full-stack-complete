@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../features/auth/services/auth.service';
 import { TopicService } from '../../services/topic.service';
 import { TopicWithSubscriptionStatus } from '../../interfaces/topicWithSubscriptionStatus.interface';
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-subscribe-list-topic',
@@ -23,7 +24,7 @@ export class SubscribeListTopicComponent implements OnInit {
       next: (user) => {
         this.subscribedTopics = user.topics;
       },
-      error: (error: any) => {
+      error: (error: HttpErrorResponse) => {
         console.error('Erreur lors de la récupération des sujets abonnés', error);
       },
     });
@@ -45,7 +46,7 @@ export class SubscribeListTopicComponent implements OnInit {
           });
         }
       },
-      error: (error: any) => {
+      error: (error: HttpErrorResponse) => {
         console.error('Erreur lors du désabonnement du topic', error);
       },
     });

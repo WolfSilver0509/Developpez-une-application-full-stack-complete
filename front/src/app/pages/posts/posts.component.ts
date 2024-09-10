@@ -4,6 +4,7 @@ import { User } from '../../interfaces/user.interface';
 import { SessionService } from '../../services/session.service';
 import { Post } from "../../interfaces/post.interface";
 import { Router } from '@angular/router';
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-posts',
@@ -31,7 +32,7 @@ export class PostsComponent implements OnInit {
         this.posts = posts;
         this.sortPosts(); // Trier les articles après le chargement
       },
-      error: (error: any) => {
+      error: (error: HttpErrorResponse) => {
         console.error('Erreur lors du chargement des posts', error);
       },
     });

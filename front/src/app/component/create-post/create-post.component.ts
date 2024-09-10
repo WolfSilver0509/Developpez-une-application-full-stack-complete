@@ -5,6 +5,8 @@ import { TopicService } from '../../services/topic.service';
 import { PostService } from '../../services/post.service';
 import {Topic} from "../../interfaces/topic.interface";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {TopicResponse} from "../../interfaces/topicResponse.interface";
+import {HttpErrorResponse} from "@angular/common/http";
 
 
 
@@ -37,10 +39,10 @@ export class CreatePostComponent implements OnInit {
 
   private loadTopics(): void {
     this.topicService.getAllTopics().subscribe({
-      next: (response: any) => {
+      next: (response: TopicResponse) => {
         this.topics = response.topics;
       },
-      error: (error: any) => {
+      error: (error: HttpErrorResponse) => {
         console.error('Erreur lors du chargement des topics', error);
       },
     });
@@ -61,7 +63,7 @@ export class CreatePostComponent implements OnInit {
           this.showSuccessMessage('Post created successfully!');
           this.router.navigate(['/posts']);
         },
-        error: (error: any) => {
+        error: (error: HttpErrorResponse) => {
           console.error('Erreur lors de la création du post', error);
           this.showErrorMessage('Failed to create post!');
         }

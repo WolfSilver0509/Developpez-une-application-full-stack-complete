@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
   constructor(private sessionService: SessionService, private router: Router) {}
 
   canActivate(): boolean {
-    if (this.sessionService.isAuthenticated()) {
+    if (this.sessionService.getToken()) {
       return true;
     } else {
       this.router.navigate(['/']); // Redirect to home if not authenticated

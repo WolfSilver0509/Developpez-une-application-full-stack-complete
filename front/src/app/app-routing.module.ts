@@ -10,20 +10,20 @@ import {CreatePostComponent} from "./component/create-post/create-post.component
 import { PostDetailComponent } from './pages/post-detail/post-detail.component';
 import {NotFoundComponent} from "./pages/not-found/not-found.component";
 import {AuthGuard} from "./guards/auth.guard";
-import {AuthUnGuard} from "./guards/auth.unguard";
+import {UnAuthGuard} from "./guards/unauth.guard";
 
 const routes: Routes = [
   {
     path: '',
+    canActivate: [UnAuthGuard],
     component: HomeComponent
   },
   { path: 'login',
-    canActivate: [AuthUnGuard],
+    canActivate: [UnAuthGuard],
     component: LoginComponent
   },
   { path: 'register',
-
-  component: RegisterComponent
+    component: RegisterComponent
   },
   {
     path: 'topics',

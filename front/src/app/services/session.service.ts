@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 import { AuthValid } from '../features/auth/interfaces/authValid.interface';
 import { MeService } from './me.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,21 +16,13 @@ export class SessionService {
   public user: User | undefined = this.getUserFromStorage();
   private isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);
 
-  constructor(private meService: MeService) { }
+  constructor(private meService: MeService, private cookieService: CookieService) { }
 
   public $isLogged(): Observable<boolean> {
     return this.isLoggedSubject.asObservable();
   }
 
-  // public logIn(user: User, authValid: AuthValid): void {
-  //   this.token = authValid;
-  //   this.user = user;
-  //   this.isLogged = true;
-  //   this.saveToStorage();
-  //   this.next();
-  // }
-  public logIn(user: User, authValid: AuthValid): void {
-    this.token = authValid;
+  public logIn(user: User): void {
     this.user = user;
     this.isLogged = true;
 
@@ -39,30 +32,18 @@ export class SessionService {
   }
 
   public setToken(token :string): void {
-    localStorage.setItem("token", token);
+    // localStorage.setItem("token", token);
+    this.cookieService.set('token', token, { secure: true, sameSite: 'Strict' });
 
   }
 
-  public getToken(): AuthValid | undefined {
-    return this.token;
+  public getToken(): string {
+    return this.cookieService.get('token')
   }
 
-  // public logOut(): void {
-  //   this.token = undefined;
-  //   this.user = undefined;
-  //   this.isLogged = false;
-  //   this.removeFromStorage();
-  //   this.next();
-  // }
   public logout(): void {
-    localStorage.removeItem('token');
+    this.cookieService.deleteAll('token');
     localStorage.removeItem('loggedUser');
-  }
-
-
-  public isAuthenticated(): boolean {
-   return localStorage.getItem("token") != undefined;
-
   }
 
   private saveToStorage(): void {

@@ -9,7 +9,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class MeService {
 
-  private apiUrl = 'http://localhost:5656/api/me';
+  private apiUrl = '/api/me';
 
   constructor(private http: HttpClient) { }
 
