@@ -1,25 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SessionService } from "../../services/session.service";
 import { MeService } from "../../services/me.service";
 import { User } from "../../interfaces/user.interface";
-import {PasswordValidator} from "../../validators/password.validator";
-import { AuthValid } from '../../features/auth/interfaces/authValid.interface';
-import {HttpErrorResponse} from "@angular/common/http";
-
+import { PasswordValidator } from "../../validators/password.validator";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-me',
   templateUrl: './me.component.html',
   styleUrls: ['./me.component.scss']
 })
-export class MeComponent implements OnInit {
+export class MeComponent implements OnInit, OnDestroy {
   user: User;
   profileForm: FormGroup;
   userOld: Partial<User> | null = null;
   public onError = false;
   public updateSuccess = false;
+
+  // Variables pour stocker chaque abonnement
+  public userSubscription!: Subscription;
+  public updateSubscription!: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -44,11 +47,12 @@ export class MeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.meService.getUser().subscribe(user => {
+    // Abonnement pour obtenir l'utilisateur
+    this.userSubscription = this.meService.getUser().subscribe(user => {
       this.user = user;
-      this.userOld = { ...user }; // Store initial values
+      this.userOld = { ...user }; // Stocke les valeurs initiales
 
-      // Initialize the form with the user data
+      // Initialise le formulaire avec les données utilisateur
       this.profileForm.patchValue({
         name: user.name,
         email: user.email,
@@ -56,6 +60,7 @@ export class MeComponent implements OnInit {
       });
     });
   }
+
   onSaveProfile(): void {
     const formData = new FormData();
 
@@ -76,18 +81,19 @@ export class MeComponent implements OnInit {
     // Si le formulaire est invalide à cause d'une erreur de mot de passe
     if (this.profileForm.get('password')!.value && !this.profileForm.get('password')!.valid) {
       console.error("Le mot de passe ne respecte pas les critères de validation.");
-      this.onError = true;  // Affichez un message d'erreur dans le template
+      this.onError = true;  // Affiche un message d'erreur dans le template
       return;
     }
 
-    this.meService.updateUser(formData).subscribe({
+    // Abonnement pour mettre à jour l'utilisateur
+    this.updateSubscription = this.meService.updateUser(formData).subscribe({
       next: (updatedUserData: User) => {
         this.user = updatedUserData;
 
-        // Mettre à jour la session avec les nouvelles données utilisateur
+        // Met à jour la session avec les nouvelles données utilisateur
         this.sessionService.logIn(updatedUserData);
         this.sessionService.setToken(updatedUserData.jwtToken!);
-        this.updateSuccess = true;  // Affichez un message de succès dans le template
+        this.updateSuccess = true;  // Affiche un message de succès dans le template
         setTimeout(() => {
           this.updateSuccess = false;
         }, 5000);
@@ -98,10 +104,19 @@ export class MeComponent implements OnInit {
     });
   }
 
-
-
   onLogout(): void {
     this.sessionService.logout();
     this.router.navigate(['']);
+  }
+
+  // Désabonnement dans ngOnDestroy
+  ngOnDestroy(): void {
+    // Désabonne-toi de chaque subscription si elle existe
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
+    if (this.updateSubscription) {
+      this.updateSubscription.unsubscribe();
+    }
   }
 }
