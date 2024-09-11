@@ -14,16 +14,7 @@ export class TopicsComponent implements OnInit {
   constructor(private sessionService: SessionService) { }
 
   ngOnInit(): void {
-    console.log('Initialisation du composant TopicsComponent');
     this.sessionService.$isLogged().subscribe(isLogged => {
-      if (isLogged) {
-        this.user = this.sessionService.user || this.sessionService.getUserFromStorage();
-        if (this.user) {
-          console.log('Utilisateur connecté :', this.user.name);
-        } else {
-          console.log('Aucun utilisateur connecté');
-        }
-      }
     });
   }
 

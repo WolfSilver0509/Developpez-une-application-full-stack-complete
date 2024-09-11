@@ -12,7 +12,7 @@ import com.openclassrooms.mddapi.Models.Post;
 public interface PostMapper {
 
 
-    /*
+    /**
      * Méthode pour convertir une entité Post en DTO.
      * Prend en entrée une entité Post.
      * Retourne un DTO PostDto.

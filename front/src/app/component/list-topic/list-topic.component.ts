@@ -5,6 +5,7 @@ import { SessionService } from '../../services/session.service';
 import { TopicService } from '../../services/topic.service';
 import { AuthService } from '../../features/auth/services/auth.service';
 import { TopicWithSubscriptionStatus } from '../../interfaces/topicWithSubscriptionStatus.interface';
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-list-topic',
@@ -36,7 +37,7 @@ export class ListTopicComponent implements OnInit {
         }));
         this.checkUserSubscriptions();
       },
-      error: (error: any) => {
+      error: (error: HttpErrorResponse) => {
         console.error('Erreur lors du chargement des topics', error);
       },
     });
@@ -49,7 +50,7 @@ export class ListTopicComponent implements OnInit {
           topic.isSubscribed = user.topics.some((subscribedTopic) => subscribedTopic.id === topic.id);
         });
       },
-      error: (error: any) => {
+      error: (error: HttpErrorResponse) => {
         console.error('Erreur lors de la récupération des abonnements utilisateur', error);
       },
     });
@@ -81,7 +82,7 @@ export class ListTopicComponent implements OnInit {
           });
         }
       },
-      error: (error: any) => {
+      error: (error: HttpErrorResponse) => {
         console.error('Erreur lors de l\'abonnement au topic', error);
       },
     });

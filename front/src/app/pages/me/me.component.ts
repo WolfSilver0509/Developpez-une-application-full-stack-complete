@@ -6,6 +6,7 @@ import { MeService } from "../../services/me.service";
 import { User } from "../../interfaces/user.interface";
 import {PasswordValidator} from "../../validators/password.validator";
 import { AuthValid } from '../../features/auth/interfaces/authValid.interface';
+import {HttpErrorResponse} from "@angular/common/http";
 
 
 @Component({
@@ -81,18 +82,17 @@ export class MeComponent implements OnInit {
 
     this.meService.updateUser(formData).subscribe({
       next: (updatedUserData: User) => {
-        console.log('Données utilisateur mises à jour avec succès', updatedUserData);
         this.user = updatedUserData;
 
         // Mettre à jour la session avec les nouvelles données utilisateur
-        this.sessionService.logIn(updatedUserData, this.sessionService.getToken()!);
+        this.sessionService.logIn(updatedUserData);
         this.sessionService.setToken(updatedUserData.jwtToken!);
         this.updateSuccess = true;  // Affichez un message de succès dans le template
         setTimeout(() => {
           this.updateSuccess = false;
         }, 5000);
       },
-      error: (err: any) => {
+      error: (err: HttpErrorResponse) => {
         console.error('Erreur lors de la mise à jour de l\'utilisateur:', err);
       }
     });

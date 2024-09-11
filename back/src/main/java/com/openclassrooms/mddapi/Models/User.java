@@ -15,6 +15,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Modèle de données Utilisateur
+ */
 /* Définition de la classe User comme entité JPA et mapping à la table 'users' */
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = "name"),

@@ -10,7 +10,18 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.List;
 
-
+/**
+ * UserDto est une classe qui permet de représenter un utilisateur
+ * Elle contient les attributs suivants :
+ * - id : l'identifiant de l'utilisateur
+ * - name : le nom de l'utilisateur
+ * - email : l'email de l'utilisateur
+ * - createdAt : la date de création de l'utilisateur
+ * - updatedAt : la date de mise à jour de l'utilisateur
+ * - jwtToken : le token de l'utilisateur
+ * - topics : la liste des topics de l'utilisateur
+ * Cette classe contient des constructeurs, des getters et des setters pour accéder et modifier les attributs
+ */
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 public class UserDto {

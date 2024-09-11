@@ -11,20 +11,20 @@ import { User } from 'src/app/interfaces/user.interface';
 })
 export class AuthService {
 
-  private basePath = 'http://localhost:5656';
+
   private pathServiceAuth = 'api/auth';
 
   constructor(private httpClient: HttpClient) { }
 
   public login(loginRequest: LoginRequest): Observable<AuthValid> {
-    return this.httpClient.post<AuthValid>(`${this.basePath}/${this.pathServiceAuth}/login`, loginRequest);
+    return this.httpClient.post<AuthValid>(`${this.pathServiceAuth}/login`, loginRequest);
   }
 
   public register(registerRequest: RegisterRequest): Observable<AuthValid> {
-    return this.httpClient.post<AuthValid>(`${this.basePath}/${this.pathServiceAuth}/register`, registerRequest);
+    return this.httpClient.post<AuthValid>(`${this.pathServiceAuth}/register`, registerRequest);
   }
 
   public me(): Observable<User> {
-    return this.httpClient.get<User>(`${this.basePath}/api/me`);
+    return this.httpClient.get<User>(`api/me`);
   }
 }

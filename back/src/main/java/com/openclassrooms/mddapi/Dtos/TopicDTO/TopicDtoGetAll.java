@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Dto utilisé pour récupérer la liste des thémes
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter

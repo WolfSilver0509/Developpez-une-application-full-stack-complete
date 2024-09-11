@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.stream.Collectors;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.web.bind.annotation.*;
+
 @RequestMapping("/api/auth")
 @RestController
 public class AuthenticationController {
@@ -24,6 +30,11 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
     }
 
+    @Operation(summary = "Enregistrer un nouvel utilisateur")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Utilisateur enregistré avec succès"),
+            @ApiResponse(responseCode = "400", description = "Erreur d'enregistrement")
+    })
     /**
      * Enregistrer un nouvel utilisateur.
      * @param registerUserDto les informations de l'utilisateur à enregistrer
@@ -40,6 +51,11 @@ public class AuthenticationController {
         return authenticationService.signup(registerUserDto);
     }
 
+    @Operation(summary = "Authentifier un utilisateur")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Utilisateur authentifié avec succès"),
+            @ApiResponse(responseCode = "400", description = "Erreur d'authentification")
+    })
     /**
      * Authentifier un utilisateur.
      * @param loginUserDto les informations de l'utilisateur à authentifier

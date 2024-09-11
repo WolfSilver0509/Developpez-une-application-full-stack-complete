@@ -9,8 +9,8 @@ import {CommentResponse} from "../interfaces/comment.interface";
   providedIn: 'root',
 })
 export class PostService {
-  private readonly basePath = 'http://localhost:5656/api/posts';
-  private readonly commentsPath = 'http://localhost:5656/api/comments';
+  private readonly basePath = '/api/posts';
+  private readonly commentsPath = '/api/comments';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -35,14 +35,6 @@ export class PostService {
   public getPostById(id: number): Observable<PostDetail> {
     return this.httpClient.get<PostDetail>(`${this.basePath}/${id}`);
   }
-
-  // public createComment(postId: number, message: string): Observable<any> {
-  //   const commentsPath = 'http://localhost:5656/api/comments';
-  //   return this.httpClient.post<any>(commentsPath, {
-  //     post_id: postId,
-  //     message: message,
-  //   });
-  // }
 
   public createComment(commentary : FormData): Observable<CommentResponse> {
   return this.httpClient.post<CommentResponse>(this.commentsPath, commentary)

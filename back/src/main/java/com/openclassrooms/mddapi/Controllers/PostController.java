@@ -14,6 +14,12 @@ import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("api")
 public class PostController {
@@ -24,7 +30,12 @@ public class PostController {
         this.postService = postService;
     }
 
-    /*
+    @Operation(summary = "Créer un nouvelle Article")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Articles créé avec succès"),
+            @ApiResponse(responseCode = "400", description = "Erreur de création")
+    })
+    /**
      * Point de terminaison pour créer un nouveau Post.
      * Prend en entrée un DTO de création du Post et les informations de l'utilisateur.
      * Retourne une réponse contenant le DTO de la réponse de création de Post.
@@ -40,7 +51,12 @@ public class PostController {
         return postService.createPost(postDto, principal);
     }
 
-    /*
+    @Operation(summary = "Récupérer tous les Articles")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Articles récupérés avec succès"),
+            @ApiResponse(responseCode = "404", description = "Aucun article trouvé")
+    })
+    /**
      * Point de terminaison pour récupérer tous les Posts d'un utilisateur.
      * Prend en entrée les informations de l'utilisateur.
      * Retourne une liste de DTO PostDto.
@@ -50,7 +66,12 @@ public class PostController {
         return postService.getPostsByUser(principal);
     }
 
-    /*
+    @Operation(summary = "Récupérer un Article par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Article récupéré avec succès"),
+            @ApiResponse(responseCode = "404", description = "Article non trouvé")
+    })
+    /**
      * Point de terminaison pour récupérer un Post par son ID.
      * Prend en entrée l'ID du Post.
      * Retourne un DTO PostDto.

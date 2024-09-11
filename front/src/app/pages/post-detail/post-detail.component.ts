@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PostDetail } from '../../interfaces/post-detail.interface';  // Remplacez 'Post' par 'PostDetail'
+import { PostDetail } from '../../interfaces/post-detail.interface';
+import {CommentResponse} from "../../interfaces/comment.interface";
+import {HttpErrorResponse} from "@angular/common/http";  // Remplacez 'Post' par 'PostDetail'
 
 @Component({
   selector: 'app-post-detail',
@@ -26,7 +28,7 @@ export class PostDetailComponent implements OnInit {
         next: (post: PostDetail) => {
           this.post = post;
         },
-        error: (error: any) => {
+        error: (error: HttpErrorResponse) => {
           console.error('Erreur lors du chargement du post', error);
         },
       });
@@ -40,12 +42,12 @@ export class PostDetailComponent implements OnInit {
         formData.append("post_id",Number(this.post.id)+"");
 
       this.postService.createComment(formData).subscribe({
-        next: (response: any) => {
+        next: (response: CommentResponse) => {
           this.snackBar.open(response.message, 'Fermer', { duration: 3000 });
           this.newComment = '';
           this.ngOnInit();
         },
-        error: (error: any) => {
+        error: (error: HttpErrorResponse) => {
           console.error('Erreur lors de l\'ajout du commentaire', error);
         },
       });

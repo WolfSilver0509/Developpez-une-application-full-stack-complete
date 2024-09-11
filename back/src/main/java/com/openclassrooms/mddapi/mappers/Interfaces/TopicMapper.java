@@ -12,7 +12,7 @@ import com.openclassrooms.mddapi.Models.Topic;
 public interface TopicMapper {
 
 
-    /*
+    /**
      * Méthode pour convertir une entité Topic en DTO.
      * Prend en entrée une entité Topic.
      * Retourne un DTO TopicDto.

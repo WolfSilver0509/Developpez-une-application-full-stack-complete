@@ -5,12 +5,12 @@ import { SessionService } from '../services/session.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthUnGuard implements CanActivate {
+export class UnAuthGuard implements CanActivate {
 
   constructor(private sessionService: SessionService, private router: Router) {}
 
   canActivate(): boolean {
-    if (this.sessionService.isAuthenticated()) {
+    if (this.sessionService.getToken()) {
       this.router.navigate(['/posts']);
       return true;
     } else {
