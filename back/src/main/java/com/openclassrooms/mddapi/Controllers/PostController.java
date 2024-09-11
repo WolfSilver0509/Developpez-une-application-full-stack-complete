@@ -15,10 +15,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api")
@@ -33,7 +31,8 @@ public class PostController {
     @Operation(summary = "Créer un nouvelle Article")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Articles créé avec succès"),
-            @ApiResponse(responseCode = "400", description = "Erreur de création")
+            @ApiResponse(responseCode = "400", description = "Erreur de création"),
+            @ApiResponse(responseCode = "500", description = "Serveur Indisponible")
     })
     /**
      * Point de terminaison pour créer un nouveau Post.
@@ -54,7 +53,8 @@ public class PostController {
     @Operation(summary = "Récupérer tous les Articles")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Articles récupérés avec succès"),
-            @ApiResponse(responseCode = "404", description = "Aucun article trouvé")
+            @ApiResponse(responseCode = "404", description = "Aucun article trouvé"),
+            @ApiResponse(responseCode = "500", description = "Serveur Indisponible")
     })
     /**
      * Point de terminaison pour récupérer tous les Posts d'un utilisateur.
@@ -69,7 +69,8 @@ public class PostController {
     @Operation(summary = "Récupérer un Article par son ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Article récupéré avec succès"),
-            @ApiResponse(responseCode = "404", description = "Article non trouvé")
+            @ApiResponse(responseCode = "404", description = "Article non trouvé"),
+            @ApiResponse(responseCode = "500", description = "Serveur Indisponible")
     })
     /**
      * Point de terminaison pour récupérer un Post par son ID.

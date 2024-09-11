@@ -14,10 +14,8 @@ import java.security.Principal;
 import java.util.stream.Collectors;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api")
@@ -29,7 +27,8 @@ public class CommentController {
     @Operation(summary = "Créer un nouveau Commentaire")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Commentaire créé avec succès"),
-            @ApiResponse(responseCode = "400", description = "Erreur de création")
+            @ApiResponse(responseCode = "400", description = "Erreur de création"),
+            @ApiResponse(responseCode = "500", description = "Serveur Indisponible")
     })
     /**
      * Point de terminaison pour créer un nouveau Comment.
