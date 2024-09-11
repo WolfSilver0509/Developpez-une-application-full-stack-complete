@@ -34,7 +34,8 @@ public class TopicController {
     @Operation(summary = "Créer un nouveau Theme")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Théme créé avec succès"),
-            @ApiResponse(responseCode = "400", description = "Erreur de creation")
+            @ApiResponse(responseCode = "400", description = "Erreur de creation"),
+            @ApiResponse(responseCode = "500", description = "Serveur Indisponible")
     })
     /**
      * Endpoint pour créer un nouveau Topic.
@@ -55,7 +56,8 @@ public class TopicController {
     @Operation(summary = "Récupérer tous les Themes")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Thèmes récupérés avec succès"),
-            @ApiResponse(responseCode = "404", description = "Aucun thème trouvé")
+            @ApiResponse(responseCode = "404", description = "Aucun thème trouvé"),
+            @ApiResponse(responseCode = "500", description = "Serveur Indisponible")
     })
     /**
      * Endpoint pour récupérer tous les Topics.
@@ -69,7 +71,8 @@ public class TopicController {
     @Operation(summary = "Récupérer un Theme par son ID et permettre de liker ce thème")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Thème liké avec succès"),
-            @ApiResponse(responseCode = "404", description = "Thème non trouvé")
+            @ApiResponse(responseCode = "404", description = "Thème non trouvé"),
+            @ApiResponse(responseCode = "500", description = "Serveur Indisponible")
     })
     /**
      * Endpoint pour récupérer un Topic par son ID.
@@ -85,7 +88,8 @@ public class TopicController {
     @Operation(summary = "Récupérer un Theme par son ID et permettre de disliker ce thème")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Thème disliké avec succès"),
-            @ApiResponse(responseCode = "404", description = "Thème non trouvé")
+            @ApiResponse(responseCode = "404", description = "Thème non trouvé"),
+            @ApiResponse(responseCode = "500", description = "Serveur Indisponible")
     })
     /**
      * Endpoint pour récupérer un Topic par son ID.

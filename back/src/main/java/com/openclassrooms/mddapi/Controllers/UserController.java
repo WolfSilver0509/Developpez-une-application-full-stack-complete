@@ -17,10 +17,8 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("api")
 @RestController
@@ -33,7 +31,8 @@ public class UserController {
     @Operation(summary = "Récupérer les informations de l'utilisateur actuellement connecté")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Utilisateur actuellement connecté récupéré avec succès"),
-            @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé")
+            @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé"),
+            @ApiResponse(responseCode = "500", description = "Serveur Indisponible")
     })
     /**
      * Endpoint pour récupérer les informations de l'utilisateur actuellement connecté.
@@ -48,7 +47,8 @@ public class UserController {
     @Operation(summary = "Récupérer les informations d'un utilisateur par son ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Utilisateur récupéré avec succès"),
-            @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé")
+            @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé"),
+            @ApiResponse(responseCode = "500", description = "Serveur Indisponible")
     })
     /**
      * Endpoint pour récupérer les informations d'un utilisateur par son ID.
@@ -67,7 +67,8 @@ public class UserController {
     @Operation(summary = "Mettre à jour les informations de l'utilisateur actuellement connecté")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Utilisateur actuellement connecté mis à jour avec succès"),
-            @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé")
+            @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé"),
+            @ApiResponse(responseCode = "500", description = "Serveur Indisponible")
     })
     /**
      * Endpoint pour mettre à jour les informations de l'utilisateur actuellement connecté.
