@@ -1,0 +1,21 @@
+<div *ngIf="subscribedTopics.length === 0" class="message_error_topic">
+  Vous n'êtes abonné à aucun thème pour le moment !
+</div>
+
+<div class="list" *ngIf="subscribedTopics.length > 0">
+  <div class="card-container">
+    <mat-card class="item" *ngFor="let topic of subscribedTopics" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap>
+      <mat-card-header>
+        <mat-card-title>{{ topic.title }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ topic.description }}</p>
+        <div class="center">
+          <button mat-raised-button color="primary" type="button" (click)="unsubscribeFromTopic(topic.id)">
+            Se désabonner
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

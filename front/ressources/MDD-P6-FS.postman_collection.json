@@ -1,0 +1,1753 @@
+{
+	"info": {
+		"_postman_id": "116fec59-0ea2-4eb0-815d-6930c246932b",
+		"name": "MDD - P6 - FS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17892890"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"yumi@code.com\",\r\n    \"name\":\"Yumi\",\r\n    \"password\":\"password!31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5656/api/auth/register",
+							"host": [
+								"localhost"
+							],
+							"port": "5656",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"code@code.com\",\r\n    \"name\":\"Code Lyoko\",\r\n    \"password\":\"password!31\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:5656/api/auth/register",
+									"host": [
+										"localhost"
+									],
+									"port": "5656",
+									"path": [
+										"api",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 May 2024 15:04:24 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \" Code Lyoko\",\n    \"email\": \" code@code.com\",\n    \"password\": \"$2a$10$TdThSSP.C4S4/o2kikzHm.ISIrDfR2kiNMfakAcN/g/5w8ngLMhhu\",\n    \"createdAt\": \"2024-05-14T15:04:24.841+00:00\",\n    \"updatedAt\": \"2024-05-14T15:04:24.841+00:00\",\n    \"enabled\": true,\n    \"authorities\": [],\n    \"username\": \" code@code.com\",\n    \"accountNonExpired\": true,\n    \"credentialsNonExpired\": true,\n    \"accountNonLocked\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable('token', jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nameOrEmail\": \"Yumi\",\r\n    \"password\": \"password!31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5656/api/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "5656",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \" code@code.com\",\r\n    \"password\": \"password!31\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:5656/api/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "5656",
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 May 2024 15:06:37 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIgY29kZUBjb2RlLmNvbSIsImlhdCI6MTcxNTY5OTE5NywiZXhwIjoxNzE1Nzg1NTk3fQ._eaUpeWzAJVmo4IVsT80estWc2k9067gG_VgeQiKBmg\",\n    \"expiresIn\": 86400000\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Topic",
+			"item": [
+				{
+					"name": "Topic/Created",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Just Say No to More End-to-End Tests",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "A testing strategy that relies heavily on end-to-end tests can cause a lot of issues in reality. While end-to-end tests seem like a good idea in theory, they often lead to delays in bug identification and fixes, as well as flaky test results. Instead, a better approach is to focus on unit tests and integration tests, which are often faster and more reliable.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5656/api/topics",
+							"host": [
+								"localhost"
+							],
+							"port": "5656",
+							"path": [
+								"api",
+								"topics"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Topic/Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "Just Say No to More End-to-End Tests",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "A testing strategy that relies heavily on end-to-end tests can cause a lot of issues in reality. While end-to-end tests seem like a good idea in theory, they often lead to delays in bug identification and fixes, as well as flaky test results. Instead, a better approach is to focus on unit tests and integration tests, which are often faster and more reliable.",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:5656/api/topics",
+									"host": [
+										"localhost"
+									],
+									"port": "5656",
+									"path": [
+										"api",
+										"topics"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 21 May 2024 08:10:19 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Topic created!\"\n}"
+						}
+					]
+				},
+				{
+					"name": "topics",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5656/api/topics",
+							"host": [
+								"localhost"
+							],
+							"port": "5656",
+							"path": [
+								"api",
+								"topics"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "topics",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:5656/api/topics",
+									"host": [
+										"localhost"
+									],
+									"port": "5656",
+									"path": [
+										"api",
+										"topics"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 01 Aug 2024 06:34:57 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"topics\": [\n        {\n            \"id\": 1,\n            \"title\": \"Just Say No to More End-to-End\",\n            \"description\": \"A testing strategy that relies heavily on end-to-end tests can cause a lot of issues in reality. While end-to-end tests seem like a good idea in theory, they often lead to delays in bug identification and fixes, as well as flaky test results. Instead, a better approach is to focus on unit tests and integration tests, which are often faster and more reliable. \",\n            \"created_at\": \"2024-07-31\",\n            \"updated_at\": \"2024-07-31\",\n            \"subscribers\": null\n        },\n        {\n            \"id\": 2,\n            \"title\": \"How we tamed Node.js event loop lag: a deepdive\",\n            \"description\": \"Trigger encountered reliability and performance issues in its Node.js application due to event loop lag, which led to high CPU usage and crashes. To fix this, it fixed inefficient code, added pagination, and monitored event loop lag with OpenTelemetry. Moving forward, it will keep an eye on larger payloads, as a learning from this experience.\",\n            \"created_at\": \"2024-07-17\",\n            \"updated_at\": \"2024-07-31\",\n            \"subscribers\": null\n        },\n        {\n            \"id\": 3,\n            \"title\": \"SCALE Lang (Website)\",\n            \"description\": \"SCALE is a GPGPU programming toolkit that allows CUDA applications to be natively compiled for AMD GPUs. It does not require the CUDA program or its build system to be modified.\",\n            \"created_at\": \"2024-07-31\",\n            \"updated_at\": \"2024-07-31\",\n            \"subscribers\": null\n        },\n        {\n            \"id\": 4,\n            \"title\": \"How Canva collects 25 billion events per day \",\n            \"description\": \"Canva s product analytics pipeline collects 25 billion events per day with high uptime, using Protobuf to define event schemas and Datumgen to generate code and enforce compatibility rules. The event collection process starts with analytics clients on various platforms, then events are validated and enriched in ingest-workers before being sent to a Kinesis Data Stream (KDS). KDS serves as the primary streaming platform, with SQS as a fallback for overflow protection and failover mode.\",\n            \"created_at\": \"2024-07-31\",\n            \"updated_at\": \"2024-07-31\",\n            \"subscribers\": null\n        },\n        {\n            \"id\": 5,\n            \"title\": \"Ruby methods are colorless\",\n            \"description\": \"Ruby methods are \\\"colorless,\\\" meaning there s no distinction between synchronous and asynchronous methods, allowing for asynchronous behavior without explicit markers. Ruby achieves this through independent call stacks, enabled by Threads and Fibers, which allow for switching between tasks without blocking the main thread. This concurrency model, similar to Go s, allows for efficient handling of blocking operations like file reading, HTTP calls, and database queries\",\n            \"created_at\": \"2024-07-31\",\n            \"updated_at\": \"2024-07-31\",\n            \"subscribers\": null\n        },\n        {\n            \"id\": 6,\n            \"title\": \"How to use Perplexity in your daily workflow \",\n            \"description\": \"Perplexity is useful thanks to its ability to choose between different AI models and a Pro Search function that asks clarifying questions. It can be integrated into daily workflows for tasks like morning briefings, fact-checking, brainstorming, and writing assistance.\",\n            \"created_at\": \"2024-07-31\",\n            \"updated_at\": \"2024-07-31\",\n            \"subscribers\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Topic/Like",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5656/api/topics/3/like",
+							"host": [
+								"localhost"
+							],
+							"port": "5656",
+							"path": [
+								"api",
+								"topics",
+								"3",
+								"like"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "like/Exemple",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:5656/api/topics/1/like",
+									"host": [
+										"localhost"
+									],
+									"port": "5656",
+									"path": [
+										"api",
+										"topics",
+										"1",
+										"like"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "25"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 01 Aug 2024 06:33:15 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Topic liked successfully!"
+						},
+						{
+							"name": "Topic/Like x2 error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:5656/api/topics/3/like",
+									"host": [
+										"localhost"
+									],
+									"port": "5656",
+									"path": [
+										"api",
+										"topics",
+										"3",
+										"like"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 07 Aug 2024 16:24:13 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "You have already liked this topic!"
+						}
+					]
+				},
+				{
+					"name": "Topic/Unlike",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:5656/api/topics/2/unlike",
+							"host": [
+								"localhost"
+							],
+							"port": "5656",
+							"path": [
+								"api",
+								"topics",
+								"2",
+								"unlike"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Topic/Unlike",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:5656/api/topics/1/unlike",
+									"host": [
+										"localhost"
+									],
+									"port": "5656",
+									"path": [
+										"api",
+										"topics",
+										"1",
+										"unlike"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "27"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 01 Aug 2024 06:34:23 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Topic unliked successfully!"
+						},
+						{
+							"name": "Topic/Unlike x2 error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:5656/api/topics/3/unlike",
+									"host": [
+										"localhost"
+									],
+									"port": "5656",
+									"path": [
+										"api",
+										"topics",
+										"3",
+										"unlike"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 07 Aug 2024 16:24:39 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "You haven't liked this topic yet !"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "GetMe",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5656/api/me",
+							"host": [
+								"localhost"
+							],
+							"port": "5656",
+							"path": [
+								"api",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5656/api/user/3",
+							"host": [
+								"localhost"
+							],
+							"port": "5656",
+							"path": [
+								"api",
+								"user",
+								"3"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:5656/api/user/3",
+									"host": [
+										"localhost"
+									],
+									"port": "5656",
+									"path": [
+										"api",
+										"user",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 May 2024 13:38:28 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 3,\n    \"name\": \"Aelita Hopper\",\n    \"email\": \"aelita@code.com\",\n    \"createdAt\": \"2024-05-15\",\n    \"updatedAt\": \"2024-05-15\"\n}"
+						}
+					]
+				},
+				{
+					"name": "User PUT",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Ulrich Sterne",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "code@code.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password!31",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5656/api/me",
+							"host": [
+								"localhost"
+							],
+							"port": "5656",
+							"path": [
+								"api",
+								"me"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "User PUT",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Ulrich Sterne",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "code@code.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password!31",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:5656/api/me",
+									"host": [
+										"localhost"
+									],
+									"port": "5656",
+									"path": [
+										"api",
+										"me"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 May 2024 14:08:04 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"name\": \"Ulrich Sterne\",\n    \"email\": \"code@code.com\",\n    \"createdAt\": \"2024-05-15\",\n    \"updatedAt\": \"2024-05-15\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "Post/Created",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "title",
+								"value": "Un titre"
+							},
+							{
+								"key": "description",
+								"value": "Une descriptions"
+							},
+							{
+								"key": "topicId",
+								"value": "18"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Optimisation des Requêtes de Données dans les SPAs avec les Hooks React",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Gérer les requêtes de données dans les applications monopages (SPAs) est crucial pour une UX optimale. Le modèle de Gestion d'État Asynchrone propose une approche efficace en séparant les requêtes de données de l'interface utilisateur. En utilisant des méta-requêtes pour surveiller les états (chargement, succès, erreur), l'UI peut s'adapter en temps réel. Avec React, ce modèle peut être mis en œuvre via un hook personnalisé, permettant à l'application de montrer des indicateurs de chargement ou des messages d'erreur de manière dynamique, et ainsi offrir une expérience utilisateur plus fluide et agréable.",
+									"type": "text"
+								},
+								{
+									"key": "topic_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5656/api/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "5656",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Post/Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "title",
+										"value": "Un titre"
+									},
+									{
+										"key": "description",
+										"value": "Une descriptions"
+									},
+									{
+										"key": "topicId",
+										"value": "18"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "Optimisation des Requêtes de Données dans les SPAs avec les Hooks React",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Gérer les requêtes de données dans les applications monopages (SPAs) est crucial pour une UX optimale. Le modèle de Gestion d'État Asynchrone propose une approche efficace en séparant les requêtes de données de l'interface utilisateur. En utilisant des méta-requêtes pour surveiller les états (chargement, succès, erreur), l'UI peut s'adapter en temps réel. Avec React, ce modèle peut être mis en œuvre via un hook personnalisé, permettant à l'application de montrer des indicateurs de chargement ou des messages d'erreur de manière dynamique, et ainsi offrir une expérience utilisateur plus fluide et agréable.",
+											"type": "text"
+										},
+										{
+											"key": "topic_id",
+											"value": "18",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:5656/api/posts",
+									"host": [
+										"localhost"
+									],
+									"port": "5656",
+									"path": [
+										"api",
+										"posts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 May 2024 06:37:54 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Post created !\"\n}"
+						}
+					]
+				},
+				{
+					"name": "posts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5656/api/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "5656",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "posts",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:5656/api/posts",
+									"host": [
+										"localhost"
+									],
+									"port": "5656",
+									"path": [
+										"api",
+										"posts"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 07 Aug 2024 16:25:11 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 14,\n        \"title\": \"Améliorer l'UX  des SPAs  avec le Modèle de Gestion d'État Asynchrone\",\n        \"description\": \"Optimisation des Requêtes de Données dans les SPAs avec les Hooks React\",\n        \"owner_id\": 13,\n        \"topic_id\": 2,\n        \"created_at\": \"2024-08-01\",\n        \"updated_at\": \"2024-08-01\",\n        \"comments\": [\n            {\n                \"id\": 19,\n                \"message\": \"C'est un commentaires pour tester\",\n                \"owner_id\": 7,\n                \"post_id\": 14,\n                \"created_at\": \"2024-08-07\",\n                \"updated_at\": \"2024-08-07\"\n            },\n            {\n                \"id\": 20,\n                \"message\": \"C'est un commentaires v2  pour tester\",\n                \"owner_id\": 7,\n                \"post_id\": 14,\n                \"created_at\": \"2024-08-07\",\n                \"updated_at\": \"2024-08-07\"\n            }\n        ]\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "PostGetId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5656/api/posts/2",
+							"host": [
+								"localhost"
+							],
+							"port": "5656",
+							"path": [
+								"api",
+								"posts",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "PostGetId",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:5656/api/posts/14",
+									"host": [
+										"localhost"
+									],
+									"port": "5656",
+									"path": [
+										"api",
+										"posts",
+										"14"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 07 Aug 2024 16:25:54 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 14,\n    \"title\": \"Améliorer l'UX  des SPAs  avec le Modèle de Gestion d'État Asynchrone\",\n    \"description\": \"Optimisation des Requêtes de Données dans les SPAs avec les Hooks React\",\n    \"owner_id\": 13,\n    \"topic_id\": 2,\n    \"created_at\": \"2024-08-01\",\n    \"updated_at\": \"2024-08-01\",\n    \"comments\": [\n        {\n            \"id\": 19,\n            \"message\": \"C'est un commentaires pour tester\",\n            \"owner_id\": 7,\n            \"post_id\": 14,\n            \"created_at\": \"2024-08-07\",\n            \"updated_at\": \"2024-08-07\"\n        },\n        {\n            \"id\": 20,\n            \"message\": \"C'est un commentaires v2  pour tester\",\n            \"owner_id\": 7,\n            \"post_id\": 14,\n            \"created_at\": \"2024-08-07\",\n            \"updated_at\": \"2024-08-07\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "POST Comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "message",
+									"value": "C'est un messages !",
+									"type": "text"
+								},
+								{
+									"key": "post_id",
+									"value": "101",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5656/api/comments",
+							"host": [
+								"localhost"
+							],
+							"port": "5656",
+							"path": [
+								"api",
+								"comments"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "POST Comment",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "message",
+											"value": "C'est un messages !",
+											"type": "text"
+										},
+										{
+											"key": "post_id",
+											"value": "101",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:5656/api/comments",
+									"host": [
+										"localhost"
+									],
+									"port": "5656",
+									"path": [
+										"api",
+										"comments"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 May 2024 12:58:49 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Comment created !\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
