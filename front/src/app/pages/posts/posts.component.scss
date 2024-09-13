@@ -35,30 +35,52 @@ button{
   display: flex;
   justify-content: space-between;
 }
+.message_success_topic {
+  color: green;
+  font-weight: bold;
+  font-style: italic;
+}
+.message_error_post {
+  color: red;
+  font-weight: bold;
+  font-style: italic;
+  margin: 50px;
+}
+
+
+mat-card-content p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 
 @media (max-width: 768px) {
-
-  span {
-    margin-right: 20px;
-  }
-  mat-card-content p {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .actions{
+  .actions {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-
   }
 
-  .body-components{
-    margin:20px;
+  .sort-action {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
   }
-  .list{
-    margin:15px
+
+  .space-between {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .body-components {
+    margin: 20px;
+  }
+
+  .list {
+    margin: 15px;
   }
 
   .card-container {
@@ -69,20 +91,27 @@ button{
     width: 90%;
     margin-bottom: 20px;
   }
+
+  span {
+    margin-right: 20px;
+  }
+
+  mat-card-content p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .message_success_topic {
+    color: green;
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  .message_error_post {
+    color: red;
+    font-weight: bold;
+    font-style: italic;
+    margin: 50px;
+  }
 }
-
-.message_success_topic {
-  color: green;
-  font-weight: bold;
-  font-style: italic;
-}
-
-.message_error_post {
-  color: red;
-  font-weight: bold;
-  font-style: italic;
-  margin: 50px;
-}
-
-
-

@@ -30,6 +30,12 @@ button{
   font-weight: bold;
   font-style: italic;
 }
+mat-card-content p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @media (max-width: 768px) {
   .list{
     margin:20px
@@ -43,9 +49,5 @@ button{
     width: 90%;
     margin-bottom: 20px;
   }
-  mat-card-content p {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+
 }

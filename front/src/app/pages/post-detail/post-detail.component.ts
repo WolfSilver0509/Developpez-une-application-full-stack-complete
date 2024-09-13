@@ -59,7 +59,9 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (this.subscriptionService){
     this.subscriptionService.unsubscribe();
+    }
   }
 
 }

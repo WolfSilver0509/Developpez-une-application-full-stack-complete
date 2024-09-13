@@ -25,6 +25,18 @@ button{
   font-size: 25px;
 }
 
+mat-card-content p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.message_success_topic {
+  color: green;
+  font-weight: bold;
+  font-style: italic;
+}
+
 @media (max-width: 768px) {
   .list{
   margin:20px
@@ -38,11 +50,12 @@ button{
     width: 90%;
     margin-bottom: 20px;
   }
-}
 
-.message_success_topic {
-  color: green;
-  font-weight: bold;
-  font-style: italic;
-}
 
+  mat-card-content p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+}
