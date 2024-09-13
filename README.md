@@ -19,6 +19,11 @@ Le MVP permettra aux utilisateurs de s’abonner à des sujets liés à la progr
 
 👉 **Maven** : Maven est requis pour gérer les dépendances du projet.
 
+#### 🚀🚀 Installation des dépendances: 🚀🚀
+
+Clonez le dépôt du projet dans votre répertoire de travail local.
+
+
 ## 🚀 Configuration de la base de données
 
 👉 Créez une base de données MySQL appelée `p6_openclassroom_fullstack`.
@@ -38,7 +43,7 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.jpa.hibernate.ddl-auto=update
 ```
 
-## 🏃‍♂️ Lancement de l'application Spring Boot
+## 🏃‍♂️ Lancement de l'application Spring Boot ( BACK )
 
 👉  Assurez-vous que votre base de données MySQL est en cours d'exécution.
 
@@ -53,19 +58,48 @@ mvn spring-boot:run
 
 👉 Pour exécuter ce fichier SQL, connectez-vous à votre base de données MySQL et exécutez le script dans votre console mysql sur la table crée.
 
+### 👉🏻 Documentation de l'API:
+
+La documentation de l'API est disponible via Swagger à l'adresse suivante :
+
+```
+http://localhost:5656/swagger-ui/index.html
+
+```
+
+## 🏃‍♂️ Lancement de l'application Angular ( FRONT )
+
+#### Prérequis:
+
+Assurez-vous d'avoir Node.js et npm installés sur votre système. Vous pouvez les télécharger et les installer depuis leurs sites web officiels :
+
+- Node.js: https://nodejs.org/en/download/
+- npm: https://www.npmjs.com/
+
+Exécutez la commande suivante pour installer les dépendances du projet :
+```
+npm install 
+```
+
+#### Exécution du projet:
+
+Pour lancer le serveur de développement et exécuter l'application, entrez la commande suivante dans le terminal :
+```
+ng serve
+```
+
+Accédez à l'application dans votre navigateur web à l'adresse suivante :
+```
+http://localhost:4200/
+```
+
+
 
 ## Documentation Supplémentaire 
 <details>
   <summary>🚀 Explorer l'API avec Postman</summary>
-  <a href="./front/resources/p6.postman_collection.json">
+  <a href="./front/ressources/MDD-P6-FS.postman_collection.json">
    Vous pouvez importez les différents API endpoints pour tester l'application avec postman.
-  </a>
-</details>
-
-<details>
-  <summary>🗺️ Draw.io schema de relation </summary>
-  <a href="./back/p6-table-relationships.drawio">
-    Check the draw.io schema for the table relationships !
   </a>
 </details>
 
