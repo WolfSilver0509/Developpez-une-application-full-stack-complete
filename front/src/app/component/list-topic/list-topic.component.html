@@ -1,0 +1,22 @@
+<div class="list">
+  <div class="card-container">
+    <mat-card class="item" *ngFor="let topic of topics" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap>
+      <mat-card-header>
+        <mat-card-title>{{ topic.title }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ topic.description }}</p>
+        <div class="center">
+          <div *ngIf="topic.isSubscribed; else notSubscribed">
+            <p class="message_success_topic">Vous êtes déjà abonné à ce thème !</p>
+          </div>
+          <ng-template #notSubscribed>
+            <button mat-raised-button color="primary" type="button" (click)="subscribeToTopic(topic.id)">
+              S'abonner
+            </button>
+          </ng-template>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

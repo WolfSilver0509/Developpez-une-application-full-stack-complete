@@ -1,0 +1,39 @@
+<app-header></app-header>
+
+<div class="body-components">
+  <div class="space-between">
+  <div class="actions">
+    <button mat-raised-button color="primary" (click)="navigateToCreatePost()">Créer un article</button>
+  </div>
+
+  <!-- Bouton de tri avec flèche -->
+  <div class="sort-action">
+    <button mat-button (click)="toggleSortOrder()">
+      Trier par
+      <mat-icon>{{ sortOrder === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+    </button>
+  </div>
+
+  </div>
+
+  <div *ngIf="posts.length === 0" class="message_error_post">
+    Il n'y a pas d'article créé pour les thèmes auxquels vous êtes abonné.
+  </div>
+
+  <div class="list" *ngIf="posts.length > 0">
+    <div class="card-container">
+      <mat-card class="item" *ngFor="let post of sortedPosts" fxFlex fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap (click)="navigateToPostDetail(post.id)">
+        <mat-card-header>
+          <mat-card-title>{{ post.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-subtitle>
+          <span>Date :{{ post.created_at | date: 'dd/MM/yyyy' }}</span>
+          <span>Author : {{ post.author }}</span>
+        </mat-card-subtitle>
+        <mat-card-content>
+          <p>{{ post.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
