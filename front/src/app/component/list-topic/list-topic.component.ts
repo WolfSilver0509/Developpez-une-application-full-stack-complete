@@ -1,19 +1,25 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../../interfaces/user.interface';
 import { SessionService } from '../../services/session.service';
 import { TopicService } from '../../services/topic.service';
 import { AuthService } from '../../features/auth/services/auth.service';
 import { TopicWithSubscriptionStatus } from '../../interfaces/topicWithSubscriptionStatus.interface';
-import {HttpErrorResponse} from "@angular/common/http";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list-topic',
   templateUrl: './list-topic.component.html',
   styleUrls: ['./list-topic.component.scss'],
 })
-export class ListTopicComponent implements OnInit {
+export class ListTopicComponent implements OnInit, OnDestroy {
   public topics: TopicWithSubscriptionStatus[] = [];
+
+  // Propriétés publiques pour stocker les abonnements
+  public topicSubscription!: Subscription;
+  public userSubscription!: Subscription;
+  public topicUpdateSubscription!: Subscription;
 
   constructor(
     private sessionService: SessionService,
@@ -29,7 +35,8 @@ export class ListTopicComponent implements OnInit {
   }
 
   private loadTopics(): void {
-    this.topicService.getAllTopics().subscribe({
+    // Stocker l'abonnement dans une propriété publique
+    this.topicSubscription = this.topicService.getAllTopics().subscribe({
       next: (response: { topics: TopicWithSubscriptionStatus[] }) => {
         this.topics = response.topics.map((topic: TopicWithSubscriptionStatus) => ({
           ...topic,
@@ -44,7 +51,8 @@ export class ListTopicComponent implements OnInit {
   }
 
   private checkUserSubscriptions(): void {
-    this.authService.me().subscribe({
+    // Stocker l'abonnement dans une propriété publique
+    this.userSubscription = this.authService.me().subscribe({
       next: (user: User) => {
         this.topics.forEach((topic: TopicWithSubscriptionStatus) => {
           topic.isSubscribed = user.topics.some((subscribedTopic) => subscribedTopic.id === topic.id);
@@ -57,7 +65,8 @@ export class ListTopicComponent implements OnInit {
   }
 
   private subscribeToTopicUpdates(): void {
-    this.topicService.getSubscriptionState().subscribe((state: { topicId: number; isSubscribed: boolean } | null) => {
+    // Stocker l'abonnement dans une propriété publique
+    this.topicUpdateSubscription = this.topicService.getSubscriptionState().subscribe((state: { topicId: number; isSubscribed: boolean } | null) => {
       if (state !== null) {
         const topic = this.topics.find((t) => t.id === state.topicId);
         if (topic) {
@@ -86,6 +95,19 @@ export class ListTopicComponent implements OnInit {
         console.error('Erreur lors de l\'abonnement au topic', error);
       },
     });
+  }
+
+  // Désabonnement des subscriptions lorsque le composant est détruit
+  ngOnDestroy(): void {
+    if (this.topicSubscription) {
+      this.topicSubscription.unsubscribe();
+    }
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
+    if (this.topicUpdateSubscription) {
+      this.topicUpdateSubscription.unsubscribe();
+    }
   }
 
   get user(): User | undefined {

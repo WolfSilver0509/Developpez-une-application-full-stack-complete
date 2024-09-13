@@ -1,17 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../features/auth/services/auth.service';
 import { TopicService } from '../../services/topic.service';
 import { TopicWithSubscriptionStatus } from '../../interfaces/topicWithSubscriptionStatus.interface';
-import {HttpErrorResponse} from "@angular/common/http";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-subscribe-list-topic',
   templateUrl: './subscribe-list-topic.component.html',
   styleUrls: ['./subscribe-list-topic.component.scss'],
 })
-export class SubscribeListTopicComponent implements OnInit {
+export class SubscribeListTopicComponent implements OnInit, OnDestroy {
   public subscribedTopics: TopicWithSubscriptionStatus[] = [];
+
+  // Propriétés publiques pour stocker les abonnements
+  public userSubscription!: Subscription;
+  public unsubscribeSubscription!: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -20,7 +25,8 @@ export class SubscribeListTopicComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.me().subscribe({
+    // Stocker l'abonnement pour récupérer les topics abonnés de l'utilisateur
+    this.userSubscription = this.authService.me().subscribe({
       next: (user) => {
         this.subscribedTopics = user.topics;
       },
@@ -31,7 +37,8 @@ export class SubscribeListTopicComponent implements OnInit {
   }
 
   public unsubscribeFromTopic(topicId: number): void {
-    this.topicService.unsubscribeFromTopic(topicId.toString()).subscribe({
+    // Stocker l'abonnement pour le désabonnement
+    this.unsubscribeSubscription = this.topicService.unsubscribeFromTopic(topicId.toString()).subscribe({
       next: (responseMessage: string) => {
         const topic = this.subscribedTopics.find((t) => t.id === topicId);
         if (topic) {
@@ -50,5 +57,15 @@ export class SubscribeListTopicComponent implements OnInit {
         console.error('Erreur lors du désabonnement du topic', error);
       },
     });
+  }
+
+  // Désabonnement dans ngOnDestroy
+  ngOnDestroy(): void {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
+    if (this.unsubscribeSubscription) {
+      this.unsubscribeSubscription.unsubscribe();
+    }
   }
 }

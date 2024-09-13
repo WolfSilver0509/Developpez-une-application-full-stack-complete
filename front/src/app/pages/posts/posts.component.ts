@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { User } from '../../interfaces/user.interface';
 import { SessionService } from '../../services/session.service';
 import { Post } from "../../interfaces/post.interface";
 import { Router } from '@angular/router';
-import {HttpErrorResponse} from "@angular/common/http";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss']
 })
-export class PostsComponent implements OnInit {
+export class PostsComponent implements OnInit, OnDestroy {
   public posts: Post[] = [];
   sortedPosts: Post[] = [];
   sortOrder: 'asc' | 'desc' = 'asc'; // Ordre de tri : ascendant ou descendant
+
+  // Propriété publique pour stocker l'abonnement
+  public postsSubscription!: Subscription;
 
   constructor(
     private postService: PostService,
@@ -27,7 +31,8 @@ export class PostsComponent implements OnInit {
   }
 
   private loadPosts(): void {
-    this.postService.getAllPosts().subscribe({
+    // Stocker l'abonnement au service des posts
+    this.postsSubscription = this.postService.getAllPosts().subscribe({
       next: (posts: Post[]) => {
         this.posts = posts;
         this.sortPosts(); // Trier les articles après le chargement
@@ -64,5 +69,12 @@ export class PostsComponent implements OnInit {
 
   navigateToPostDetail(postId: number): void {
     this.router.navigate([`/post-detail/${postId}`]);
+  }
+
+  // Désabonnement dans ngOnDestroy
+  ngOnDestroy(): void {
+    if (this.postsSubscription) {
+      this.postsSubscription.unsubscribe();
+    }
   }
 }
