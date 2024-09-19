@@ -23,6 +23,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   { path: 'register',
+    canActivate: [UnAuthGuard],
     component: RegisterComponent
   },
   {
