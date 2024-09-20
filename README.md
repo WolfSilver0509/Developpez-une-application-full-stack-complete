@@ -41,6 +41,12 @@ spring.datasource.username=<votre_nom_utilisateur>
 spring.datasource.password=<votre_mot_de_passe>
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.jpa.hibernate.ddl-auto=update
+
+server.port=<Numero_de_port_voulu>
+
+security.jwt.secret-key=<votre_token_secret>
+# 24h in millisecond pour tester à re adapter ne fonction de !
+security.jwt.expiration-time=86400000
 ```
 
 ## 🏃‍♂️ Lancement de l'application Spring Boot ( BACK )
